@@ -179,6 +179,7 @@ public class FilmesDal {
             preparedStatement.setString(1, nome);
             ResultSet rs = preparedStatement.executeQuery();
             if (rs.next()) {
+                
                 filmes.setFil_iden(rs.getInt("fil_iden"));
                 filmes.setFil_sinopse(rs.getString("fil_sinopse"));
                 filmes.setFil_titulo(rs.getString("fil_titulo"));
