@@ -34,7 +34,6 @@ public class FilmesDal {
     //--- ATRIBUTOS ----------------------------------------------------------------------------------->
     //
     private Connection conexao;
-    private Categorias categoria = null;
     //--- FIM ATRIBUTOS -------------------------------------------------------------------------------|
     //
 
@@ -89,6 +88,7 @@ public class FilmesDal {
     //--- UPDATE -------------------------------------------------------------------------------------->
     //
     public void updateFilmes(Filmes filmes) throws Exception {
+        
         String sql = "UPDATE filmes SET fil_sinopse=?, fil_titulo=?, fil_ano=?, fil_cat_iden=? WHERE fil_iden=?";
         
         try {
@@ -111,6 +111,7 @@ public class FilmesDal {
     //--- READ ---------------------------------------------------------------------------------------->
     //
     public ArrayList<Filmes> getAllFilmes() throws Exception {
+        
         ArrayList<Filmes> lista = new ArrayList<Filmes>();
 
         String sql = "SELECT * FROM filmes";
