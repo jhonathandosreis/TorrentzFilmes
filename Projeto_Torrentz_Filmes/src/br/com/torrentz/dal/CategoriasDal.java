@@ -20,7 +20,7 @@ import java.sql.Connection;
 import br.com.torrentz.util.Conexao;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
-import java.sql.SQLException;
+
 import java.sql.Statement;
 import java.util.ArrayList;
 
@@ -38,7 +38,7 @@ public class CategoriasDal {
     
     //--- CONSTRUTORES -------------------------------------------------------------------------------->
     //
-    public CategoriasDal() throws SQLException, ClassNotFoundException {
+    public CategoriasDal() throws Exception {
         conexao = Conexao.getConexao();
     } 
     //--- FIM CONSTRUTORES ----------------------------------------------------------------------------|
@@ -46,14 +46,14 @@ public class CategoriasDal {
     
     //--- CREATE -------------------------------------------------------------------------------------->
     //
-    public void addCategoria(Categorias categoria) throws SQLException {
+    public void addCategoria(Categorias categoria) throws Exception {
 
         String sql = "INSERT INTO categorias(cat_nome) VALUES(?)";
         try {
             PreparedStatement preparedStatement = conexao.prepareStatement(sql);
             preparedStatement.setString(1, categoria.getCat_nome());
             preparedStatement.executeUpdate();
-        } catch (SQLException error) {
+        } catch (Exception error) {
             if (error.getMessage().contains("duplicate key value violates unique constraint")) {
                 throw new RuntimeException("Já existe uma categoria com o mesmo nome!");
             }
@@ -64,7 +64,7 @@ public class CategoriasDal {
     
     //--- DELETE -------------------------------------------------------------------------------------->
     //
-    public void deleteCategoria(int cat_iden) throws SQLException {
+    public void deleteCategoria(int cat_iden) throws Exception {
 
         String sql = "DELETE FROM categorias WHERE cat_iden =?";
 
@@ -72,7 +72,7 @@ public class CategoriasDal {
             PreparedStatement preparedStatement = conexao.prepareStatement(sql);
             preparedStatement.setInt(1, cat_iden);
             preparedStatement.executeUpdate();
-        } catch (SQLException error) {
+        } catch (Exception error) {
             if (error.getMessage().contains("violates foreign key constraint")) {
                 throw new RuntimeException("Não é possível deletar esta categoris pois categoria possui vinculo com filmes!!");
             }
@@ -83,7 +83,7 @@ public class CategoriasDal {
     
     //--- UPDATE -------------------------------------------------------------------------------------->
     //
-    public void updateCategoria(Categorias categoria) throws SQLException {
+    public void updateCategoria(Categorias categoria) throws Exception {
 
         String sql = "UPDATE categorias SET cat_nome=? WHERE cat_iden=?";
 
@@ -92,7 +92,7 @@ public class CategoriasDal {
             preparedStatement.setString(1, categoria.getCat_nome());
             preparedStatement.setInt(2, categoria.getCat_iden());
             preparedStatement.executeUpdate();
-        } catch (SQLException error) {
+        } catch (Exception error) {
             if (error.getMessage().contains("duplicate key value violates unique constraint")) {
                 throw new RuntimeException("Não é possível alterar esta categoria!");
             }
@@ -103,7 +103,7 @@ public class CategoriasDal {
     
     //--- READ ---------------------------------------------------------------------------------------->
     //
-    public ArrayList<Categorias> getAllCategorias() throws SQLException {
+    public ArrayList<Categorias> getAllCategorias() throws Exception {
 
         ArrayList<Categorias> lista = new ArrayList<Categorias>();
         String sql = "SELECT * FROM categorias";
@@ -116,13 +116,13 @@ public class CategoriasDal {
                 categorias.setCat_iden(rs.getInt("cat_iden"));
                 lista.add(categorias);
             }
-        } catch (SQLException error) {
+        } catch (Exception error) {
             throw error;
         }
         return lista;
     }
 
-    public Categorias getCategoriasById(int cat_iden) throws SQLException {
+    public Categorias getCategoriasById(int cat_iden) throws Exception {
         Categorias categoria = new Categorias();
 
         String sql = ("SELECT * FROM categorias WHERE cat_iden=?");
@@ -135,13 +135,13 @@ public class CategoriasDal {
                 categoria.setCat_iden(rs.getInt("cat_iden"));
                 categoria.setCat_nome(rs.getString("cat_nome"));
             }
-        } catch (SQLException error) {
+        } catch (Exception error) {
             throw error;
         }
         return categoria;
     }
     
-    public Categorias getCategoriaNome(String nome) throws SQLException {
+    public Categorias getCategoriaNome(String nome) throws Exception {
         Categorias cat = new Categorias();
 
         String sql = "SELECT * FROM categorias WHERE cat_nome=?";
@@ -154,7 +154,7 @@ public class CategoriasDal {
                 cat.setCat_iden(rs.getInt("cat_iden"));
                 cat.setCat_nome(rs.getString("cat_nome"));
             }
-        } catch (SQLException error) {
+        } catch (Exception error) {
             throw error;
         }
         return cat;

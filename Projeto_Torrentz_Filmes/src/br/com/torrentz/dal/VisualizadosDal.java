@@ -19,7 +19,7 @@ import br.com.torrentz.model.Visualizados;
 import br.com.torrentz.util.Conexao;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
-import java.sql.SQLException;
+
 import java.sql.Statement;
 import java.util.ArrayList;
 
@@ -38,7 +38,7 @@ public class VisualizadosDal {
     //
     //--- CONSTRUTORES -------------------------------------------------------------------------------->
     //
-    public VisualizadosDal() throws SQLException, ClassNotFoundException {
+    public VisualizadosDal() throws Exception, ClassNotFoundException {
         conexao = Conexao.getConexao();
     }
 
@@ -46,7 +46,7 @@ public class VisualizadosDal {
     //
     //--- CREATE -------------------------------------------------------------------------------------->
     //
-    public void addVisualizados(Visualizados visualizado) throws SQLException {
+    public void addVisualizados(Visualizados visualizado) throws Exception {
 
         String sql = "INSERT INTO visualizados (vis_completo , vis_data_visualizacao , vis_usu_iden, vis_fil_iden ) VALUES(?,?,?,?)";
         try {
@@ -58,7 +58,7 @@ public class VisualizadosDal {
             preparedStatement.setInt(4, visualizado.getVis_fil_iden().getFil_iden());
 
             preparedStatement.executeUpdate();
-        } catch (SQLException error) {
+        } catch (Exception error) {
             if (error.getMessage().contains("duplicate key value violates unique constraint")) {
                 throw new RuntimeException("Não é possível cadastrar a Visualização!");
             }
@@ -69,7 +69,7 @@ public class VisualizadosDal {
     //
     //--- DELETE -------------------------------------------------------------------------------------->
     //
-    public void deleteVisualizados(int vis_iden) throws SQLException {
+    public void deleteVisualizados(int vis_iden) throws Exception {
 
         String sql = "DELETE FROM visualizados WHERE vis_iden =?";
 
@@ -77,7 +77,7 @@ public class VisualizadosDal {
             PreparedStatement preparedStatement = conexao.prepareStatement(sql);
             preparedStatement.setInt(1, vis_iden);
             preparedStatement.executeUpdate();
-        } catch (SQLException error) {
+        } catch (Exception error) {
             if (error.getMessage().contains("violates foreign key constraint")) {
                 throw new RuntimeException("Não é possível deletar esta Vizualização!");
             }
@@ -88,7 +88,7 @@ public class VisualizadosDal {
     //
     //--- UPDATE -------------------------------------------------------------------------------------->
     //
-    public void updateVisualizados(Visualizados visualizado) throws SQLException {
+    public void updateVisualizados(Visualizados visualizado) throws Exception {
 
         String sql = "UPDATE visualizados SET vis_completo=? , vis_data_visualizacao =? , vis_usu_iden=? , vis_fil_iden  WHERE vis_iden=?";
 
@@ -102,7 +102,7 @@ public class VisualizadosDal {
             preparedStatement.setInt(5, visualizado.getVis_iden());
 
             preparedStatement.executeUpdate();
-        } catch (SQLException error) {
+        } catch (Exception error) {
             if (error.getMessage().contains("duplicate key value violates unique constraint")) {
                 throw new RuntimeException("Não é possível alterar esta Visualização!!");
             }
@@ -113,7 +113,7 @@ public class VisualizadosDal {
     //
     //--- READ ---------------------------------------------------------------------------------------->
     //
-    public ArrayList<Visualizados> getAllVisualizados() throws SQLException, ClassNotFoundException {
+    public ArrayList<Visualizados> getAllVisualizados() throws Exception, ClassNotFoundException {
 
         ArrayList<Visualizados> lista = new ArrayList<Visualizados>();
         String sql = "SELECT * FROM visualizados";
@@ -137,13 +137,13 @@ public class VisualizadosDal {
 
                 lista.add(visualizado);
             }
-        } catch (SQLException error) {
+        } catch (Exception error) {
             throw error;
         }
         return lista;
     }
 
-    public Visualizados getVisualizadosById(int vis_iden) throws SQLException, ClassNotFoundException {
+    public Visualizados getVisualizadosById(int vis_iden) throws Exception, ClassNotFoundException {
 
         Visualizados visualizado = new Visualizados();
         
@@ -164,7 +164,7 @@ public class VisualizadosDal {
                 FilmesDal fil = new FilmesDal();
                 visualizado.setVis_fil_iden(fil.getFilmesById(rs.getInt("vis_fil_iden")));
             }
-        } catch (SQLException error) {
+        } catch (Exception error) {
             throw error;
         }
         return visualizado;

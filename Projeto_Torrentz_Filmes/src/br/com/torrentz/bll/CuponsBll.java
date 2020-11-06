@@ -16,7 +16,7 @@
 package br.com.torrentz.bll;
 import br.com.torrentz.dal.CuponsDal;
 import br.com.torrentz.model.Cupons;
-import java.sql.SQLException;
+
 /**
  *
  * @author Gustavo Gabriel
@@ -25,48 +25,48 @@ public class CuponsBll {
 
     private CuponsDal cuponDal;
 
-    public CuponsBll() throws SQLException, ClassNotFoundException {
+    public CuponsBll() throws Exception, ClassNotFoundException {
         cuponDal = new CuponsDal();
     }
 
-    public void Adicionar(Cupons cupon) throws SQLException {
+    public void Adicionar(Cupons cupon) throws Exception {
 
         try {
             cuponDal.addCupons(cupon);
-        } catch (SQLException error) {
+        } catch (Exception error) {
             throw error;
         }
     }
 
-    public void Alterar(Cupons cupon) throws SQLException {
+    public void Alterar(Cupons cupon) throws Exception {
 
         try {
             cuponDal.updateCupons(cupon);
-        } catch (SQLException error) {
+        } catch (Exception error) {
             throw error;
         }
     }
 
-    public void Remover(Cupons cupon) throws SQLException {
+    public void Remover(Cupons cupon) throws Exception {
         try {
             cuponDal.deleteCupons(cupon.getCup_iden());
-        } catch (SQLException error) {
+        } catch (Exception error) {
             throw error;
         }
     }
 
-    public Cupons getConsultaId(int cup_iden) throws SQLException {
+    public Cupons getConsultaId(int cup_iden) throws Exception {
         try {
             return cuponDal.getCupomByID(cup_iden);
-        } catch (SQLException error) {
+        } catch (Exception error) {
             throw error;
         }
     }
 
-    public Cupons getLastCupom() throws SQLException {
+    public Cupons getLastCupom() throws Exception {
         try {
             return cuponDal.getLastCupons();
-        } catch (SQLException error) {
+        } catch (Exception error) {
             throw error;
         }
     }

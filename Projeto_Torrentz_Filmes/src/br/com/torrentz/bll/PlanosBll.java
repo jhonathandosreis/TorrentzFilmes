@@ -17,7 +17,7 @@ package br.com.torrentz.bll;
 
 import br.com.torrentz.dal.PlanosDal;
 import br.com.torrentz.model.Planos;
-import java.sql.SQLException;
+
 import java.util.ArrayList;
 
 /**
@@ -34,7 +34,7 @@ public class PlanosBll {
     
     //--- CONSTRUTORES -------------------------------------------------------------------------------->
     // 
-    public PlanosBll() throws SQLException, ClassNotFoundException {
+    public PlanosBll() throws Exception, ClassNotFoundException {
         planosdal = new PlanosDal();
     }
     //--- FIM CONSTRUTORES ----------------------------------------------------------------------------|
@@ -42,7 +42,7 @@ public class PlanosBll {
     
     //--- CREATE -------------------------------------------------------------------------------------->
     //
-    public void Adicionar(Planos planos) throws SQLException {
+    public void Adicionar(Planos planos) throws Exception {
 
         try {
             if (planos.getPla_nome().length() < 3)
@@ -52,7 +52,7 @@ public class PlanosBll {
                 throw new RuntimeException("Nome do plano inválido\nMáximo de caracteres excedido!");
 
             planosdal.addPlanos(planos);
-        } catch (SQLException error) {
+        } catch (Exception error) {
 
             throw error;
         }
@@ -62,7 +62,7 @@ public class PlanosBll {
     
     //--- DELETE -------------------------------------------------------------------------------------->
     //
-    public void Alterar(Planos planos) throws SQLException {
+    public void Alterar(Planos planos) throws Exception {
 
         try {
             if (planos.getPla_nome().length() < 3) 
@@ -72,7 +72,7 @@ public class PlanosBll {
                 throw new RuntimeException("Nome do plano inválido\nMáximo de caracteres excedido!");
             
             planosdal.updatePlanos(planos);
-        } catch (SQLException error) {
+        } catch (Exception error) {
 
             throw error;
         }
@@ -82,11 +82,11 @@ public class PlanosBll {
     
     //--- UPDATE -------------------------------------------------------------------------------------->
     //
-    public void Remover(Planos planos) throws SQLException {
+    public void Remover(Planos planos) throws Exception {
 
         try {
             planosdal.deletePlanos(planos.getPla_iden());
-        } catch (SQLException error) {
+        } catch (Exception error) {
 
             throw error;
         }
@@ -96,28 +96,28 @@ public class PlanosBll {
     
     //--- READ ---------------------------------------------------------------------------------------->
     //
-    public ArrayList<Planos> getConsulta() throws SQLException {
+    public ArrayList<Planos> getConsulta() throws Exception {
 
         try {
             return planosdal.getAllPlanos();
-        } catch (SQLException error) {
+        } catch (Exception error) {
 
             throw error;
         }
     }
 
-    public Planos getConsultaPorId(int pla_iden) throws SQLException {
+    public Planos getConsultaPorId(int pla_iden) throws Exception {
         try {
             return planosdal.getPlanosById(pla_iden);
-        } catch (SQLException error) {
+        } catch (Exception error) {
             throw error;
         }
     }
     
-    public Planos getPlanosNome(String nome) throws SQLException {
+    public Planos getPlanosNome(String nome) throws Exception {
         try {
             return planosdal.getPlanosNome(nome);
-        } catch (SQLException error) {
+        } catch (Exception error) {
             throw error;
         }
     }

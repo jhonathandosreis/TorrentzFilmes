@@ -29,7 +29,7 @@ import br.com.torrentz.model.Planos;
 import br.com.torrentz.model.Usuarios;
 import br.com.torrentz.model.Visualizados;
 import br.com.torrentz.util.Valida;
-import java.sql.SQLException;
+
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
@@ -99,7 +99,7 @@ public class Teste extends javax.swing.JFrame {
             EnabledContratos();
             EnabledDataVisualizados();
 
-        } catch (SQLException | RuntimeException | ClassNotFoundException error) {
+        } catch (Exception error) {
             JOptionPane.showMessageDialog(null, error.getMessage(), "Menssagem", JOptionPane.ERROR_MESSAGE);
         }
         this.setLocationRelativeTo(null);
@@ -264,7 +264,7 @@ public class Teste extends javax.swing.JFrame {
         }
     }
 
-    public void preencherFormularioFilmes() throws SQLException, ClassNotFoundException {
+    public void preencherFormularioFilmes() throws Exception, ClassNotFoundException {
 
         int id = Integer.parseInt(jTableFilmes.getValueAt(jTableFilmes.getSelectedRow(), 0).toString());
         String titulo = jTableFilmes.getValueAt(jTableFilmes.getSelectedRow(), 1).toString();
@@ -282,7 +282,7 @@ public class Teste extends javax.swing.JFrame {
         jComboBoxCategoriaFilmes.setSelectedItem(idCat);
     }
 
-    public void preencherFormularioContratos() throws SQLException, ClassNotFoundException {
+    public void preencherFormularioContratos() throws Exception, ClassNotFoundException {
         
         
 
@@ -311,7 +311,7 @@ public class Teste extends javax.swing.JFrame {
 
     }
 
-    public void preencherFormularioUsuarios() throws SQLException, ClassNotFoundException {
+    public void preencherFormularioUsuarios() throws Exception, ClassNotFoundException {
 
         int id = Integer.parseInt(jTable_usuarios.getValueAt(jTable_usuarios.getSelectedRow(), 0).toString());
         String nome = jTable_usuarios.getValueAt(jTable_usuarios.getSelectedRow(), 1).toString();
@@ -325,7 +325,7 @@ public class Teste extends javax.swing.JFrame {
 
     }
 
-    public void preencherComboboxCategoria() throws SQLException {
+    public void preencherComboboxCategoria() throws Exception {
         ArrayList<Categorias> lista = categoriaBll.getConsulta();
         jComboBoxCategoriaFilmes.removeAllItems();
         jComboBoxCategoriaFilmes.addItem("<SELECIONE>");
@@ -335,7 +335,7 @@ public class Teste extends javax.swing.JFrame {
         }
     }
     
-    public void preencherComboboxFilmes() throws SQLException, ClassNotFoundException {
+    public void preencherComboboxFilmes() throws Exception, ClassNotFoundException {
         ArrayList<Filmes> lista = filmesBll.getConsulta();
         jComboBoxVisFilmes.removeAllItems();
         jComboBoxVisFilmes.addItem("<SELECIONE>");
@@ -345,7 +345,7 @@ public class Teste extends javax.swing.JFrame {
         }
     }
 
-    public void preencherComboboxUsuario() throws SQLException {
+    public void preencherComboboxUsuario() throws Exception {
         ArrayList<Usuarios> lista = usuariosBll.getConsulta();
         jComboBoxUsuarios.removeAllItems();
         jComboBoxVISusuario.removeAllItems();
@@ -361,7 +361,7 @@ public class Teste extends javax.swing.JFrame {
 
     }
 
-    public void preencherComboboxPlano() throws SQLException {
+    public void preencherComboboxPlano() throws Exception {
         ArrayList<Planos> lista = planosBll.getConsulta();
         jComboBoxPlanos.removeAllItems();
         jComboBoxPlanos.addItem("<SELECIONE>");
@@ -399,7 +399,7 @@ public class Teste extends javax.swing.JFrame {
         return false;
     }
 
-    public void ValidaFormularioPlanos() throws SQLException {
+    public void ValidaFormularioPlanos() throws Exception {
 
         Valida.campoVazio(jTextFieldAcessos.getText(), "Digite a quantidade de acessos!");
         Valida.campoVazio(jTextFieldPlanosNome.getText(), "Digite o nome!");
@@ -449,7 +449,7 @@ public class Teste extends javax.swing.JFrame {
 
     }
 
-    public void validaFormularioContratos() throws SQLException {
+    public void validaFormularioContratos() throws Exception {
 
 //        ArrayList<Usuarios> lista = usuariosBll.getConsulta();
 //        for (Usuarios uso2 : lista) {
@@ -1349,7 +1349,7 @@ public class Teste extends javax.swing.JFrame {
             limparCamposFilmes();
 
             JOptionPane.showMessageDialog(null, "Filme removido com sucesso!");
-        } catch (SQLException | RuntimeException error) {
+        } catch (Exception error) {
             JOptionPane.showMessageDialog(null, error.getMessage(), "Menssagem", JOptionPane.ERROR_MESSAGE);
         }
     }                                                    
@@ -1379,7 +1379,7 @@ public class Teste extends javax.swing.JFrame {
             limparCamposFilmes();
 
             JOptionPane.showMessageDialog(null, "filme alterado!");
-        } catch (SQLException | ClassNotFoundException | RuntimeException error) {
+        } catch (Exception error) {
 
             JOptionPane.showMessageDialog(null, error.getMessage(), "Menssagem", JOptionPane.ERROR_MESSAGE);
         }
@@ -1402,7 +1402,7 @@ public class Teste extends javax.swing.JFrame {
             limparCamposFilmes();
 
             JOptionPane.showMessageDialog(null, "Filme incluido com sucesso!");
-        } catch (SQLException | RuntimeException error) {
+        } catch (Exception error) {
             JOptionPane.showMessageDialog(null, error.getMessage(), "Menssagem", JOptionPane.ERROR_MESSAGE);
         }
     }                                                      
@@ -1433,7 +1433,7 @@ public class Teste extends javax.swing.JFrame {
             limparCamposPlanos();
 
             JOptionPane.showMessageDialog(null, "Plano alterado!");
-        } catch (SQLException | RuntimeException error) {
+        } catch (Exception error) {
 
             JOptionPane.showMessageDialog(null, error.getMessage(), "Menssagem", JOptionPane.ERROR_MESSAGE);
         }
@@ -1450,7 +1450,7 @@ public class Teste extends javax.swing.JFrame {
             limparCamposPlanos();
 
             JOptionPane.showMessageDialog(null, "Plano removido com sucesso!");
-        } catch (SQLException | RuntimeException error) {
+        } catch (Exception error) {
             JOptionPane.showMessageDialog(null, error.getMessage(), "Menssagem", JOptionPane.ERROR_MESSAGE);
         }
     }                                                    
@@ -1467,7 +1467,7 @@ public class Teste extends javax.swing.JFrame {
             limparCamposPlanos();
 
             JOptionPane.showMessageDialog(null, "Plano incluido com sucesso!");
-        } catch (SQLException | RuntimeException error) {
+        } catch (Exception error) {
             JOptionPane.showMessageDialog(null, error.getMessage(), "Menssagem", JOptionPane.ERROR_MESSAGE);
         }
     }                                                      
@@ -1491,7 +1491,7 @@ public class Teste extends javax.swing.JFrame {
             limparCampos();
 
             JOptionPane.showMessageDialog(null, "Categoria removida com sucesso!");
-        } catch (SQLException | RuntimeException error) {
+        } catch (Exception error) {
             JOptionPane.showMessageDialog(null, error.getMessage(), "Menssagem", JOptionPane.ERROR_MESSAGE);
         }
     }                                                       
@@ -1511,7 +1511,7 @@ public class Teste extends javax.swing.JFrame {
 
             JOptionPane.showMessageDialog(null, "Categoria alterada!");
 
-        } catch (SQLException | RuntimeException error) {
+        } catch (Exception error) {
             JOptionPane.showMessageDialog(null, error.getMessage(), "Menssagem", JOptionPane.ERROR_MESSAGE);
         }
     }                                                       
@@ -1526,7 +1526,7 @@ public class Teste extends javax.swing.JFrame {
             limparCampos();
 
             JOptionPane.showMessageDialog(null, "Categoria incluida com sucesso!");
-        } catch (SQLException | RuntimeException error) {
+        } catch (Exception error) {
             JOptionPane.showMessageDialog(null, error.getMessage(), "Menssagem", JOptionPane.ERROR_MESSAGE);
         }
     }                                                         
@@ -1571,7 +1571,7 @@ public class Teste extends javax.swing.JFrame {
             preencherGridUsuarios();
             JOptionPane.showMessageDialog(null, "Usuário incluído com sucesso!");
             limparCamposUsuarios();
-        } catch (SQLException | RuntimeException error) {
+        } catch (Exception error) {
             JOptionPane.showMessageDialog(null, error.getMessage(), "Menssagem", JOptionPane.ERROR_MESSAGE);
         }
     }                                                          
@@ -1601,7 +1601,7 @@ public class Teste extends javax.swing.JFrame {
 
             JOptionPane.showMessageDialog(null, "Categoria alterada!");
 
-        } catch (SQLException | RuntimeException error) {
+        } catch (Exception error) {
             JOptionPane.showMessageDialog(null, error.getMessage(), "Menssagem", JOptionPane.ERROR_MESSAGE);
         }
     }                                                       
@@ -1637,7 +1637,7 @@ public class Teste extends javax.swing.JFrame {
             limparCamposContratos();
 
             JOptionPane.showMessageDialog(null, "Contrato removido com sucesso!");
-        } catch (SQLException | RuntimeException error) {
+        } catch (Exception error) {
             JOptionPane.showMessageDialog(null, error.getMessage(), "Menssagem", JOptionPane.ERROR_MESSAGE);
         }
 
@@ -1679,7 +1679,7 @@ public class Teste extends javax.swing.JFrame {
             limparCamposContratos();
 
             JOptionPane.showMessageDialog(null, "Contrato incluido com sucesso!");
-        } catch (SQLException | RuntimeException error) {
+        } catch (Exception error) {
             JOptionPane.showMessageDialog(null, error.getMessage(), "Menssagem", JOptionPane.ERROR_MESSAGE);
         }
 
@@ -1728,7 +1728,7 @@ public class Teste extends javax.swing.JFrame {
             limparCamposContratos();
 
             JOptionPane.showMessageDialog(null, "Contrato  alterado com Sucesso!");
-        } catch (SQLException | ClassNotFoundException | RuntimeException error) {
+        } catch (Exception error) {
             JOptionPane.showMessageDialog(null, error.getMessage(), "Menssagem", JOptionPane.ERROR_MESSAGE);
         }
 
@@ -1774,10 +1774,8 @@ try {
         //    }
 
             JOptionPane.showMessageDialog(null, "Contrato incluido com sucesso!");
-        } catch (SQLException | RuntimeException error) {
+        } catch (Exception error) {
             JOptionPane.showMessageDialog(null, error.getMessage(), "Menssagem", JOptionPane.ERROR_MESSAGE);
-        } catch (ClassNotFoundException ex) {
-            Logger.getLogger(Teste.class.getName()).log(Level.SEVERE, null, ex);
         }
 
 

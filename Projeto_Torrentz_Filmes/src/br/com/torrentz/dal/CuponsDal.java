@@ -19,7 +19,7 @@ import java.sql.Connection;
 import br.com.torrentz.util.Conexao;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
-import java.sql.SQLException;
+
 import java.sql.Statement;
 import java.util.ArrayList;
 
@@ -31,11 +31,11 @@ public class CuponsDal {
 
     private Connection conexao;
 
-    public CuponsDal() throws SQLException, ClassNotFoundException {
+    public CuponsDal() throws Exception {
         conexao = Conexao.getConexao();
     }
 
-    public void addCupons(Cupons cupons) throws SQLException {
+    public void addCupons(Cupons cupons) throws Exception {
 
         String sql = "INSERT INTO cupons (cup_porcentagem, cup_data_geracao) values (?,?)";
         try{
@@ -45,7 +45,7 @@ public class CuponsDal {
             preparedStatement.setDate(2, cupons.getCup_data_geracao());
             preparedStatement.executeUpdate();
 
-        } catch (SQLException error) {
+        } catch (Exception error) {
             if (error.getMessage().contains("cupon_porcentagem")) {
             throw new RuntimeException("Erro, cupom não pode ser menor que 0%, e maior que 60%");   
             }
@@ -53,7 +53,7 @@ public class CuponsDal {
         }
     }
 
-    public void deleteCupons(int cup_iden) throws SQLException {
+    public void deleteCupons(int cup_iden) throws Exception {
 
         String sql = "DELETE FROM cupons WHERE cup_iden =?";
         try {
@@ -62,7 +62,7 @@ public class CuponsDal {
             preparedStatement.setInt(1, cup_iden);
             preparedStatement.executeUpdate();
 
-        } catch (SQLException error) {
+        } catch (Exception error) {
 
             if (error.getMessage().contains("violates foreign key constraint")) {
                 throw new RuntimeException("Cupon não pode ser deletado pois existe um usuário cadastrado com este cupon ");
@@ -70,7 +70,7 @@ public class CuponsDal {
         }
     }
 
-    public void updateCupons (Cupons cupon) throws SQLException {
+    public void updateCupons (Cupons cupon) throws Exception {
 
         String sql = "UPDATE cupons SET cup_porcentagem=?, cup_data_geracao=? WHERE cup_id=?";
         try{
@@ -81,14 +81,14 @@ public class CuponsDal {
             preparedStatement.setInt(3, cupon.getCup_iden());
             preparedStatement.executeUpdate();
 
-            } catch (SQLException error) {
+            } catch (Exception error) {
              if (error.getMessage().contains("cupon_porcentagem")) {
             throw new RuntimeException("Erro, cupom não pode ser menor que 0%, e maior que 60%");   
             }
         }
     }
 
-    public Cupons getCupomByID(int cup_iden) throws SQLException {
+    public Cupons getCupomByID(int cup_iden) throws Exception {
 
         Cupons cupon = new Cupons();
         String sql = "SELECT * FROM cupons WHERE cup_iden =?";
@@ -103,13 +103,13 @@ public class CuponsDal {
                 cupon.setCup_iden(rs.getInt("cup_iden"));  
                 
             }
-          } catch (SQLException error) {
+          } catch (Exception error) {
             throw error;
         }
         return cupon;   
      }
 
-     public Cupons getLastCupons() throws SQLException {
+     public Cupons getLastCupons() throws Exception {
          
         Cupons ultimoCupom;
         ArrayList<Cupons> lista = new ArrayList<Cupons>();
@@ -128,7 +128,7 @@ public class CuponsDal {
             }
          int Ultimo = lista.size()-1;
          ultimoCupom = lista.get(Ultimo);
-          } catch (SQLException error) {
+          } catch (Exception error) {
             throw error;
         }
         return ultimoCupom;   

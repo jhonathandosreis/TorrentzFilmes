@@ -20,7 +20,7 @@ import java.sql.Connection;
 import br.com.torrentz.util.Conexao;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
-import java.sql.SQLException;
+
 import java.sql.Statement;
 import java.util.ArrayList;
 
@@ -38,7 +38,7 @@ public class PlanosDal {
 
     //--- CONSTRUTORES -------------------------------------------------------------------------------->
     //
-    public PlanosDal()throws SQLException, ClassNotFoundException {
+    public PlanosDal()throws Exception {
         conexao = Conexao.getConexao();
     }
 
@@ -47,7 +47,7 @@ public class PlanosDal {
     
     //--- CREATE -------------------------------------------------------------------------------------->
     //
-    public void addPlanos(Planos planos) throws SQLException {
+    public void addPlanos(Planos planos) throws Exception {
 
         String sql = "INSERT INTO planos(pla_acesso_simultaneo, pla_nome, pla_preco) VALUES(?,?,?)";
 
@@ -57,7 +57,7 @@ public class PlanosDal {
             preparedStatement.setString(2, planos.getPla_nome());
             preparedStatement.setFloat(3, planos.getPla_preco());
             preparedStatement.executeUpdate();
-        } catch (SQLException error) {
+        } catch (Exception error) {
             if (error.getMessage().contains("duplicate key value violates unique constraint")) {
                 throw new RuntimeException("Já existe um plano com este nome!");
             }
@@ -69,7 +69,7 @@ public class PlanosDal {
     
     //--- DELETE -------------------------------------------------------------------------------------->
     //
-    public void deletePlanos(int pla_iden) throws SQLException {
+    public void deletePlanos(int pla_iden) throws Exception {
 
         String sql = "DELETE FROM planos WHERE pla_iden =?";
 
@@ -77,7 +77,7 @@ public class PlanosDal {
             PreparedStatement preparedStatement = conexao.prepareStatement(sql);
             preparedStatement.setInt(1, pla_iden);
             preparedStatement.executeUpdate();
-        } catch (SQLException error) {
+        } catch (Exception error) {
             if (error.getMessage().contains("violates foreign key constraint")) {
                 throw new RuntimeException("Não é possível deletar este plano!!");
             }
@@ -89,7 +89,7 @@ public class PlanosDal {
     
     //--- UPDATE -------------------------------------------------------------------------------------->
     //
-    public void updatePlanos(Planos planos) throws SQLException {
+    public void updatePlanos(Planos planos) throws Exception {
 
         String sql = "UPDATE planos SET pla_acesso_simultaneo=?, pla_nome=?, pla_preco=? WHERE pla_iden=?";
 
@@ -100,7 +100,7 @@ public class PlanosDal {
             preparedStatement.setFloat(3, planos.getPla_preco());
             preparedStatement.setInt(4, planos.getPla_iden());
             preparedStatement.executeUpdate();
-        } catch (SQLException error) {
+        } catch (Exception error) {
             if (error.getMessage().contains("duplicate key value violates unique constraint")) {
                 throw new RuntimeException("Não é possível alterar este plano!");
             }
@@ -111,7 +111,7 @@ public class PlanosDal {
     
     //--- READ ---------------------------------------------------------------------------------------->
     //
-    public ArrayList<Planos> getAllPlanos() throws SQLException {
+    public ArrayList<Planos> getAllPlanos() throws Exception {
 
         ArrayList<Planos> lista = new ArrayList<Planos>();
         String sql = "SELECT * FROM planos";
@@ -126,13 +126,13 @@ public class PlanosDal {
                 planos.setPla_preco(rs.getFloat("pla_preco"));
                 lista.add(planos);
             }
-        } catch (SQLException error) {
+        } catch (Exception error) {
             throw error;
         }
         return lista;
     }
 
-    public Planos getPlanosById(int pla_iden) throws SQLException {
+    public Planos getPlanosById(int pla_iden) throws Exception {
 
         Planos planos = new Planos();
 
@@ -148,13 +148,13 @@ public class PlanosDal {
                 planos.setPla_nome(rs.getString("pla_nome"));
                 planos.setPla_preco(rs.getFloat("pla_preco"));
             }
-        } catch (SQLException error) {
+        } catch (Exception error) {
             throw error;
         }
         return planos;
     }
     
-    public Planos getPlanosNome(String nome ) throws SQLException {
+    public Planos getPlanosNome(String nome ) throws Exception {
 
         Planos planos = new Planos();
 
@@ -172,7 +172,7 @@ public class PlanosDal {
                 planos.setPla_nome(rs.getString("pla_nome"));
                 planos.setPla_preco(rs.getFloat("pla_preco"));
             }
-        } catch (SQLException error) {
+        } catch (Exception error) {
             throw error;
         }
         return planos;

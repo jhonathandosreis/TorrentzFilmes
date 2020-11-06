@@ -16,7 +16,7 @@ package br.com.torrentz.bll;
 
 import br.com.torrentz.dal.VisualizadosDal;
 import br.com.torrentz.model.Visualizados;
-import java.sql.SQLException;
+
 import java.util.ArrayList;
 
 /**
@@ -33,7 +33,7 @@ public class VisualizadosBll {
     //
     //--- CONSTRUTORES -------------------------------------------------------------------------------->
     //
-    public VisualizadosBll() throws SQLException, ClassNotFoundException {
+    public VisualizadosBll() throws Exception, ClassNotFoundException {
         visualizadosDal = new VisualizadosDal();
     }
 
@@ -41,7 +41,7 @@ public class VisualizadosBll {
     //
     //--- CREATE -------------------------------------------------------------------------------------->
     //
-    public void Adicionar(Visualizados visualizado) throws SQLException {
+    public void Adicionar(Visualizados visualizado) throws Exception {
 
         try {
             //           if (visualizado.isVis_completo().length() < 3) {
@@ -53,7 +53,7 @@ public class VisualizadosBll {
 
             visualizadosDal.addVisualizados(visualizado);
 
-        } catch (SQLException error) {
+        } catch (Exception error) {
             throw error;
         }
     }
@@ -62,13 +62,13 @@ public class VisualizadosBll {
     //
     //--- DELETE -------------------------------------------------------------------------------------->
     //
-    public void Remover(Visualizados visualizado) throws SQLException {
+    public void Remover(Visualizados visualizado) throws Exception {
 
         try {
 
             visualizadosDal.deleteVisualizados(visualizado.getVis_iden());
 
-        } catch (SQLException error) {
+        } catch (Exception error) {
             throw error;
         }
     }
@@ -77,7 +77,7 @@ public class VisualizadosBll {
     //
     //--- UPDATE -------------------------------------------------------------------------------------->
     //
-    public void Alterar(Visualizados visualizado) throws SQLException {
+    public void Alterar(Visualizados visualizado) throws Exception {
 
         try {
 
@@ -89,7 +89,7 @@ public class VisualizadosBll {
 //            }
             visualizadosDal.updateVisualizados(visualizado);
 
-        } catch (SQLException error) {
+        } catch (Exception error) {
             throw error;
         }
     }
@@ -98,20 +98,20 @@ public class VisualizadosBll {
     //
     //--- READ ---------------------------------------------------------------------------------------->
     //
-    public ArrayList<Visualizados> getConsulta() throws SQLException, ClassNotFoundException{
+    public ArrayList<Visualizados> getConsulta() throws Exception, ClassNotFoundException{
         try {
 
             return visualizadosDal.getAllVisualizados();
 
-        } catch (SQLException error) {
+        } catch (Exception error) {
             throw error;
         }
     }
 
-    public Visualizados getConsultaPorId(int id) throws SQLException, ClassNotFoundException {
+    public Visualizados getConsultaPorId(int id) throws Exception, ClassNotFoundException {
         try {
             return visualizadosDal.getVisualizadosById(id);
-        } catch (SQLException error) {
+        } catch (Exception error) {
             throw error;
         }
     }

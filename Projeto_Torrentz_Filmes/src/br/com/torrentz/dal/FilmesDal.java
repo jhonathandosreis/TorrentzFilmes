@@ -21,7 +21,7 @@ import java.sql.Connection;
 import br.com.torrentz.util.Conexao;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
-import java.sql.SQLException;
+
 import java.sql.Statement;
 import java.util.ArrayList;
 
@@ -40,7 +40,7 @@ public class FilmesDal {
 
     //--- CONSTRUTORES -------------------------------------------------------------------------------->
     //
-    public FilmesDal() throws SQLException, ClassNotFoundException {
+    public FilmesDal() throws Exception {
         conexao = Conexao.getConexao();
     }
     //--- FIM CONSTRUTORES ----------------------------------------------------------------------------|
@@ -48,7 +48,7 @@ public class FilmesDal {
 
     //--- CREATE -------------------------------------------------------------------------------------->
     //
-    public void addFilmes(Filmes filmes) throws SQLException {
+    public void addFilmes(Filmes filmes) throws Exception {
         
         String sql = "INSERT INTO filmes (fil_sinopse, fil_titulo, fil_ano, fil_cat_iden) VALUES (?,?,?,?)";
 
@@ -59,7 +59,7 @@ public class FilmesDal {
             preparedStatement.setInt(3, filmes.getFil_ano());
             preparedStatement.setInt(4, filmes.getFil_cat_iden().getCat_iden());
             preparedStatement.executeUpdate();
-        } catch (SQLException error) {
+        } catch (Exception error) {
             if (error.getMessage().contains("duplicate key value violates unique constraint")) {
                 throw new RuntimeException("Já existe um filme com o mesmo nome!");
             }
@@ -70,14 +70,14 @@ public class FilmesDal {
 
     //--- DELETE -------------------------------------------------------------------------------------->
     //
-    public void deleteFilmes(int fil_iden) throws SQLException {
+    public void deleteFilmes(int fil_iden) throws Exception {
         String sql = "DELETE FROM filmes WHERE fil_iden =?";
 
         try {
             PreparedStatement preparedStatement = conexao.prepareStatement(sql);
             preparedStatement.setInt(1, fil_iden);
             preparedStatement.executeUpdate();
-        } catch (SQLException error) {
+        } catch (Exception error) {
             if (error.getMessage().contains("violates foreign key constraint")) {
                 throw new RuntimeException("Não é possível deletar este filme!");
             }
@@ -88,7 +88,7 @@ public class FilmesDal {
 
     //--- UPDATE -------------------------------------------------------------------------------------->
     //
-    public void updateFilmes(Filmes filmes) throws SQLException {
+    public void updateFilmes(Filmes filmes) throws Exception {
         String sql = "UPDATE filmes SET fil_sinopse=?, fil_titulo=?, fil_ano=?, fil_cat_iden=? WHERE fil_iden=?";
         
         try {
@@ -99,7 +99,7 @@ public class FilmesDal {
             preparedStatement.setInt(4, filmes.getFil_cat_iden().getCat_iden());
             preparedStatement.setInt(5, filmes.getFil_iden());
             preparedStatement.executeUpdate();
-        } catch (SQLException error) {
+        } catch (Exception error) {
             if (error.getMessage().contains("duplicate key value violates unique constraint")) {
                 throw new RuntimeException("Não é possível altera este filme!");
             }
@@ -110,7 +110,7 @@ public class FilmesDal {
 
     //--- READ ---------------------------------------------------------------------------------------->
     //
-    public ArrayList<Filmes> getAllFilmes() throws SQLException, ClassNotFoundException {
+    public ArrayList<Filmes> getAllFilmes() throws Exception {
         ArrayList<Filmes> lista = new ArrayList<Filmes>();
 
         String sql = "SELECT * FROM filmes";
@@ -133,13 +133,13 @@ public class FilmesDal {
                 filmes.setFil_cat_iden(objetoCategorias);
                 lista.add(filmes);
             }
-        } catch (SQLException error) {
+        } catch (Exception error) {
             throw error;
         }
         return lista;
     }
 
-    public Filmes getFilmesById(int fil_iden) throws SQLException, ClassNotFoundException {
+    public Filmes getFilmesById(int fil_iden) throws Exception {
 
         Filmes filmes = new Filmes();
 
@@ -161,13 +161,13 @@ public class FilmesDal {
                 Categorias objetoCategorias = catDal.getCategoriasById(fil_cat_iden);
                 filmes.setFil_cat_iden(objetoCategorias);
             }
-        } catch (SQLException error) {
+        } catch (Exception error) {
             throw error;
         }
         return filmes;
     }
     
-    public Filmes getFilmesNome(String nome) throws SQLException, ClassNotFoundException {
+    public Filmes getFilmesNome(String nome) throws Exception {
 
         Filmes filmes = new Filmes();
 
@@ -189,7 +189,7 @@ public class FilmesDal {
                 Categorias objetoCategorias = catDal.getCategoriasById(fil_cat_iden);
                 filmes.setFil_cat_iden(objetoCategorias);
             }
-        } catch (SQLException error) {
+        } catch (Exception error) {
             throw error;
         }
         return filmes;

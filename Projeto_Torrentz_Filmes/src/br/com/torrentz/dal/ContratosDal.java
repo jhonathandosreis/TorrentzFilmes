@@ -18,7 +18,7 @@ import br.com.torrentz.model.Contratos;
 import br.com.torrentz.util.Conexao;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
-import java.sql.SQLException;
+
 import java.sql.Statement;
 import java.util.ArrayList;
 import java.sql.Connection;
@@ -37,7 +37,7 @@ public class ContratosDal {
     //
     //--- CONSTRUTORES -------------------------------------------------------------------------------->
     //
-    public ContratosDal() throws SQLException, ClassNotFoundException {
+    public ContratosDal() throws Exception {
         conexao = Conexao.getConexao();
     }
 
@@ -45,7 +45,7 @@ public class ContratosDal {
     //
     //--- CREATE -------------------------------------------------------------------------------------->
     //
-    public void addContratos(Contratos contratos) throws SQLException {
+    public void addContratos(Contratos contratos) throws Exception {
 
         String sql = "INSERT INTO contratos(con_usu_iden, con_pla_iden  , con_inicio , con_fim , con_status ) VALUES(?,?,?,?,?)";
         try {
@@ -58,7 +58,7 @@ public class ContratosDal {
             preparedStatement.setString(5, contratos.getCon_status());
 
             preparedStatement.executeUpdate();
-        } catch (SQLException error) {
+        } catch (Exception error) {
             if (error.getMessage().contains("duplicate key value violates unique constraint")) {
                 throw new RuntimeException("Não é possível cadastrar este Contrato!");
             }
@@ -69,7 +69,7 @@ public class ContratosDal {
     //
     //--- DELETE -------------------------------------------------------------------------------------->
     //
-    public void deleteContratos(int con_iden) throws SQLException {
+    public void deleteContratos(int con_iden) throws Exception {
 
         String sql = "DELETE FROM contratos WHERE con_iden =?";
 
@@ -77,7 +77,7 @@ public class ContratosDal {
             PreparedStatement preparedStatement = conexao.prepareStatement(sql);
             preparedStatement.setInt(1, con_iden);
             preparedStatement.executeUpdate();
-        } catch (SQLException error) {
+        } catch (Exception error) {
             if (error.getMessage().contains("violates foreign key constraint")) {
                 throw new RuntimeException("Não é possível deletar este Contrato!");
             }
@@ -88,7 +88,7 @@ public class ContratosDal {
     //
     //--- UPDATE -------------------------------------------------------------------------------------->
     //
-    public void updateContratos(Contratos contrato) throws SQLException {
+    public void updateContratos(Contratos contrato) throws Exception {
 
         try {
             PreparedStatement preparedStatement = conexao
@@ -102,7 +102,7 @@ public class ContratosDal {
             preparedStatement.setInt(6, contrato.getCon_iden());
 
             preparedStatement.executeUpdate();
-        } catch (SQLException error) {
+        } catch (Exception error) {
             if (error.getMessage().contains("duplicate key value violates unique constraint")) {
                 throw new RuntimeException("Não é possível alterar este Contrato!!");
             }
@@ -113,7 +113,7 @@ public class ContratosDal {
     //
     //--- READ ---------------------------------------------------------------------------------------->
     //
-    public ArrayList<Contratos> getAllContratos() throws SQLException, ClassNotFoundException {
+    public ArrayList<Contratos> getAllContratos() throws Exception, ClassNotFoundException {
 
         ArrayList<Contratos> lista = new ArrayList<Contratos>();
 
@@ -139,13 +139,13 @@ public class ContratosDal {
 
                 lista.add(contrato1);
             }
-        } catch (SQLException error) {
+        } catch (Exception error) {
             throw error;
         }
         return lista;
     }
 
-    public Contratos getContratosById(int id) throws SQLException, ClassNotFoundException {
+    public Contratos getContratosById(int id) throws Exception, ClassNotFoundException {
 
         Contratos contrato2 = new Contratos();
         String sql = "SELECT * FROM contratos WHERE con_iden=?";
@@ -170,7 +170,7 @@ public class ContratosDal {
                 contrato2.setCon_iden(rs.getInt("con_iden"));
 
             }
-        } catch (SQLException error) {
+        } catch (Exception error) {
             throw error;
         }
         return contrato2;

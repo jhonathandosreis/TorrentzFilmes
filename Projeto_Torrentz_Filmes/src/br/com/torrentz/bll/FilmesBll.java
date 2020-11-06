@@ -17,7 +17,7 @@ package br.com.torrentz.bll;
 
 import br.com.torrentz.dal.FilmesDal;
 import br.com.torrentz.model.Filmes;
-import java.sql.SQLException;
+
 import java.util.ArrayList;
 
 /**
@@ -34,7 +34,7 @@ public class FilmesBll {
 
     //--- CONSTRUTORES -------------------------------------------------------------------------------->
     //
-    public FilmesBll() throws SQLException, ClassNotFoundException {
+    public FilmesBll() throws Exception, ClassNotFoundException {
         filmesDal = new FilmesDal();
     }
     //--- FIM CONSTRUTORES ----------------------------------------------------------------------------|
@@ -42,7 +42,7 @@ public class FilmesBll {
 
     //--- CREATE -------------------------------------------------------------------------------------->
     //
-    public void Adicionar(Filmes filmes) throws SQLException {
+    public void Adicionar(Filmes filmes) throws Exception {
         try {
             if (filmes.getFil_titulo().length() < 2) 
                 throw new RuntimeException("Nome do filme inválido\nNo mínimo 2 caracteres!");
@@ -51,7 +51,7 @@ public class FilmesBll {
                 throw new RuntimeException("Nome do filme inválido\nMáximo de caracteres excedido!");
 
             filmesDal.addFilmes(filmes);
-        } catch (SQLException error) {
+        } catch (Exception error) {
             
             throw error;
         }
@@ -61,11 +61,11 @@ public class FilmesBll {
 
     //--- DELETE -------------------------------------------------------------------------------------->
     //
-    public void Remover(Filmes filmes) throws SQLException {
+    public void Remover(Filmes filmes) throws Exception {
         
         try {
             filmesDal.deleteFilmes(filmes.getFil_iden());
-        } catch (SQLException error) {
+        } catch (Exception error) {
             throw error;
         }
     }
@@ -74,7 +74,7 @@ public class FilmesBll {
 
     //--- UPDATE -------------------------------------------------------------------------------------->
     //
-    public void Alterar(Filmes filmes) throws SQLException {
+    public void Alterar(Filmes filmes) throws Exception {
         try {
 
             if (filmes.getFil_titulo().length() < 2) 
@@ -84,7 +84,7 @@ public class FilmesBll {
                 throw new RuntimeException("Nome do filme inválido\nMáximo de caracteres excedido!");
             
             filmesDal.updateFilmes(filmes);
-        } catch (SQLException error) {
+        } catch (Exception error) {
             throw error;
         }
     }
@@ -93,27 +93,27 @@ public class FilmesBll {
         
     //--- READ ---------------------------------------------------------------------------------------->
     //
-    public ArrayList<Filmes> getConsulta() throws SQLException, ClassNotFoundException {
+    public ArrayList<Filmes> getConsulta() throws Exception, ClassNotFoundException {
         
         try {
             return filmesDal.getAllFilmes();
-        } catch (SQLException error) {
+        } catch (Exception error) {
             throw error;
         }
     }
     
-    public Filmes getConsultaPorId(int fil_iden) throws SQLException, ClassNotFoundException {
+    public Filmes getConsultaPorId(int fil_iden) throws Exception, ClassNotFoundException {
         try {
             return filmesDal.getFilmesById(fil_iden);
-        } catch (SQLException error) {
+        } catch (Exception error) {
             throw error;
         }
     }
     
-    public Filmes getConsultaNome(String nome) throws SQLException, ClassNotFoundException {
+    public Filmes getConsultaNome(String nome) throws Exception, ClassNotFoundException {
         try {
             return filmesDal.getFilmesNome(nome);
-        } catch (SQLException error) {
+        } catch (Exception error) {
             throw error;
         }
     }

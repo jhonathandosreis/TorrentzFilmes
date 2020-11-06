@@ -19,7 +19,6 @@ package br.com.torrentz.bll;
 
 import br.com.torrentz.dal.CategoriasDal;
 import br.com.torrentz.model.Categorias;
-import java.sql.SQLException;
 import java.util.ArrayList;
 
 /**
@@ -36,7 +35,7 @@ public class CategoriaBll {
     
     //--- CONSTRUTORES -------------------------------------------------------------------------------->
     //
-    public CategoriaBll() throws SQLException, ClassNotFoundException {
+    public CategoriaBll() throws Exception, ClassNotFoundException {
         categoriadal = new CategoriasDal();
     }
     //--- FIM CONSTRUTORES ----------------------------------------------------------------------------|
@@ -44,7 +43,7 @@ public class CategoriaBll {
     
     //--- CREATE -------------------------------------------------------------------------------------->
     //
-    public void Adicionar(Categorias categorias) throws SQLException {
+    public void Adicionar(Categorias categorias) throws Exception {
 
         try {
             if (categorias.getCat_nome().length() < 3) {
@@ -54,7 +53,7 @@ public class CategoriaBll {
                 throw new RuntimeException("Nome da categoria inválida\nMáximo de caracteres excedido!");
             }
             categoriadal.addCategoria(categorias);
-        } catch (SQLException error) {
+        } catch (Exception error) {
             
             throw error;
         }
@@ -64,7 +63,7 @@ public class CategoriaBll {
     
     //--- UPDATE -------------------------------------------------------------------------------------->
     //
-    public void Alterar(Categorias categorias) throws SQLException {
+    public void Alterar(Categorias categorias) throws Exception {
 
         try {
 
@@ -75,7 +74,7 @@ public class CategoriaBll {
                 throw new RuntimeException("Nome da categoria inválida\nMáximo de caracteres excedido!");
             }
             categoriadal.updateCategoria(categorias);
-        } catch (SQLException error) {
+        } catch (Exception error) {
             throw error;
         }
     }
@@ -84,11 +83,11 @@ public class CategoriaBll {
     
     //--- DELETE -------------------------------------------------------------------------------------->
     //
-    public void Remover(Categorias categorias) throws SQLException {
+    public void Remover(Categorias categorias) throws Exception {
         
         try {
             categoriadal.deleteCategoria(categorias.getCat_iden());
-        } catch (SQLException error) {
+        } catch (Exception error) {
             throw error;
         }
     }
@@ -97,27 +96,27 @@ public class CategoriaBll {
     
     //--- READ ---------------------------------------------------------------------------------------->
     //
-    public ArrayList<Categorias> getConsulta() throws SQLException {
+    public ArrayList<Categorias> getConsulta() throws Exception {
         try {
 
             return categoriadal.getAllCategorias();
-        } catch (SQLException error) {
+        } catch (Exception error) {
             throw error;
         }
     }
 
-    public Categorias getConsultaPorId(int cat_iden) throws SQLException {
+    public Categorias getConsultaPorId(int cat_iden) throws Exception {
         try {
             return categoriadal.getCategoriasById(cat_iden);
-        } catch (SQLException error) {
+        } catch (Exception error) {
             throw error;
         }
     }
     
-    public Categorias getCategoriaNome(String nome) throws SQLException{
+    public Categorias getCategoriaNome(String nome) throws Exception{
         try {
             return categoriadal.getCategoriaNome(nome);
-        } catch (SQLException error) {
+        } catch (Exception error) {
             throw error;
         }
     }

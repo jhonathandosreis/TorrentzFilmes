@@ -17,7 +17,7 @@ package br.com.torrentz.bll;
 
 import br.com.torrentz.dal.UsuariosDal;
 import br.com.torrentz.model.Usuarios;
-import java.sql.SQLException;
+
 import java.util.ArrayList;
 
 /**
@@ -34,7 +34,7 @@ public class UsuariosBll {
 
     //--- CONSTRUTORES -------------------------------------------------------------------------------->
     //
-    public UsuariosBll() throws SQLException, ClassNotFoundException {
+    public UsuariosBll() throws Exception, ClassNotFoundException {
         usuariosDal = new UsuariosDal();
     }
     //--- FIM CONSTRUTORES ----------------------------------------------------------------------------|
@@ -42,7 +42,7 @@ public class UsuariosBll {
 
     //--- CREATE -------------------------------------------------------------------------------------->
     //
-    public void Adicionar(Usuarios usuario) throws SQLException {
+    public void Adicionar(Usuarios usuario) throws Exception {
         try {
             if (usuario.getUsu_nome().length() < 3) {
                 throw new RuntimeException("Nome do usuário inválido\nNo mínimo 3 caracteres!");
@@ -58,7 +58,7 @@ public class UsuariosBll {
 
             usuariosDal.addUsuario(usuario);
 
-        } catch (SQLException error) {
+        } catch (Exception error) {
 
             throw error;
         }
@@ -68,12 +68,12 @@ public class UsuariosBll {
 
     //--- DELETE -------------------------------------------------------------------------------------->
     //
-    public void Remover(Usuarios usuarios) throws SQLException {
+    public void Remover(Usuarios usuarios) throws Exception {
 
         try {
             
             usuariosDal.deleteUsuario(usuarios.getUsu_iden());
-        } catch (SQLException error) {
+        } catch (Exception error) {
             throw error;
         }
     }
@@ -82,7 +82,7 @@ public class UsuariosBll {
 
     //--- UPDATE -------------------------------------------------------------------------------------->
     //
-    public void Alterar(Usuarios usuario) throws SQLException {
+    public void Alterar(Usuarios usuario) throws Exception {
         try {
             if (usuario.getUsu_nome().length() < 3) {
                 throw new RuntimeException("Nome do usuário inválido\nNo mínimo 3 caracteres!");
@@ -98,7 +98,7 @@ public class UsuariosBll {
 
             usuariosDal.updateUsuario(usuario);
 
-        } catch (SQLException error) {
+        } catch (Exception error) {
             throw error;
         }
     }
@@ -107,31 +107,31 @@ public class UsuariosBll {
 
     //--- READ ---------------------------------------------------------------------------------------->
     //
-    public ArrayList<Usuarios> getConsulta() throws SQLException{
+    public ArrayList<Usuarios> getConsulta() throws Exception{
 
         try {
 
             return usuariosDal.getAllUsuario();
 
-        } catch (SQLException error) {
+        } catch (Exception error) {
             throw error;
         }
     }
 
-    public Usuarios getConsultaPorId(int usu_iden) throws SQLException {
+    public Usuarios getConsultaPorId(int usu_iden) throws Exception {
         try {
 
             return usuariosDal.getUsuariosById(usu_iden);
 
-        } catch (SQLException error) {
+        } catch (Exception error) {
             throw error;
         }
     }
     
-     public Usuarios getUsuariosNome(String nome) throws SQLException{
+     public Usuarios getUsuariosNome(String nome) throws Exception{
         try {
             return usuariosDal.getUsuariosNome(nome);
-        } catch (SQLException error) {
+        } catch (Exception error) {
             throw error;
         }
     }

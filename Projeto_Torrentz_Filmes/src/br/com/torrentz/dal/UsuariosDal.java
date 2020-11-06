@@ -21,7 +21,7 @@ import java.sql.Connection;
 import br.com.torrentz.util.Conexao;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
-import java.sql.SQLException;
+
 import java.sql.Statement;
 import java.util.ArrayList;
 
@@ -36,11 +36,11 @@ public class UsuariosDal {
      private CuponsBll cupBll = new CuponsBll();
 
 
-    public UsuariosDal() throws SQLException, ClassNotFoundException{
+    public UsuariosDal() throws Exception{
         conexao = Conexao.getConexao();
     }
     
-    public void addUsuario(Usuarios usuarios) throws SQLException {
+    public void addUsuario(Usuarios usuarios) throws Exception {
 
         String sql = "INSERT INTO usuarios(usu_nome, usu_cpf, usu_email, usu_senha, usu_cup_iden) VALUES(?,?,?,?,?)";
         try {
@@ -53,7 +53,7 @@ public class UsuariosDal {
             preparedStatement.setInt(5, usuarios.getUsu_cup_iden().getCup_iden());
             preparedStatement.executeUpdate();
 
-        } catch (SQLException error) {
+        } catch (Exception error) {
             if (error.getMessage().contains("usuario_repetido")) {
                 throw new RuntimeException("Nome de usuário ja cadastrado em nosso banco de dados");
             }
@@ -67,7 +67,7 @@ public class UsuariosDal {
         }
     }
 
-    public void deleteUsuario(int usu_iden) throws SQLException {
+    public void deleteUsuario(int usu_iden) throws Exception {
 
         String sql = "DELETE FROM usuarios WHERE usu_iden =?";
         try {
@@ -76,12 +76,12 @@ public class UsuariosDal {
             preparedStatement.setInt(1, usu_iden);
             preparedStatement.executeUpdate();
 
-        } catch (SQLException error) {
+        } catch (Exception error) {
                 throw new RuntimeException("Usuário não pode ser deletado pois existe cadastros ativos em seu nome!");
         }
     }
 
-    public void updateUsuario(Usuarios usuarios) throws SQLException {
+    public void updateUsuario(Usuarios usuarios) throws Exception {
 
         String sql = "UPDATE usuarios SET usu_nome=?, usu_cpf=?, usu_email=?, usu_senha=?, usu_cup_iden=? WHERE usu_iden=?";
 
@@ -96,14 +96,14 @@ public class UsuariosDal {
             preparedStatement.setInt(6, usuarios.getUsu_iden());
             preparedStatement.executeUpdate();
 
-        } catch (SQLException error) {
+        } catch (Exception error) {
             if (error.getMessage().contains("duplicate key value violates unique constraint")) {
                 throw new RuntimeException("Já existe um usuário com este dado cadastrado no sistema!");
             }
         }
     }
 
-    public ArrayList<Usuarios> getAllUsuario() throws SQLException {
+    public ArrayList<Usuarios> getAllUsuario() throws Exception {
 
         ArrayList<Usuarios> lista = new ArrayList<Usuarios>();
         String sql = "SELECT * FROM usuarios";
@@ -124,13 +124,13 @@ public class UsuariosDal {
                 usuario.setUsu_cup_iden(cupon);
                 lista.add(usuario);
             }
-        } catch (SQLException error) {
+        } catch (Exception error) {
             throw error;
         }
         return lista;
     }
     
-    public Usuarios getUsuariosById(int usu_iden) throws SQLException {
+    public Usuarios getUsuariosById(int usu_iden) throws Exception {
         Usuarios usuario = new Usuarios();
         try {
 
@@ -149,13 +149,13 @@ public class UsuariosDal {
                 usuario.setUsu_senha(rs.getString("usu_senha"));
                 usuario.setUsu_cup_iden(cupon);
             }
-        } catch (SQLException error) {
+        } catch (Exception error) {
             throw error;
         }
         return usuario;
     }
     
-    public Usuarios getUsuariosNome(String nome) throws SQLException {
+    public Usuarios getUsuariosNome(String nome) throws Exception {
         Usuarios usuario = new Usuarios();
         
         String sql = "SELECT * FROM usuarios WHERE usu_nome=?";
@@ -176,7 +176,7 @@ public class UsuariosDal {
                 
                 
             }
-        } catch (SQLException error) {
+        } catch (Exception error) {
             throw error;
         }
         return usuario;

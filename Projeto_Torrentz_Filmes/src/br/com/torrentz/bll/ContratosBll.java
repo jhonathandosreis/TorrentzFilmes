@@ -17,7 +17,7 @@ package br.com.torrentz.bll;
 
 import br.com.torrentz.dal.ContratosDal;
 import br.com.torrentz.model.Contratos;
-import java.sql.SQLException;
+
 import java.util.ArrayList;
 
 /**
@@ -34,7 +34,7 @@ public class ContratosBll {
     //
     //--- CONSTRUTORES -------------------------------------------------------------------------------->
     //
-    public ContratosBll() throws SQLException, ClassNotFoundException {
+    public ContratosBll() throws Exception, ClassNotFoundException {
         contratoDal = new ContratosDal();
     }
 
@@ -42,7 +42,7 @@ public class ContratosBll {
     //
     //--- CREATE -------------------------------------------------------------------------------------->
     //
-    public void Adicionar(Contratos contrato) throws SQLException {
+    public void Adicionar(Contratos contrato) throws Exception {
 
         try {
             
@@ -61,7 +61,7 @@ public class ContratosBll {
 //            }
             contratoDal.addContratos(contrato);
 
-        } catch (SQLException error) {
+        } catch (Exception error) {
 
             throw error;
         }
@@ -72,13 +72,13 @@ public class ContratosBll {
 //--- DELETE -------------------------------------------------------------------------------------->
 //
 
-    public void Remover(Contratos contrato) throws SQLException {
+    public void Remover(Contratos contrato) throws Exception {
 
         try {
 
             contratoDal.deleteContratos(contrato.getCon_iden());
 
-        } catch (SQLException error) {
+        } catch (Exception error) {
             throw error;
         }
     }
@@ -87,7 +87,7 @@ public class ContratosBll {
     //
     //--- UPDATE -------------------------------------------------------------------------------------->
     //
-    public void Alterar(Contratos contrato) throws SQLException {
+    public void Alterar(Contratos contrato) throws Exception {
 
         try {
 
@@ -99,7 +99,7 @@ public class ContratosBll {
 //            }
             contratoDal.updateContratos(contrato);
 
-        } catch (SQLException error) {
+        } catch (Exception error) {
             throw error;
         }
     }
@@ -108,20 +108,20 @@ public class ContratosBll {
     //
     //--- READ ---------------------------------------------------------------------------------------->
     //
-    public ArrayList<Contratos> getConsulta() throws SQLException , ClassNotFoundException{
+    public ArrayList<Contratos> getConsulta() throws Exception , ClassNotFoundException{
         try {
 
             return contratoDal.getAllContratos();
 
-        } catch (SQLException error) {
+        } catch (Exception error) {
             throw error;
         }
     }
 
-    public Contratos getConsultaPorId(int id) throws SQLException , ClassNotFoundException{
+    public Contratos getConsultaPorId(int id) throws Exception , ClassNotFoundException{
         try {
             return contratoDal.getContratosById(id);
-        } catch (SQLException error) {
+        } catch (Exception error) {
             throw error;
         }
     }
