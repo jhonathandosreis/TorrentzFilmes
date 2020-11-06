@@ -106,7 +106,9 @@ public class CategoriasDal {
     public ArrayList<Categorias> getAllCategorias() throws Exception {
 
         ArrayList<Categorias> lista = new ArrayList<Categorias>();
+        
         String sql = "SELECT * FROM categorias";
+        
         try {
             Statement statement = conexao.createStatement();
             ResultSet rs = statement.executeQuery(sql);
@@ -123,6 +125,7 @@ public class CategoriasDal {
     }
 
     public Categorias getCategoriasById(int cat_iden) throws Exception {
+        
         Categorias categoria = new Categorias();
 
         String sql = ("SELECT * FROM categorias WHERE cat_iden=?");
@@ -142,6 +145,7 @@ public class CategoriasDal {
     }
     
     public Categorias getCategoriaNome(String nome) throws Exception {
+        
         Categorias cat = new Categorias();
 
         String sql = "SELECT * FROM categorias WHERE cat_nome=?";
