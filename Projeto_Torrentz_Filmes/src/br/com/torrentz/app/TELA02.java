@@ -127,7 +127,6 @@ private Visualizados visualizado = null;
     
     public void EnabledDataVisualizados() {
 
-        jTextFieldDataVisCompleta.setEnabled(false);
         jTextFieldDataAtualVisualizados.setEnabled(false);
        
     }
@@ -451,12 +450,6 @@ private Visualizados visualizado = null;
 
     }
     
-    public void limparCamposVisualizados() {
-
-        jTextFieldDataVisCompleta.setText("");
-      
-
-    }
 
     public void limparCamposContratos() {
 
@@ -586,7 +579,6 @@ private Visualizados visualizado = null;
         jLabel22 = new javax.swing.JLabel();
         jComboBoxVisFilmes = new javax.swing.JComboBox<>();
         jButtonVisualizacaoCompleta = new javax.swing.JButton();
-        jTextFieldDataVisCompleta = new javax.swing.JTextField();
         jTextFieldDataAtualVisualizados = new javax.swing.JTextField();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
@@ -1248,8 +1240,8 @@ private Visualizados visualizado = null;
         jPanel7.setLayout(jPanel7Layout);
         jPanel7Layout.setHorizontalGroup(
             jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel7Layout.createSequentialGroup()
-                .addContainerGap(68, Short.MAX_VALUE)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel7Layout.createSequentialGroup()
+                .addContainerGap(84, Short.MAX_VALUE)
                 .addGroup(jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel7Layout.createSequentialGroup()
                         .addComponent(jButtonVisualizacaoCompleta, javax.swing.GroupLayout.PREFERRED_SIZE, 604, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -1257,9 +1249,6 @@ private Visualizados visualizado = null;
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel7Layout.createSequentialGroup()
                         .addComponent(jTextFieldDataAtualVisualizados, javax.swing.GroupLayout.PREFERRED_SIZE, 216, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(347, 347, 347))
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel7Layout.createSequentialGroup()
-                        .addComponent(jTextFieldDataVisCompleta, javax.swing.GroupLayout.PREFERRED_SIZE, 477, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(207, 207, 207))
                     .addGroup(jPanel7Layout.createSequentialGroup()
                         .addComponent(jLabel21)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -1268,7 +1257,7 @@ private Visualizados visualizado = null;
                         .addComponent(jLabel22)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(jComboBoxVisFilmes, javax.swing.GroupLayout.PREFERRED_SIZE, 236, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addContainerGap())))
+                        .addGap(43, 43, 43))))
         );
         jPanel7Layout.setVerticalGroup(
             jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -1283,9 +1272,7 @@ private Visualizados visualizado = null;
                 .addComponent(jTextFieldDataAtualVisualizados, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jButtonVisualizacaoCompleta, javax.swing.GroupLayout.PREFERRED_SIZE, 319, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(jTextFieldDataVisCompleta, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(158, Short.MAX_VALUE))
+                .addContainerGap(207, Short.MAX_VALUE))
         );
 
         Categorias.addTab("Play Filmes ", jPanel7);
@@ -1315,26 +1302,20 @@ private Visualizados visualizado = null;
         try {
 
             String fil = jComboBoxVisFilmes.getSelectedItem().toString();
+            String usu = jComboBoxVISusuario.getSelectedItem().toString();
             filmes = filmesBll.getConsultaNome(fil);
-            visualizado.setVis_fil_iden(filmes);
-
-            String usu = jComboBoxUsuarios.getSelectedItem().toString();
             usuario = usuariosBll.getUsuariosNome(usu);
-            visualizado.setVis_usu_iden(usuario);
-
             DateTimeFormatter formate = DateTimeFormatter.ofPattern("dd / MM / YYYY");
             LocalDateTime Inicio = LocalDateTime.now();
-
+           
+            visualizado.setVis_fil_iden(filmes);
+            visualizado.setVis_usu_iden(usuario);
             visualizado.setVis_completo(true);
-
-            visualizado.setVis_data_geracao(formate.format(Inicio));
-            jTextFieldDataVisCompleta.setText("Visualização Completa registrada no Banco de Dados com Sucesso ! Data : " + formate.format(Inicio));
-
+            visualizado.setVis_data_geracao(formate.format(Inicio));    
             visualizadoBll.Adicionar(visualizado);
-
-            limparCamposVisualizados();
-
-            JOptionPane.showMessageDialog(null, "Visualização registrada com sucesso!");
+            
+            JOptionPane.showMessageDialog(null, "Visualização Completa registrada no Banco de Dados com Sucesso ! Data : "+ formate.format(Inicio));
+        
         } catch (Exception error) {
             JOptionPane.showMessageDialog(null, error.getMessage(), "Menssagem", JOptionPane.ERROR_MESSAGE);
         }
@@ -1837,7 +1818,6 @@ try {
     private javax.swing.JTextField jTextFieldDataAtualVisualizados;
     private javax.swing.JTextField jTextFieldDataFim;
     private javax.swing.JTextField jTextFieldDataInicio;
-    private javax.swing.JTextField jTextFieldDataVisCompleta;
     private javax.swing.JTextField jTextFieldFilmesID;
     private javax.swing.JTextField jTextFieldId;
     private javax.swing.JTextField jTextFieldNome;

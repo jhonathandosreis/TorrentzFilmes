@@ -90,7 +90,7 @@ public class VisualizadosDal {
     //
     public void updateVisualizados(Visualizados visualizado) throws Exception {
 
-        String sql = "UPDATE visualizados SET vis_completo=? , vis_data_visualizacao =? , vis_usu_iden=? , vis_fil_iden  WHERE vis_iden=?";
+        String sql = "UPDATE visualizados SET vis_completo=? , vis_data_visualizacao =? , vis_usu_iden=? , vis_fil_iden=?  WHERE vis_iden=?";
 
         try {
 

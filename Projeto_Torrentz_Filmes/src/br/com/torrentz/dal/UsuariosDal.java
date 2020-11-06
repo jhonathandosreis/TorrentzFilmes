@@ -158,28 +158,16 @@ public class UsuariosDal {
     public Usuarios getUsuariosNome(String nome) throws Exception {
         Usuarios usuario = new Usuarios();
         
-        String sql = ("SELECT * FROM usuarios WHERE usu_nome=?");
+       
         try {
-
+          String sql = ("SELECT * FROM usuarios WHERE usu_nome=?");
           PreparedStatement preparedStatement = conexao.prepareStatement(sql);
           preparedStatement.setString(1, nome);
           ResultSet rs = preparedStatement.executeQuery();
 
-            if (rs.next()) {
-               
-                
-               
-                usuario.setUsu_iden(rs.getInt("usu_iden"));
-                usuario.setUsu_nome(rs.getString("usu_nome"));
-                usuario.setUsu_cpf(rs.getString("usu_cpf"));
-                usuario.setUsu_email(rs.getString("usu_email"));
-                usuario.setUsu_senha(rs.getString("usu_senha"));
-                
-                int usu_cup_iden = rs.getInt("usu_cup_iden");
-                CuponsDal objCupDal = new CuponsDal();
-                Cupons objetoCup = objCupDal.getCupomByID(usu_cup_iden);
-                usuario.setUsu_cup_iden(objetoCup);
-                
+            if (rs.next()) {     
+                int idUsu = rs.getInt("usu_iden");
+                usuario = getUsuariosById(idUsu);    
             }
         } catch (Exception error) {
             throw error;

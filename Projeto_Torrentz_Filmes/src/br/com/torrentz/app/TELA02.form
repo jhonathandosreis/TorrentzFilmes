@@ -1053,8 +1053,8 @@
           <Layout>
             <DimensionLayout dim="0">
               <Group type="103" groupAlignment="0" attributes="0">
-                  <Group type="102" alignment="0" attributes="0">
-                      <EmptySpace pref="68" max="32767" attributes="0"/>
+                  <Group type="102" alignment="1" attributes="0">
+                      <EmptySpace pref="84" max="32767" attributes="0"/>
                       <Group type="103" groupAlignment="0" attributes="0">
                           <Group type="102" alignment="1" attributes="0">
                               <Component id="jButtonVisualizacaoCompleta" min="-2" pref="604" max="-2" attributes="0"/>
@@ -1064,11 +1064,7 @@
                               <Component id="jTextFieldDataAtualVisualizados" min="-2" pref="216" max="-2" attributes="0"/>
                               <EmptySpace min="-2" pref="347" max="-2" attributes="0"/>
                           </Group>
-                          <Group type="102" alignment="1" attributes="0">
-                              <Component id="jTextFieldDataVisCompleta" min="-2" pref="477" max="-2" attributes="0"/>
-                              <EmptySpace min="-2" pref="207" max="-2" attributes="0"/>
-                          </Group>
-                          <Group type="102" alignment="0" attributes="0">
+                          <Group type="102" attributes="0">
                               <Component id="jLabel21" min="-2" max="-2" attributes="0"/>
                               <EmptySpace min="-2" max="-2" attributes="0"/>
                               <Component id="jComboBoxVISusuario" min="-2" pref="236" max="-2" attributes="0"/>
@@ -1076,7 +1072,7 @@
                               <Component id="jLabel22" min="-2" max="-2" attributes="0"/>
                               <EmptySpace max="-2" attributes="0"/>
                               <Component id="jComboBoxVisFilmes" min="-2" pref="236" max="-2" attributes="0"/>
-                              <EmptySpace max="-2" attributes="0"/>
+                              <EmptySpace min="-2" pref="43" max="-2" attributes="0"/>
                           </Group>
                       </Group>
                   </Group>
@@ -1096,9 +1092,7 @@
                       <Component id="jTextFieldDataAtualVisualizados" min="-2" max="-2" attributes="0"/>
                       <EmptySpace type="unrelated" max="-2" attributes="0"/>
                       <Component id="jButtonVisualizacaoCompleta" min="-2" pref="319" max="-2" attributes="0"/>
-                      <EmptySpace type="unrelated" max="-2" attributes="0"/>
-                      <Component id="jTextFieldDataVisCompleta" min="-2" max="-2" attributes="0"/>
-                      <EmptySpace pref="158" max="32767" attributes="0"/>
+                      <EmptySpace pref="207" max="32767" attributes="0"/>
                   </Group>
               </Group>
             </DimensionLayout>
@@ -1141,8 +1135,6 @@
               <Events>
                 <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jButtonVisualizacaoCompletaActionPerformed"/>
               </Events>
-            </Component>
-            <Component class="javax.swing.JTextField" name="jTextFieldDataVisCompleta">
             </Component>
             <Component class="javax.swing.JTextField" name="jTextFieldDataAtualVisualizados">
             </Component>
