@@ -21,3 +21,9 @@
 
 # virtual machine crash logs, see http://www.java.com/en/download/help/error_hotspot.xml
 hs_err_pid*
+/Projeto_Torrentz_Filmes/dist/
+/Projeto_Torrentz_Filmes/build/
+/Projeto_Torrentz_Filmes/nbproject/
+/Projeto_Torrentz_Filmes/src/br/com/torrentz/util/Conexao.java
+/Projeto_Torrentz_Filmes/src/br/com/torrentz/util/ConexaoAm.java
+/Projeto_Torrentz_Filmes/src/br/com/torrentz/util/postgresql-42.2.16.jar
