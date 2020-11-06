@@ -1,0 +1,199 @@
+/*
+ *  -------------------------------------------------------------------------------------------------->
+ *  Licença    : MIT - Copyright 2019 Jhonathan, Gustavo e Miguel 
+ *  Criado em  : 03/11/2020 15:44:59 
+ *  Instituição: FACULDADE SENAI FATESG
+ *  Curso      : Análise e Desenvolvimento de sistemas - Módulo 3 - 2020/2
+ *  Disciplina : mbd - Modelagem de banco de dados
+ *  Alunos     : Jhonathan dos Reis, Gustavo Gabriel e Miguel Neto
+ *  Projeto    : PROJETO CAMADAS
+ *  Exercício  : Torrentz Filmes
+ *  ---------------------------------------------------------------------------------------------------
+ *  Propósito do arquivo (Objetivo).
+ *  ---------------------------------------------------------------------------------------------------| 
+ */
+
+package br.com.torrentz.dal;
+
+import br.com.torrentz.model.Categorias;
+import br.com.torrentz.model.Filmes;
+import java.sql.Connection;
+import br.com.torrentz.util.Conexao;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.sql.Statement;
+import java.util.ArrayList;
+
+/**
+ *
+ * @author JHONATHAN
+ */
+public class FilmesDal {
+
+    //--- ATRIBUTOS ----------------------------------------------------------------------------------->
+    //
+    private Connection conexao;
+    private Categorias categoria = null;
+    //--- FIM ATRIBUTOS -------------------------------------------------------------------------------|
+    //
+
+    //--- CONSTRUTORES -------------------------------------------------------------------------------->
+    //
+    public FilmesDal() throws SQLException, ClassNotFoundException {
+        conexao = Conexao.getConexao();
+    }
+    //--- FIM CONSTRUTORES ----------------------------------------------------------------------------|
+    //
+
+    //--- CREATE -------------------------------------------------------------------------------------->
+    //
+    public void addFilmes(Filmes filmes) throws SQLException {
+        
+        String sql = "INSERT INTO filmes (fil_sinopse, fil_titulo, fil_ano, fil_cat_iden) VALUES (?,?,?,?)";
+
+        try {
+            PreparedStatement preparedStatement = conexao.prepareStatement(sql);
+            preparedStatement.setString(1, filmes.getFil_sinopse());
+            preparedStatement.setString(2, filmes.getFil_titulo());
+            preparedStatement.setInt(3, filmes.getFil_ano());
+            preparedStatement.setInt(4, filmes.getFil_cat_iden().getCat_iden());
+            preparedStatement.executeUpdate();
+        } catch (SQLException error) {
+            if (error.getMessage().contains("duplicate key value violates unique constraint")) {
+                throw new RuntimeException("Já existe um filme com o mesmo nome!");
+            }
+        }
+    }
+    //--- FIM CREATE ----------------------------------------------------------------------------------|
+    //
+
+    //--- DELETE -------------------------------------------------------------------------------------->
+    //
+    public void deleteFilmes(int fil_iden) throws SQLException {
+        String sql = "DELETE FROM filmes WHERE fil_iden =?";
+
+        try {
+            PreparedStatement preparedStatement = conexao.prepareStatement(sql);
+            preparedStatement.setInt(1, fil_iden);
+            preparedStatement.executeUpdate();
+        } catch (SQLException error) {
+            if (error.getMessage().contains("violates foreign key constraint")) {
+                throw new RuntimeException("Não é possível deletar este filme!");
+            }
+        }
+    }
+    //--- FIM DELETE ----------------------------------------------------------------------------------|
+    //
+
+    //--- UPDATE -------------------------------------------------------------------------------------->
+    //
+    public void updateFilmes(Filmes filmes) throws SQLException {
+        String sql = "UPDATE filmes SET fil_sinopse=?, fil_titulo=?, fil_ano=?, fil_cat_iden=? WHERE fil_iden=?";
+        
+        try {
+            PreparedStatement preparedStatement = conexao.prepareStatement(sql);
+            preparedStatement.setString(1, filmes.getFil_sinopse());
+            preparedStatement.setString(2, filmes.getFil_titulo());
+            preparedStatement.setInt(3, filmes.getFil_ano());
+            preparedStatement.setInt(4, filmes.getFil_cat_iden().getCat_iden());
+            preparedStatement.setInt(5, filmes.getFil_iden());
+            preparedStatement.executeUpdate();
+        } catch (SQLException error) {
+            if (error.getMessage().contains("duplicate key value violates unique constraint")) {
+                throw new RuntimeException("Não é possível altera este filme!");
+            }
+        }
+    }
+    //--- FIM UPDATE ----------------------------------------------------------------------------------|
+    //
+
+    //--- READ ---------------------------------------------------------------------------------------->
+    //
+    public ArrayList<Filmes> getAllFilmes() throws SQLException, ClassNotFoundException {
+        ArrayList<Filmes> lista = new ArrayList<Filmes>();
+
+        String sql = "SELECT * FROM filmes";
+
+        try {
+            Statement statement = conexao.createStatement();
+            ResultSet rs = statement.executeQuery(sql);
+            while (rs.next()) {
+                Filmes filmes = new Filmes();
+                
+                filmes.setFil_iden(rs.getInt("fil_iden"));               
+                filmes.setFil_sinopse(rs.getString("fil_sinopse"));
+                filmes.setFil_titulo(rs.getString("fil_titulo"));
+                filmes.setFil_ano(rs.getInt("fil_ano"));
+
+                //Utilizando chave estrangeira
+                int fil_cat_iden = rs.getInt("fil_cat_iden");
+                CategoriasDal catDal = new CategoriasDal();
+                Categorias objetoCategorias = catDal.getCategoriasById(fil_cat_iden);
+                filmes.setFil_cat_iden(objetoCategorias);
+                lista.add(filmes);
+            }
+        } catch (SQLException error) {
+            throw error;
+        }
+        return lista;
+    }
+
+    public Filmes getFilmesById(int fil_iden) throws SQLException, ClassNotFoundException {
+
+        Filmes filmes = new Filmes();
+
+        String sql = "SELECT * FROM filmes WHERE fil_iden=?";
+
+        try {
+            PreparedStatement preparedStatement = conexao.prepareStatement(sql);
+            preparedStatement.setInt(1, fil_iden);
+            ResultSet rs = preparedStatement.executeQuery();
+            if (rs.next()) {
+                filmes.setFil_iden(rs.getInt("fil_iden"));
+                filmes.setFil_sinopse(rs.getString("fil_sinopse"));
+                filmes.setFil_titulo(rs.getString("fil_titulo"));
+                filmes.setFil_ano(rs.getInt("fil_ano"));
+
+                //Utilizando chave estrangeira
+                int fil_cat_iden = rs.getInt("fil_cat_iden");
+                CategoriasDal catDal = new CategoriasDal();
+                Categorias objetoCategorias = catDal.getCategoriasById(fil_cat_iden);
+                filmes.setFil_cat_iden(objetoCategorias);
+            }
+        } catch (SQLException error) {
+            throw error;
+        }
+        return filmes;
+    }
+    
+    public Filmes getFilmesNome(String nome) throws SQLException, ClassNotFoundException {
+
+        Filmes filmes = new Filmes();
+
+        String sql = ("SELECT * FROM filmes WHERE fil_titulo=?");
+
+        try {
+            PreparedStatement preparedStatement = conexao.prepareStatement(sql);
+            preparedStatement.setString(1, nome);
+            ResultSet rs = preparedStatement.executeQuery();
+            if (rs.next()) {
+                filmes.setFil_iden(rs.getInt("fil_iden"));
+                filmes.setFil_sinopse(rs.getString("fil_sinopse"));
+                filmes.setFil_titulo(rs.getString("fil_titulo"));
+                filmes.setFil_ano(rs.getInt("fil_ano"));
+
+                //Utilizando chave estrangeira
+                int fil_cat_iden = rs.getInt("fil_cat_iden");
+                CategoriasDal catDal = new CategoriasDal();
+                Categorias objetoCategorias = catDal.getCategoriasById(fil_cat_iden);
+                filmes.setFil_cat_iden(objetoCategorias);
+            }
+        } catch (SQLException error) {
+            throw error;
+        }
+        return filmes;
+    }
+    //--- FIM READ ------------------------------------------------------------------------------------|
+    //
+}
