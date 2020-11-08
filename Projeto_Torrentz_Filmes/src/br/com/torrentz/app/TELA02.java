@@ -29,23 +29,28 @@ import javax.swing.table.DefaultTableModel;
 
 /**
  *
- * @author miguelneto
+ * @author Gustavo, Miguel, Jonathan
  */
 public class TELA02 extends javax.swing.JFrame {
 private Visualizados visualizado = null;
+    
+//--- BLL´S-------------------------------------------------------------------------------------------->
     private VisualizadosBll visualizadoBll = null;
-    private Contratos contrato = null; 
     private ContratosBll contratosBll = null;
-    private Categorias categoria = null;
     private CategoriaBll categoriaBll = null;
-    private Planos planos = null;
     private PlanosBll planosBll = null;
-    private Filmes filmes = null;
     private FilmesBll filmesBll = null;
-    private Usuarios usuario = null;
-    private UsuariosBll usuariosBll = null;
-    private Cupons cupom = null;
     private CuponsBll cupomBll = null;
+    private UsuariosBll usuariosBll = null;
+    
+//--- CLASSES ----------------------------------------------------------------------------------------->
+    private Contratos contrato = null; 
+    private Categorias categoria = null;
+    private Planos planos = null;
+    private Filmes filmes = null;
+    private Usuarios usuario = null;
+    private Cupons cupom = null;
+   
     /**
      * Creates new form TELA02
      */
@@ -53,32 +58,39 @@ private Visualizados visualizado = null;
         initComponents();
     try {
 
-            visualizado = new Visualizados();
-            visualizadoBll = new VisualizadosBll();
-            contratosBll = new ContratosBll();
-            contrato = new Contratos();
-            categoria = new Categorias();
-            categoriaBll = new CategoriaBll();
-            planos = new Planos();
-            planosBll = new PlanosBll();
-            filmes = new Filmes();
-            filmesBll = new FilmesBll();
-            usuario = new Usuarios();
-            cupom = new Cupons();
-            usuariosBll = new UsuariosBll(); //DEPOIS VER COMO DEIXAR COMO AS OUTRAS
-            cupomBll = new CuponsBll();
+//--- INSTANCIAS BLL----------------------------------------------------------------------------------->        
+        visualizadoBll = new VisualizadosBll();
+        contratosBll = new ContratosBll();
+        categoriaBll = new CategoriaBll();
+        planosBll = new PlanosBll();
+        filmesBll = new FilmesBll();
+        usuariosBll = new UsuariosBll();
+        cupomBll = new CuponsBll();
 
+//--- INSTANCIAS CLASSES------------------------------------------------------------------------------->    
+        visualizado = new Visualizados();
+        contrato = new Contratos();
+        categoria = new Categorias();
+        planos = new Planos();
+        filmes = new Filmes();
+        usuario = new Usuarios();
+        cupom = new Cupons();
+            
+            
+//--- PREENCHER GIRD´S--------------------------------------------------------------------------------->    
             preencherGridContratos();
             preencherGridUsuarios();
             preencherGridCategoria();
             preencherGridPlanos();
             preencherGridFilmes();
 
+//--- PREENCHER COMBO´S-------------------------------------------------------------------------------->    
             preencherComboboxUsuario();
             preencherComboboxPlano();
             preencherComboboxCategoria();
             preencherComboboxFilmes();
-            
+
+//--- PREENCHER CAMPO´S-------------------------------------------------------------------------------->    
             preencherData();
             preencherDataAtualVisualizados();
             preencherStatusTipo();
@@ -91,6 +103,7 @@ private Visualizados visualizado = null;
         this.setLocationRelativeTo(null);
     }
 
+//--- CATEGORIA --------------------------------------------------------------------------------------->
     public void preencherGridCategoria() {
 
         try {
@@ -110,46 +123,28 @@ private Visualizados visualizado = null;
             JOptionPane.showMessageDialog(null, e.getMessage(), "Mensagem", JOptionPane.ERROR_MESSAGE);
         }
     }
+    public void preencherComboboxCategoria() throws Exception {
+        ArrayList<Categorias> lista = categoriaBll.getConsulta();
+        jComboBoxCategoriaFilmes.removeAllItems();
+        jComboBoxCategoriaFilmes.addItem("<SELECIONE>");
 
-    public void preencherStatusTipo() {
+        for (Categorias categorias : lista) {
+            jComboBoxCategoriaFilmes.addItem(categorias.getCat_nome());
+        }
+    }
+    public void preencherFormularioCategorias() {
+        int id = Integer.parseInt(jTableCategoria.getValueAt(jTableCategoria.getSelectedRow(), 0).toString());
+        String nome = jTableCategoria.getValueAt(jTableCategoria.getSelectedRow(), 1).toString();
 
-        jTextFieldStatus.setText("Ativo");
-
+        jTextFieldNome.setText(nome);
+        jTextFieldId.setText(id + "");
+    }
+    public void validarFormularioCategorias() {
+        Valida.campoVazio(jTextFieldNome.getText(), "Digite o nome!");
+        Valida.notSpecialCharacters(jTextFieldNome.getText(), "Digite o nome!");
     }
 
-    public void EnabledContratos() {
-
-        jTextFieldStatus.setEnabled(false);
-        jTextFieldDataInicio.setEnabled(false);
-        jTextFieldDataFim.setEnabled(false);
-
-    }
-    
-    public void EnabledDataVisualizados() {
-
-        jTextFieldDataAtualVisualizados.setEnabled(false);
-       
-    }
-    
-    public void preencherData() {
-
-        DateTimeFormatter formate = DateTimeFormatter.ofPattern("dd / MM / YYYY");
-        LocalDate Inicio = LocalDate.now();
-        jTextFieldDataInicio.setText(formate.format(Inicio));
-        LocalDate Fim = Inicio.plusYears(1);
-        jTextFieldDataFim.setText(formate.format(Fim));
-
-    }
-     
-    public void preencherDataAtualVisualizados(){
-
-        DateTimeFormatter formate = DateTimeFormatter.ofPattern("dd / MM / YYYY");
-        LocalDate Inicio = LocalDate.now();
-        jTextFieldDataAtualVisualizados.setText("     Data Atual : " +formate.format(Inicio));
-        
-
-    }
-      
+//--- PLANOS ------------------------------------------------------------------------------------------>   
     public void preencherGridPlanos() {
 
         try {
@@ -173,7 +168,44 @@ private Visualizados visualizado = null;
             JOptionPane.showMessageDialog(null, e.getMessage(), "Mensagem", JOptionPane.ERROR_MESSAGE);
         }
     }
+    public void preencherComboboxPlano() throws Exception {
+        ArrayList<Planos> lista = planosBll.getConsulta();
+        jComboBoxPlanos.removeAllItems();
+        jComboBoxPlanos.addItem("<SELECIONE>");
 
+        for (Planos pla : lista) {
+            jComboBoxPlanos.addItem(pla.getPla_nome());
+        }
+    }
+    public void limparCamposPlanos() {
+        jTextFieldAcessos.setText("");
+        jTextFieldPlanosPrecos.setText("");
+        jTextFieldPlanosNome.setText("");
+    }
+    public void preencherFormularioPlanos() {
+
+        int id = Integer.parseInt(jTablePlanos.getValueAt(jTablePlanos.getSelectedRow(), 0).toString());
+        int acessoSimultaneo = Integer.parseInt(jTablePlanos.getValueAt(jTablePlanos.getSelectedRow(), 1).toString());
+        String nome = jTablePlanos.getValueAt(jTablePlanos.getSelectedRow(), 2).toString();
+        float preco = Float.parseFloat(jTablePlanos.getValueAt(jTablePlanos.getSelectedRow(), 3).toString());
+
+        jTextFieldAcessos.setText(acessoSimultaneo + "");
+        jTextFieldPlanosNome.setText(nome);
+        jTextFieldPlanosPrecos.setText(preco + "");
+        jTextFieldPlanosID.setText(id + "");
+    }
+    public void ValidaFormularioPlanos() throws Exception {
+
+        Valida.campoVazio(jTextFieldAcessos.getText(), "Digite a quantidade de acessos!");
+        Valida.campoVazio(jTextFieldPlanosNome.getText(), "Digite o nome!");
+        Valida.campoVazio(jTextFieldPlanosPrecos.getText(), "Digite o preço!");
+        Valida.numberInteger(jTextFieldAcessos.getText(), "Somente números!");
+        Valida.notNumber(jTextFieldPlanosNome.getText(), "Somente letras!");
+        Valida.numberFloat(jTextFieldPlanosPrecos.getText(), "Somente números!");
+
+    }
+
+//--- FILMES ------------------------------------------------------------------------------------------>    
     public void preencherGridFilmes() {
 
         try {
@@ -196,7 +228,50 @@ private Visualizados visualizado = null;
             JOptionPane.showMessageDialog(null, "ERRO NA GRID FILMES!!!", "", JOptionPane.ERROR_MESSAGE);
         }
     }
+    public void preencherFormularioFilmes() throws Exception, ClassNotFoundException {
 
+        int id = Integer.parseInt(jTableFilmes.getValueAt(jTableFilmes.getSelectedRow(), 0).toString());
+        String titulo = jTableFilmes.getValueAt(jTableFilmes.getSelectedRow(), 1).toString();
+        int ano = Integer.parseInt(jTableFilmes.getValueAt(jTableFilmes.getSelectedRow(), 2).toString());
+        String sinopse = jTableFilmes.getValueAt(jTableFilmes.getSelectedRow(), 3).toString();
+
+        int idCat = filmesBll.getConsultaPorId(id).getFil_cat_iden().getCat_iden();
+
+        jComboBoxCategoriaFilmes.setSelectedItem(categoriaBll.getConsultaPorId(id).getCat_nome());
+
+        jTextFieldFilmesID.setText(id + "");
+        jTextFieldTituloFilmes.setText(titulo);
+        jTextFieldAnoFilmes.setText(ano + "");
+        jTextAreaSinopseFilmes.setText(sinopse);
+        jComboBoxCategoriaFilmes.setSelectedItem(idCat);
+    }
+    public void preencherComboboxFilmes() throws Exception, ClassNotFoundException {
+        ArrayList<Filmes> lista = filmesBll.getConsulta();
+        jComboBoxVisFilmes.removeAllItems();
+        jComboBoxVisFilmes.addItem("<SELECIONE>");
+
+        for (Filmes filmes : lista) {
+            jComboBoxVisFilmes.addItem(filmes.getFil_titulo());
+        }
+    }
+    public void validaFormularioFilmes() {
+
+        Valida.campoVazio(jTextFieldTituloFilmes.getText(), "Digite o titulo do filme!");
+        Valida.campoVazio(jTextFieldAnoFilmes.getText(), "Digite o ano do filme!");
+        Valida.campoVazio(jTextAreaSinopseFilmes.getText(), "Preencha a sinopse do filme!");
+
+        Valida.notNumber(jTextFieldTituloFilmes.getText(), "Somente letras!");
+        Valida.numberInteger(jTextFieldAnoFilmes.getText(), "Somente números!");
+        Valida.notSpecialCharacters(jTextAreaSinopseFilmes.getText(), "Não aceitamos caracteres especiais!");
+
+    }
+    public void limparCamposFilmes() {
+        jTextAreaSinopseFilmes.setText("");
+        jTextFieldTituloFilmes.setText("");
+        jTextFieldAnoFilmes.setText("");
+    }
+
+//--- CONTRATOS ----------------------------------------------------------------------------------------->  
     public void preencherGridContratos() {
 
         try {
@@ -224,49 +299,6 @@ private Visualizados visualizado = null;
             JOptionPane.showMessageDialog(null, "ERRO NA GRID CONTRATOS!!!", "", JOptionPane.ERROR_MESSAGE);
         }
     }
-
-    public void preencherGridUsuarios() {
-
-        try {
-            DefaultTableModel TableUSUARIOS = (DefaultTableModel) jTable_usuarios.getModel();
-            TableUSUARIOS.setRowCount(0);
-
-            Object[] linha = new Object[5];
-
-            ArrayList<Usuarios> usuarios = new UsuariosBll().getConsulta();
-
-            for (Usuarios usu : usuarios) {
-                linha[0] = usu.getUsu_iden();
-                linha[1] = usu.getUsu_nome();
-                linha[2] = usu.getUsu_cpf();
-                linha[3] = usu.getUsu_email();
-                linha[4] = "" + usu.getUsu_cup_iden().getCup_porcentagem() + " % ";
-                TableUSUARIOS.addRow(linha);
-            }
-
-        } catch (Exception e) {
-            JOptionPane.showMessageDialog(null, e.getMessage(), "ERRO NA GRID USUÁRIOS!!!", JOptionPane.ERROR_MESSAGE);
-        }
-    }
-
-    public void preencherFormularioFilmes() throws Exception, ClassNotFoundException {
-
-        int id = Integer.parseInt(jTableFilmes.getValueAt(jTableFilmes.getSelectedRow(), 0).toString());
-        String titulo = jTableFilmes.getValueAt(jTableFilmes.getSelectedRow(), 1).toString();
-        int ano = Integer.parseInt(jTableFilmes.getValueAt(jTableFilmes.getSelectedRow(), 2).toString());
-        String sinopse = jTableFilmes.getValueAt(jTableFilmes.getSelectedRow(), 3).toString();
-
-        int idCat = filmesBll.getConsultaPorId(id).getFil_cat_iden().getCat_iden();
-
-        jComboBoxCategoriaFilmes.setSelectedItem(categoriaBll.getConsultaPorId(id).getCat_nome());
-
-        jTextFieldFilmesID.setText(id + "");
-        jTextFieldTituloFilmes.setText(titulo);
-        jTextFieldAnoFilmes.setText(ano + "");
-        jTextAreaSinopseFilmes.setText(sinopse);
-        jComboBoxCategoriaFilmes.setSelectedItem(idCat);
-    }
-
     public void preencherFormularioContratos() throws Exception, ClassNotFoundException {
         
         
@@ -295,41 +327,69 @@ private Visualizados visualizado = null;
         
 
     }
+    public void validaFormularioContratos() throws Exception {
 
+//        ArrayList<Usuarios> lista = usuariosBll.getConsulta();
+//        for (Usuarios uso2 : lista) {
+//            if (uso2.getUsu_nome().equals(uso2.getUsu_nome())) {
+//                throw new RuntimeException("Usuário já existente!");
+//            }
+//        }
+        Valida.campoVazio(jTextFieldDataInicio.getText(), "Digite a Data de Início do Contrato!");
+        Valida.campoVazio(jTextFieldDataFim.getText(), "Digite a Data do Término do Contrato!");
+        Valida.campoVazio(jTextFieldStatus.getText(), "Digite o Status do Contrato!");
+
+        Valida.notNumber(jTextFieldStatus.getText(), "Somente letras!");
+
+    }
+    public void limparCamposContratos() {
+
+//        jTextFieldStatus.setText("");
+//        jTextFieldDataInicio.setText("");
+//         jTextFieldDataFim.setText("");
+
+    }
+
+//--- USUÁRIOS ----------------------------------------------------------------------------------------->  
+    public void preencherGridUsuarios() {
+
+        try {
+            DefaultTableModel TableUSUARIOS = (DefaultTableModel) jTable_usuarios.getModel();
+            TableUSUARIOS.setRowCount(0);
+
+            Object[] linha = new Object[5];
+
+            ArrayList<Usuarios> usuarios = new UsuariosBll().getConsulta();
+
+            for (Usuarios usu : usuarios) {
+                linha[0] = usu.getUsu_iden();
+                linha[1] = usu.getUsu_nome();
+                linha[2] = usu.getUsu_cpf();
+                linha[3] = usu.getUsu_email();
+                linha[4] = "" + usu.getUsu_cup_iden().getCup_porcentagem() + " % ";
+                TableUSUARIOS.addRow(linha);
+            }
+
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(null, e.getMessage(), "ERRO NA GRID USUÁRIOS!!!", JOptionPane.ERROR_MESSAGE);
+        }
+    }
     public void preencherFormularioUsuarios() throws Exception, ClassNotFoundException {
 
         int id = Integer.parseInt(jTable_usuarios.getValueAt(jTable_usuarios.getSelectedRow(), 0).toString());
         String nome = jTable_usuarios.getValueAt(jTable_usuarios.getSelectedRow(), 1).toString();
         int cpf = Integer.parseInt(jTable_usuarios.getValueAt(jTable_usuarios.getSelectedRow(), 2).toString());
         String email = jTable_usuarios.getValueAt(jTable_usuarios.getSelectedRow(), 3).toString();
+        usuario = usuariosBll.getConsultaPorId(id);
 
         jTextField_id_usu.setText(id + "");
         jTextField_Nome_USU.setText(nome);
         jTextField_Cpf_USU.setText(cpf + "");
         jTextField_Email_USU.setText(email);
+        jPasswordField_Senha_USU.setText(usuario.getUsu_senha());
+        jPasswordField_ConfirmSenha_USU.setText(usuario.getUsu_senha());
 
     }
-
-    public void preencherComboboxCategoria() throws Exception {
-        ArrayList<Categorias> lista = categoriaBll.getConsulta();
-        jComboBoxCategoriaFilmes.removeAllItems();
-        jComboBoxCategoriaFilmes.addItem("<SELECIONE>");
-
-        for (Categorias categorias : lista) {
-            jComboBoxCategoriaFilmes.addItem(categorias.getCat_nome());
-        }
-    }
-    
-    public void preencherComboboxFilmes() throws Exception, ClassNotFoundException {
-        ArrayList<Filmes> lista = filmesBll.getConsulta();
-        jComboBoxVisFilmes.removeAllItems();
-        jComboBoxVisFilmes.addItem("<SELECIONE>");
-
-        for (Filmes filmes : lista) {
-            jComboBoxVisFilmes.addItem(filmes.getFil_titulo());
-        }
-    }
-
     public void preencherComboboxUsuario() throws Exception {
         ArrayList<Usuarios> lista = usuariosBll.getConsulta();
         jComboBoxUsuarios.removeAllItems();
@@ -345,73 +405,6 @@ private Visualizados visualizado = null;
         }
 
     }
-
-    public void preencherComboboxPlano() throws Exception {
-        ArrayList<Planos> lista = planosBll.getConsulta();
-        jComboBoxPlanos.removeAllItems();
-        jComboBoxPlanos.addItem("<SELECIONE>");
-
-        for (Planos pla : lista) {
-            jComboBoxPlanos.addItem(pla.getPla_nome());
-        }
-    }
-
-    public void preencherFormularioCategoris() {
-        int id = Integer.parseInt(jTableCategoria.getValueAt(jTableCategoria.getSelectedRow(), 0).toString());
-        String nome = jTableCategoria.getValueAt(jTableCategoria.getSelectedRow(), 1).toString();
-
-        jTextFieldNome.setText(nome);
-        jTextFieldId.setText(id + "");
-    }
-
-    public void preencherFormularioPlanos() {
-
-        int id = Integer.parseInt(jTablePlanos.getValueAt(jTablePlanos.getSelectedRow(), 0).toString());
-        int acessoSimultaneo = Integer.parseInt(jTablePlanos.getValueAt(jTablePlanos.getSelectedRow(), 1).toString());
-        String nome = jTablePlanos.getValueAt(jTablePlanos.getSelectedRow(), 2).toString();
-        float preco = Float.parseFloat(jTablePlanos.getValueAt(jTablePlanos.getSelectedRow(), 3).toString());
-
-        jTextFieldAcessos.setText(acessoSimultaneo + "");
-        jTextFieldPlanosNome.setText(nome);
-        jTextFieldPlanosPrecos.setText(preco + "");
-        jTextFieldPlanosID.setText(id + "");
-    }
-
-    public boolean ValidaSenha(String senha, String confirma) {
-        if (senha.equals(confirma)) {
-            return true;
-        }
-        return false;
-    }
-
-    public void ValidaFormularioPlanos() throws Exception {
-
-        Valida.campoVazio(jTextFieldAcessos.getText(), "Digite a quantidade de acessos!");
-        Valida.campoVazio(jTextFieldPlanosNome.getText(), "Digite o nome!");
-        Valida.campoVazio(jTextFieldPlanosPrecos.getText(), "Digite o preço!");
-        Valida.numberInteger(jTextFieldAcessos.getText(), "Somente números!");
-        Valida.notNumber(jTextFieldPlanosNome.getText(), "Somente letras!");
-        Valida.numberFloat(jTextFieldPlanosPrecos.getText(), "Somente números!");
-
-    }
-
-    public void validarFormularioCategorias() {
-        Valida.campoVazio(jTextFieldNome.getText(), "Digite o nome!");
-        Valida.notSpecialCharacters(jTextFieldNome.getText(), "Digite o nome!");
-    }
-
-    public void validaFormularioFilmes() {
-
-        Valida.campoVazio(jTextFieldTituloFilmes.getText(), "Digite o titulo do filme!");
-        Valida.campoVazio(jTextFieldAnoFilmes.getText(), "Digite o ano do filme!");
-        Valida.campoVazio(jTextAreaSinopseFilmes.getText(), "Preencha a sinopse do filme!");
-
-        Valida.notNumber(jTextFieldTituloFilmes.getText(), "Somente letras!");
-        Valida.numberInteger(jTextFieldAnoFilmes.getText(), "Somente números!");
-        Valida.notSpecialCharacters(jTextAreaSinopseFilmes.getText(), "Não aceitamos caracteres especiais!");
-
-    }
-
     public void validaFormularioUsuarios() {
 
         Valida.campoVazio(jTextField_Nome_USU.getText(), "Digite o nome do Usuário!");
@@ -433,37 +426,6 @@ private Visualizados visualizado = null;
         Valida.notSpecialCharacters(jTextField_Cpf_USU.getText(), "Cpf do usuário não pode conter caracteres especiais");
 
     }
-
-    public void validaFormularioContratos() throws Exception {
-
-//        ArrayList<Usuarios> lista = usuariosBll.getConsulta();
-//        for (Usuarios uso2 : lista) {
-//            if (uso2.getUsu_nome().equals(uso2.getUsu_nome())) {
-//                throw new RuntimeException("Usuário já existente!");
-//            }
-//        }
-        Valida.campoVazio(jTextFieldDataInicio.getText(), "Digite a Data de Início do Contrato!");
-        Valida.campoVazio(jTextFieldDataFim.getText(), "Digite a Data do Término do Contrato!");
-        Valida.campoVazio(jTextFieldStatus.getText(), "Digite o Status do Contrato!");
-
-        Valida.notNumber(jTextFieldStatus.getText(), "Somente letras!");
-
-    }
-    
-
-    public void limparCamposContratos() {
-
-//        jTextFieldStatus.setText("");
-//        jTextFieldDataInicio.setText("");
-//         jTextFieldDataFim.setText("");
-
-    }
-
-    public void limparCampos() {
-        jTextFieldId.setText("");
-        jTextFieldNome.setText("");
-    }
-
     public void limparCamposUsuarios() {
         jTextField_Nome_USU.setText("");
         jTextField_Cpf_USU.setText("");
@@ -473,18 +435,50 @@ private Visualizados visualizado = null;
         jTextField_id_usu.setText("");
     }
 
-    public void limparCamposPlanos() {
-        jTextFieldAcessos.setText("");
-        jTextFieldPlanosPrecos.setText("");
-        jTextFieldPlanosNome.setText("");
-    }
+    public void preencherStatusTipo() {
 
-    public void limparCamposFilmes() {
-        jTextAreaSinopseFilmes.setText("");
-        jTextFieldTituloFilmes.setText("");
-        jTextFieldAnoFilmes.setText("");
-    }
+        jTextFieldStatus.setText("Ativo");
 
+    }
+    public void EnabledContratos() {
+
+        jTextFieldStatus.setEnabled(false);
+        jTextFieldDataInicio.setEnabled(false);
+        jTextFieldDataFim.setEnabled(false);
+
+    }   
+    public void EnabledDataVisualizados() {
+
+        jTextFieldDataAtualVisualizados.setEnabled(false);
+       
+    }   
+    public void preencherData() {
+
+        DateTimeFormatter formate = DateTimeFormatter.ofPattern("dd / MM / YYYY");
+        LocalDate Inicio = LocalDate.now();
+        jTextFieldDataInicio.setText(formate.format(Inicio));
+        LocalDate Fim = Inicio.plusYears(1);
+        jTextFieldDataFim.setText(formate.format(Fim));
+
+    }   
+    public void preencherDataAtualVisualizados(){
+
+        DateTimeFormatter formate = DateTimeFormatter.ofPattern("dd / MM / YYYY");
+        LocalDate Inicio = LocalDate.now();
+        jTextFieldDataAtualVisualizados.setText("     Data Atual : " +formate.format(Inicio));
+        
+
+    }
+    public boolean ValidaSenha(String senha, String confirma) {
+        if (senha.equals(confirma)) {
+            return true;
+        }
+        return false;
+    }
+    public void limparCampos() {
+        jTextFieldId.setText("");
+        jTextFieldNome.setText("");
+    }
 
     /**
      * This method is called from within the constructor to initialize the form. WARNING: Do NOT modify
@@ -1307,15 +1301,15 @@ private Visualizados visualizado = null;
             usuario = usuariosBll.getUsuariosNome(usu);
             DateTimeFormatter formate = DateTimeFormatter.ofPattern("dd / MM / YYYY");
             LocalDateTime Inicio = LocalDateTime.now();
-           
+
             visualizado.setVis_fil_iden(filmes);
             visualizado.setVis_usu_iden(usuario);
             visualizado.setVis_completo(true);
-            visualizado.setVis_data_geracao(formate.format(Inicio));    
+            visualizado.setVis_data_geracao(formate.format(Inicio));
             visualizadoBll.Adicionar(visualizado);
-            
-            JOptionPane.showMessageDialog(null, "Visualização Completa registrada no Banco de Dados com Sucesso ! Data : "+ formate.format(Inicio));
-        
+
+            JOptionPane.showMessageDialog(null, "Visualização Completa registrada no Banco de Dados com Sucesso ! Data : " + formate.format(Inicio));
+
         } catch (Exception error) {
             JOptionPane.showMessageDialog(null, error.getMessage(), "Menssagem", JOptionPane.ERROR_MESSAGE);
         }
@@ -1324,7 +1318,7 @@ private Visualizados visualizado = null;
     }//GEN-LAST:event_jButtonVisualizacaoCompletaActionPerformed
 
     private void jButtonAdicionarContratoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonAdicionarContratoActionPerformed
-try {
+        try {
 
             validaFormularioContratos();
 
@@ -1360,7 +1354,7 @@ try {
     }//GEN-LAST:event_jButtonAdicionarContratoActionPerformed
 
     private void jButtonAlterarContratoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonAlterarContratoActionPerformed
-         try {
+        try {
             if (jTableContratos.getSelectedRow() == -1) {
                 throw new RuntimeException("Selecione um contrato a ser alterado!");
             }
@@ -1405,7 +1399,7 @@ try {
     }//GEN-LAST:event_jButtonAlterarContratoActionPerformed
 
     private void jButtonRemoverContratoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonRemoverContratoActionPerformed
-     try {
+        try {
             if (jTableContratos.getSelectedRow() == -1) {
                 throw new RuntimeException("Selecione um contrato a ser removido!");
             }
@@ -1433,7 +1427,7 @@ try {
     }//GEN-LAST:event_jTableContratosMouseClicked
 
     private void jTable_usuariosMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jTable_usuariosMouseClicked
-       try {
+        try {
             preencherFormularioUsuarios();
 
         } catch (Exception error) {
@@ -1442,43 +1436,52 @@ try {
     }//GEN-LAST:event_jTable_usuariosMouseClicked
 
     private void jButton_remover_usuarioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton_remover_usuarioActionPerformed
-        // TODO add your handling code here:
+        try {
+            if (jTable_usuarios.getSelectedRow() == -1) {
+                throw new RuntimeException("Selecione um usuário a ser removido!");
+            }
+            usuario.setUsu_iden(Integer.parseInt(jTextField_id_usu.getText()));
+            usuariosBll.Remover(usuario);
+            preencherGridUsuarios();
+            limparCamposUsuarios();
+
+            JOptionPane.showMessageDialog(null, "Usuário removido com sucesso!");
+        } catch (Exception error) {
+            JOptionPane.showMessageDialog(null, error.getMessage(), "Menssagem", JOptionPane.ERROR_MESSAGE);
+        } // TODO add 
     }//GEN-LAST:event_jButton_remover_usuarioActionPerformed
 
     private void jButton_alterar_usuarioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton_alterar_usuarioActionPerformed
-       try {
-            if (jTable_usuarios.getSelectedRow() == -1) {
-                throw new RuntimeException("Selecione o usuário para altera-lo!");
-            }
+        try {
             validaFormularioUsuarios();
-            usuario.setUsu_nome(jTextField_Nome_USU.getText());
-            usuario.setUsu_cpf(jTextField_Cpf_USU.getText());
-            usuario.setUsu_email(jTextField_Email_USU.getText());
+            int id = Integer.parseInt(jTable_usuarios.getValueAt(jTable_usuarios.getSelectedRow(), 0).toString());
+            Usuarios usuarioal = usuariosBll.getConsultaPorId(id);
+            usuarioal.setUsu_nome(jTextField_Nome_USU.getText());
+            usuarioal.setUsu_cpf(jTextField_Cpf_USU.getText());
+            usuarioal.setUsu_email(jTextField_Email_USU.getText());
             char[] senha = jPasswordField_Senha_USU.getPassword();
             char[] senha2 = jPasswordField_ConfirmSenha_USU.getPassword();
             String Ssenha = new String(senha);
             String Ssenha2 = new String(senha2);
             if (ValidaSenha(Ssenha, Ssenha2)) {
-                usuario.setUsu_senha(Ssenha);
+                usuarioal.setUsu_senha(Ssenha);
             } else {
                 throw new RuntimeException("As senhas não conferem, tente novamente");
             }
-            usuariosBll.Alterar(usuario);
+            usuariosBll.Alterar(usuarioal);
 
             preencherGridUsuarios();
-            limparCampos();
+            limparCamposUsuarios();
 
-            JOptionPane.showMessageDialog(null, "Categoria alterada!");
+            JOptionPane.showMessageDialog(null, "Usuário alterado!");
 
         } catch (Exception error) {
             JOptionPane.showMessageDialog(null, error.getMessage(), "Menssagem", JOptionPane.ERROR_MESSAGE);
         }
-    
- // TODO add your handling code here:
     }//GEN-LAST:event_jButton_alterar_usuarioActionPerformed
 
     private void jButton_adicionar_usuariosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton_adicionar_usuariosActionPerformed
-       try {
+        try {
             validaFormularioUsuarios();
             usuario.setUsu_nome(jTextField_Nome_USU.getText());
             usuario.setUsu_cpf(jTextField_Cpf_USU.getText());
@@ -1625,7 +1628,7 @@ try {
     }//GEN-LAST:event_jTablePlanosMouseClicked
 
     private void jButtonAlterarPlanoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonAlterarPlanoActionPerformed
-       try {
+        try {
             if (jTablePlanos.getSelectedRow() == -1) {
                 throw new RuntimeException("Selecione um plano a ser alterado!");
             }
@@ -1663,7 +1666,7 @@ try {
     }//GEN-LAST:event_jButtonRemoverCategoriaActionPerformed
 
     private void jButtonAlterarCategoriaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonAlterarCategoriaActionPerformed
-      try {
+        try {
             if (jTableCategoria.getSelectedRow() == -1) {
                 throw new RuntimeException("Selecione a categoria a ser alterada!");
             }
@@ -1683,7 +1686,7 @@ try {
 
     private void jButtonAdicionarCategoriaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonAdicionarCategoriaActionPerformed
 
-try {
+        try {
             validarFormularioCategorias();
             categoria.setCat_nome(jTextFieldNome.getText());
             categoriaBll.Adicionar(categoria);
@@ -1695,14 +1698,13 @@ try {
         } catch (Exception error) {
             JOptionPane.showMessageDialog(null, error.getMessage(), "Menssagem", JOptionPane.ERROR_MESSAGE);
         }
-             
 
         // TODO add your handling code here:
     }//GEN-LAST:event_jButtonAdicionarCategoriaActionPerformed
 
     private void jTableCategoriaMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jTableCategoriaMouseClicked
-       try {
-            preencherFormularioCategoris();
+        try {
+            preencherFormularioCategorias();
         } catch (Exception error) {
             JOptionPane.showMessageDialog(null, error.getMessage(), "Menssagem", JOptionPane.ERROR_MESSAGE);
         } // TODO add your handling code here:
