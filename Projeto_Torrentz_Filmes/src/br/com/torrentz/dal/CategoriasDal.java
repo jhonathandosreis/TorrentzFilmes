@@ -57,6 +57,8 @@ public class CategoriasDal {
             if (error.getMessage().contains("duplicate key value violates unique constraint")) {
                 throw new RuntimeException("Já existe uma categoria com o mesmo nome!");
             }
+           
+            
         }
     }
     //--- FIM CREATE ----------------------------------------------------------------------------------|
@@ -73,8 +75,8 @@ public class CategoriasDal {
             preparedStatement.setInt(1, cat_iden);
             preparedStatement.executeUpdate();
         } catch (Exception error) {
-            if (error.getMessage().contains("violates foreign key constraint")) {
-                throw new RuntimeException("Não é possível deletar esta categoris pois categoria possui vinculo com filmes!!");
+             if (error.getMessage().contains("filmes_fil_cat_iden_fkey")) {
+                throw new RuntimeException("Existe um filme com essa categoria cadastrado em nosso sistema!");
             }
         }
     }

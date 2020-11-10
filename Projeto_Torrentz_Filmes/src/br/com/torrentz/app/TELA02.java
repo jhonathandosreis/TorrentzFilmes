@@ -32,8 +32,7 @@ import javax.swing.table.DefaultTableModel;
  * @author Gustavo, Miguel, Jonathan
  */
 public class TELA02 extends javax.swing.JFrame {
-private Visualizados visualizado = null;
-    
+
 //--- BLL´S-------------------------------------------------------------------------------------------->
     private VisualizadosBll visualizadoBll = null;
     private ContratosBll contratosBll = null;
@@ -42,47 +41,48 @@ private Visualizados visualizado = null;
     private FilmesBll filmesBll = null;
     private CuponsBll cupomBll = null;
     private UsuariosBll usuariosBll = null;
-    
+
 //--- CLASSES ----------------------------------------------------------------------------------------->
-    private Contratos contrato = null; 
+    private Contratos contrato = null;
     private Categorias categoria = null;
     private Planos planos = null;
     private Filmes filmes = null;
     private Usuarios usuario = null;
     private Cupons cupom = null;
-   
+    private Visualizados visualizado = null;
+
     /**
      * Creates new form TELA02
      */
     public TELA02() {
         initComponents();
-    try {
+        try {
 
 //--- INSTANCIAS BLL----------------------------------------------------------------------------------->        
-        visualizadoBll = new VisualizadosBll();
-        contratosBll = new ContratosBll();
-        categoriaBll = new CategoriaBll();
-        planosBll = new PlanosBll();
-        filmesBll = new FilmesBll();
-        usuariosBll = new UsuariosBll();
-        cupomBll = new CuponsBll();
+            visualizadoBll = new VisualizadosBll();
+            contratosBll = new ContratosBll();
+            categoriaBll = new CategoriaBll();
+            planosBll = new PlanosBll();
+            filmesBll = new FilmesBll();
+            usuariosBll = new UsuariosBll();
+            cupomBll = new CuponsBll();
 
 //--- INSTANCIAS CLASSES------------------------------------------------------------------------------->    
-        visualizado = new Visualizados();
-        contrato = new Contratos();
-        categoria = new Categorias();
-        planos = new Planos();
-        filmes = new Filmes();
-        usuario = new Usuarios();
-        cupom = new Cupons();
-            
-            
+            visualizado = new Visualizados();
+            contrato = new Contratos();
+            categoria = new Categorias();
+            planos = new Planos();
+            filmes = new Filmes();
+            usuario = new Usuarios();
+            cupom = new Cupons();
+
 //--- PREENCHER GIRD´S--------------------------------------------------------------------------------->    
             preencherGridContratos();
             preencherGridUsuarios();
             preencherGridCategoria();
             preencherGridPlanos();
             preencherGridFilmes();
+            preencherGridVisualizados();
 
 //--- PREENCHER COMBO´S-------------------------------------------------------------------------------->    
             preencherComboboxUsuario();
@@ -123,6 +123,7 @@ private Visualizados visualizado = null;
             JOptionPane.showMessageDialog(null, e.getMessage(), "Mensagem", JOptionPane.ERROR_MESSAGE);
         }
     }
+
     public void preencherComboboxCategoria() throws Exception {
         ArrayList<Categorias> lista = categoriaBll.getConsulta();
         jComboBoxCategoriaFilmes.removeAllItems();
@@ -132,6 +133,7 @@ private Visualizados visualizado = null;
             jComboBoxCategoriaFilmes.addItem(categorias.getCat_nome());
         }
     }
+
     public void preencherFormularioCategorias() {
         int id = Integer.parseInt(jTableCategoria.getValueAt(jTableCategoria.getSelectedRow(), 0).toString());
         String nome = jTableCategoria.getValueAt(jTableCategoria.getSelectedRow(), 1).toString();
@@ -139,6 +141,7 @@ private Visualizados visualizado = null;
         jTextFieldNome.setText(nome);
         jTextFieldId.setText(id + "");
     }
+
     public void validarFormularioCategorias() {
         Valida.campoVazio(jTextFieldNome.getText(), "Digite o nome!");
         Valida.notSpecialCharacters(jTextFieldNome.getText(), "Digite o nome!");
@@ -168,6 +171,7 @@ private Visualizados visualizado = null;
             JOptionPane.showMessageDialog(null, e.getMessage(), "Mensagem", JOptionPane.ERROR_MESSAGE);
         }
     }
+
     public void preencherComboboxPlano() throws Exception {
         ArrayList<Planos> lista = planosBll.getConsulta();
         jComboBoxPlanos.removeAllItems();
@@ -177,11 +181,14 @@ private Visualizados visualizado = null;
             jComboBoxPlanos.addItem(pla.getPla_nome());
         }
     }
+
     public void limparCamposPlanos() {
         jTextFieldAcessos.setText("");
         jTextFieldPlanosPrecos.setText("");
         jTextFieldPlanosNome.setText("");
+        jTextFieldPlanosID.setText("");
     }
+
     public void preencherFormularioPlanos() {
 
         int id = Integer.parseInt(jTablePlanos.getValueAt(jTablePlanos.getSelectedRow(), 0).toString());
@@ -194,6 +201,7 @@ private Visualizados visualizado = null;
         jTextFieldPlanosPrecos.setText(preco + "");
         jTextFieldPlanosID.setText(id + "");
     }
+
     public void ValidaFormularioPlanos() throws Exception {
 
         Valida.campoVazio(jTextFieldAcessos.getText(), "Digite a quantidade de acessos!");
@@ -228,6 +236,7 @@ private Visualizados visualizado = null;
             JOptionPane.showMessageDialog(null, "ERRO NA GRID FILMES!!!", "", JOptionPane.ERROR_MESSAGE);
         }
     }
+
     public void preencherFormularioFilmes() throws Exception, ClassNotFoundException {
 
         int id = Integer.parseInt(jTableFilmes.getValueAt(jTableFilmes.getSelectedRow(), 0).toString());
@@ -245,6 +254,7 @@ private Visualizados visualizado = null;
         jTextAreaSinopseFilmes.setText(sinopse);
         jComboBoxCategoriaFilmes.setSelectedItem(idCat);
     }
+
     public void preencherComboboxFilmes() throws Exception, ClassNotFoundException {
         ArrayList<Filmes> lista = filmesBll.getConsulta();
         jComboBoxVisFilmes.removeAllItems();
@@ -254,6 +264,7 @@ private Visualizados visualizado = null;
             jComboBoxVisFilmes.addItem(filmes.getFil_titulo());
         }
     }
+
     public void validaFormularioFilmes() {
 
         Valida.campoVazio(jTextFieldTituloFilmes.getText(), "Digite o titulo do filme!");
@@ -265,11 +276,13 @@ private Visualizados visualizado = null;
         Valida.notSpecialCharacters(jTextAreaSinopseFilmes.getText(), "Não aceitamos caracteres especiais!");
 
     }
+
     public void limparCamposFilmes() {
         jTextAreaSinopseFilmes.setText("");
         jTextFieldTituloFilmes.setText("");
         jTextFieldAnoFilmes.setText("");
         jTextFieldFilmesID.setText("");
+        jComboBoxCategoriaFilmes.setSelectedIndex(0);
     }
 
 //--- CONTRATOS ----------------------------------------------------------------------------------------->  
@@ -300,9 +313,8 @@ private Visualizados visualizado = null;
             JOptionPane.showMessageDialog(null, "ERRO NA GRID CONTRATOS!!!", "", JOptionPane.ERROR_MESSAGE);
         }
     }
+
     public void preencherFormularioContratos() throws Exception, ClassNotFoundException {
-        
-        
 
         int id = Integer.parseInt(jTableContratos.getValueAt(jTableContratos.getSelectedRow(), 0).toString());
         String idUsuario = contratosBll.getConsultaPorId(id).getCon_usu_iden().getUsu_nome();
@@ -324,10 +336,9 @@ private Visualizados visualizado = null;
         jTextFieldDataFim.setText(dataFim);
 
         jTextFieldStatus.setText(status);
-        
-        
 
     }
+
     public void validaFormularioContratos() throws Exception {
 
 //        ArrayList<Usuarios> lista = usuariosBll.getConsulta();
@@ -343,12 +354,12 @@ private Visualizados visualizado = null;
         Valida.notNumber(jTextFieldStatus.getText(), "Somente letras!");
 
     }
+
     public void limparCamposContratos() {
 
 //        jTextFieldStatus.setText("");
 //        jTextFieldDataInicio.setText("");
 //         jTextFieldDataFim.setText("");
-
     }
 
 //--- USUÁRIOS ----------------------------------------------------------------------------------------->  
@@ -375,6 +386,7 @@ private Visualizados visualizado = null;
             JOptionPane.showMessageDialog(null, e.getMessage(), "ERRO NA GRID USUÁRIOS!!!", JOptionPane.ERROR_MESSAGE);
         }
     }
+
     public void preencherFormularioUsuarios() throws Exception, ClassNotFoundException {
 
         int id = Integer.parseInt(jTable_usuarios.getValueAt(jTable_usuarios.getSelectedRow(), 0).toString());
@@ -391,6 +403,7 @@ private Visualizados visualizado = null;
         jPasswordField_ConfirmSenha_USU.setText(usuario.getUsu_senha());
 
     }
+
     public void preencherComboboxUsuario() throws Exception {
         ArrayList<Usuarios> lista = usuariosBll.getConsulta();
         jComboBoxUsuarios.removeAllItems();
@@ -406,6 +419,7 @@ private Visualizados visualizado = null;
         }
 
     }
+
     public void validaFormularioUsuarios() {
 
         Valida.campoVazio(jTextField_Nome_USU.getText(), "Digite o nome do Usuário!");
@@ -427,6 +441,7 @@ private Visualizados visualizado = null;
         Valida.notSpecialCharacters(jTextField_Cpf_USU.getText(), "Cpf do usuário não pode conter caracteres especiais");
 
     }
+
     public void limparCamposUsuarios() {
         jTextField_Nome_USU.setText("");
         jTextField_Cpf_USU.setText("");
@@ -436,26 +451,32 @@ private Visualizados visualizado = null;
         jTextField_id_usu.setText("");
     }
 
-    public void ValidaCombo(String combo)throws Exception{
-        if(combo.equals("<SELECIONE>"))throw new Exception("Opção <SELECIONE> não é valida selecione uma das outras opções");
+    public void ValidaCombo(String combo) throws Exception {
+        if (combo.equals("<SELECIONE>")) {
+            throw new Exception("Opção <SELECIONE> não é valida selecione uma das outras opções");
+        }
     }
+
     public void preencherStatusTipo() {
 
         jTextFieldStatus.setText("Ativo");
 
     }
+
     public void EnabledContratos() {
 
         jTextFieldStatus.setEnabled(false);
         jTextFieldDataInicio.setEnabled(false);
         jTextFieldDataFim.setEnabled(false);
 
-    }   
+    }
+
     public void EnabledDataVisualizados() {
 
         jTextFieldDataAtualVisualizados.setEnabled(false);
-       
-    }   
+
+    }
+
     public void preencherData() {
 
         DateTimeFormatter formate = DateTimeFormatter.ofPattern("dd / MM / YYYY");
@@ -464,24 +485,58 @@ private Visualizados visualizado = null;
         LocalDate Fim = Inicio.plusYears(1);
         jTextFieldDataFim.setText(formate.format(Fim));
 
-    }   
-    public void preencherDataAtualVisualizados(){
+    }
+
+    public void preencherDataAtualVisualizados() {
 
         DateTimeFormatter formate = DateTimeFormatter.ofPattern("dd / MM / YYYY");
         LocalDate Inicio = LocalDate.now();
-        jTextFieldDataAtualVisualizados.setText("     Data Atual : " +formate.format(Inicio));
-        
+        jTextFieldDataAtualVisualizados.setText("     Data Atual : " + formate.format(Inicio));
 
     }
+
     public boolean ValidaSenha(String senha, String confirma) {
         if (senha.equals(confirma)) {
             return true;
         }
         return false;
     }
+
     public void limparCampos() {
         jTextFieldId.setText("");
         jTextFieldNome.setText("");
+    }
+
+    public void preencherGridVisualizados() {
+
+        try {
+            DefaultTableModel tablevisu = (DefaultTableModel) jTable_Visualizados.getModel();
+            tablevisu.setRowCount(0);
+
+            Object[] linha = new Object[5];
+
+            ArrayList<Visualizados> visu = new VisualizadosBll().getConsulta();
+
+            for (Visualizados vi : visu) {
+                linha[0] = vi.getVis_iden();
+                linha[1] = vi.getVis_fil_iden().getFil_titulo();
+                linha[2] = vi.getVis_usu_iden().getUsu_nome();
+                if (vi.isVis_completo() == true) {
+                    linha[3] = "SIM";
+                } else {
+                    linha[3] = "NÃO";
+                }
+                linha[4] = vi.getVis_data_geracao();
+                tablevisu.addRow(linha);
+            }
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(null, e.getMessage(), "Grid visualizados", JOptionPane.ERROR_MESSAGE);
+        }
+    }
+
+    public void limparVisualizados() {
+        jComboBoxVISusuario.setSelectedIndex(0);
+        jComboBoxVisFilmes.setSelectedIndex(0);
     }
 
     /**
@@ -577,6 +632,9 @@ private Visualizados visualizado = null;
         jComboBoxVisFilmes = new javax.swing.JComboBox<>();
         jButtonVisualizacaoCompleta = new javax.swing.JButton();
         jTextFieldDataAtualVisualizados = new javax.swing.JTextField();
+        jScrollPane7 = new javax.swing.JScrollPane();
+        jTable_Visualizados = new javax.swing.JTable();
+        jButton_deleteVisualizados = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -672,7 +730,7 @@ private Visualizados visualizado = null;
                     .addComponent(jLabel1))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 249, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(257, Short.MAX_VALUE))
+                .addContainerGap(282, Short.MAX_VALUE))
         );
 
         Categorias.addTab("Categorias", jPanel1);
@@ -788,7 +846,7 @@ private Visualizados visualizado = null;
                             .addComponent(jButtonAlterarPlano))))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 249, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(273, Short.MAX_VALUE))
+                .addContainerGap(298, Short.MAX_VALUE))
         );
 
         Categorias.addTab("Planos", jPanel2);
@@ -918,7 +976,7 @@ private Visualizados visualizado = null;
                 .addGap(46, 46, 46)
                 .addComponent(jLabel9)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(jScrollPane4, javax.swing.GroupLayout.DEFAULT_SIZE, 137, Short.MAX_VALUE)
+                .addComponent(jScrollPane4, javax.swing.GroupLayout.DEFAULT_SIZE, 162, Short.MAX_VALUE)
                 .addContainerGap())
         );
 
@@ -1072,12 +1130,14 @@ private Visualizados visualizado = null;
                     .addComponent(jButton_remover_usuario))
                 .addGap(18, 18, 18)
                 .addComponent(jPanel6, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(27, Short.MAX_VALUE))
+                .addContainerGap(52, Short.MAX_VALUE))
         );
 
         Categorias.addTab("Usuários", jPanel4);
 
         jLabel16.setText("Usuários");
+
+        jTextFieldContratosID.setEditable(false);
 
         jLabel17.setText("Plano");
 
@@ -1212,7 +1272,7 @@ private Visualizados visualizado = null;
                     .addComponent(jButtonAdicionarContrato)
                     .addComponent(jButtonAlterarContrato)
                     .addComponent(jButtonRemoverContrato))
-                .addContainerGap(106, Short.MAX_VALUE))
+                .addContainerGap(131, Short.MAX_VALUE))
         );
 
         Categorias.addTab("Contratos", jPanel5);
@@ -1228,28 +1288,60 @@ private Visualizados visualizado = null;
             }
         });
 
+        jTable_Visualizados.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+
+            },
+            new String [] {
+                "ID", "FILME", "USUARIO", "VISUALIZADO", "DATA"
+            }
+        ));
+        jTable_Visualizados.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jTable_VisualizadosMouseClicked(evt);
+            }
+        });
+        jScrollPane7.setViewportView(jTable_Visualizados);
+
+        jButton_deleteVisualizados.setText("Remover");
+        jButton_deleteVisualizados.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton_deleteVisualizadosActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout jPanel7Layout = new javax.swing.GroupLayout(jPanel7);
         jPanel7.setLayout(jPanel7Layout);
         jPanel7Layout.setHorizontalGroup(
             jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel7Layout.createSequentialGroup()
-                .addContainerGap(84, Short.MAX_VALUE)
+            .addGroup(jPanel7Layout.createSequentialGroup()
                 .addGroup(jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel7Layout.createSequentialGroup()
-                        .addComponent(jButtonVisualizacaoCompleta, javax.swing.GroupLayout.PREFERRED_SIZE, 604, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(150, 150, 150))
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel7Layout.createSequentialGroup()
-                        .addComponent(jTextFieldDataAtualVisualizados, javax.swing.GroupLayout.PREFERRED_SIZE, 216, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(347, 347, 347))
                     .addGroup(jPanel7Layout.createSequentialGroup()
-                        .addComponent(jLabel21)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jComboBoxVISusuario, javax.swing.GroupLayout.PREFERRED_SIZE, 236, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(18, 18, 18)
-                        .addComponent(jLabel22)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jComboBoxVisFilmes, javax.swing.GroupLayout.PREFERRED_SIZE, 236, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(43, 43, 43))))
+                        .addGap(317, 317, 317)
+                        .addComponent(jButtonVisualizacaoCompleta, javax.swing.GroupLayout.PREFERRED_SIZE, 155, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(jPanel7Layout.createSequentialGroup()
+                        .addGap(93, 93, 93)
+                        .addComponent(jScrollPane7, javax.swing.GroupLayout.PREFERRED_SIZE, 720, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addGap(0, 25, Short.MAX_VALUE))
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel7Layout.createSequentialGroup()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addGroup(jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                        .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel7Layout.createSequentialGroup()
+                            .addComponent(jTextFieldDataAtualVisualizados, javax.swing.GroupLayout.PREFERRED_SIZE, 216, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addGap(347, 347, 347))
+                        .addGroup(jPanel7Layout.createSequentialGroup()
+                            .addComponent(jLabel21)
+                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                            .addComponent(jComboBoxVISusuario, javax.swing.GroupLayout.PREFERRED_SIZE, 236, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addGap(18, 18, 18)
+                            .addComponent(jLabel22)
+                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                            .addComponent(jComboBoxVisFilmes, javax.swing.GroupLayout.PREFERRED_SIZE, 236, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addGap(140, 140, 140)))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel7Layout.createSequentialGroup()
+                        .addComponent(jButton_deleteVisualizados)
+                        .addGap(62, 62, 62))))
         );
         jPanel7Layout.setVerticalGroup(
             jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -1262,9 +1354,13 @@ private Visualizados visualizado = null;
                     .addComponent(jComboBoxVisFilmes, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(55, 55, 55)
                 .addComponent(jTextFieldDataAtualVisualizados, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(jButtonVisualizacaoCompleta, javax.swing.GroupLayout.PREFERRED_SIZE, 319, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(118, Short.MAX_VALUE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jButtonVisualizacaoCompleta, javax.swing.GroupLayout.PREFERRED_SIZE, 34, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(jScrollPane7, javax.swing.GroupLayout.PREFERRED_SIZE, 247, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jButton_deleteVisualizados)
+                .addGap(151, 151, 151))
         );
 
         Categorias.addTab("Play Filmes ", jPanel7);
@@ -1346,9 +1442,9 @@ private Visualizados visualizado = null;
             preencherGridContratos();
             limparCamposContratos();
 
-            JOptionPane.showMessageDialog(null, usuario.getUsu_nome()+" você acaba de contratar o plano "+planos.getPla_nome()
-            +"\nNo valor de "+planos.getPla_preco()+"R$, Como você possui um cupom de "+usuario.getUsu_cup_iden().getCup_porcentagem()
-            +"% de desconto o preço a pagar será de: "+(planos.getPla_preco()-(planos.getPla_preco()*usuario.getUsu_cup_iden().getCup_porcentagem()/100))+"R$");
+            JOptionPane.showMessageDialog(null, usuario.getUsu_nome() + " você acaba de contratar o plano " + planos.getPla_nome()
+                    + "\nNo valor de " + planos.getPla_preco() + "R$, Como você possui um cupom de " + usuario.getUsu_cup_iden().getCup_porcentagem()
+                    + "% de desconto o preço a pagar será de: " + (planos.getPla_preco() - (planos.getPla_preco() * usuario.getUsu_cup_iden().getCup_porcentagem() / 100)) + "R$");
         } catch (Exception error) {
             JOptionPane.showMessageDialog(null, error.getMessage(), "Menssagem", JOptionPane.ERROR_MESSAGE);
         }
@@ -1445,6 +1541,7 @@ private Visualizados visualizado = null;
             usuario.setUsu_iden(Integer.parseInt(jTextField_id_usu.getText()));
             usuariosBll.Remover(usuario);
             preencherGridUsuarios();
+            preencherComboboxUsuario();
             limparCamposUsuarios();
 
             JOptionPane.showMessageDialog(null, "Usuário removido com sucesso!");
@@ -1473,6 +1570,7 @@ private Visualizados visualizado = null;
             usuariosBll.Alterar(usuarioal);
 
             preencherGridUsuarios();
+            preencherComboboxUsuario();
             limparCamposUsuarios();
 
             JOptionPane.showMessageDialog(null, "Usuário alterado!");
@@ -1484,7 +1582,7 @@ private Visualizados visualizado = null;
 
     private void jButton_adicionar_usuariosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton_adicionar_usuariosActionPerformed
         try {
-           
+
             validaFormularioUsuarios();
             usuario.setUsu_nome(jTextField_Nome_USU.getText());
             usuario.setUsu_cpf(jTextField_Cpf_USU.getText());
@@ -1493,21 +1591,21 @@ private Visualizados visualizado = null;
             char[] senha2 = jPasswordField_ConfirmSenha_USU.getPassword();
             String Ssenha = new String(senha);
             String Ssenha2 = new String(senha2);
-            
+
             if (ValidaSenha(Ssenha, Ssenha2)) {
                 usuario.setUsu_senha(Ssenha);
             } else {
                 throw new RuntimeException("As senhas não conferem, tente novamente");
             }
-            
+
             cupom = new Cupons();
             cupomBll.Adicionar(cupom);
             usuario.setUsu_cup_iden(cupomBll.getLastCupom());
             usuariosBll.Adicionar(usuario);
             preencherComboboxUsuario();
             preencherGridUsuarios();
-            JOptionPane.showMessageDialog(null, usuario.getUsu_nome()+" você foi cadastrado em nosso sistema\n"
-                    + "E acada de ganhar "+usuario.getUsu_cup_iden().getCup_porcentagem()+"% de desconto no plano que for contratar!");
+            JOptionPane.showMessageDialog(null, usuario.getUsu_nome() + " você foi cadastrado em nosso sistema\n"
+                    + "E acada de ganhar " + usuario.getUsu_cup_iden().getCup_porcentagem() + "% de desconto no plano que for contratar!");
             limparCamposUsuarios();
         } catch (Exception error) {
             JOptionPane.showMessageDialog(null, error.getMessage(), "Menssagem", JOptionPane.ERROR_MESSAGE);
@@ -1515,14 +1613,14 @@ private Visualizados visualizado = null;
     }//GEN-LAST:event_jButton_adicionar_usuariosActionPerformed
 
     private void jButtonRemoverFilmesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonRemoverFilmesActionPerformed
-       try {
+        try {
             if (jTableFilmes.getSelectedRow() == -1) {
                 throw new RuntimeException("Selecione um filme a ser removido!");
             }
             filmes.setFil_iden(Integer.parseInt(jTextFieldFilmesID.getText()));
             filmesBll.Remover(filmes);
             preencherGridFilmes();
-            preencherComboboxCategoria();
+            preencherComboboxFilmes();
             limparCamposFilmes();
 
             JOptionPane.showMessageDialog(null, "Filme removido com sucesso!");
@@ -1551,7 +1649,7 @@ private Visualizados visualizado = null;
             filmesBll.Alterar(filmesDal);
 
             validaFormularioFilmes();
-            preencherComboboxCategoria();
+            preencherComboboxFilmes();
             preencherGridFilmes();
             limparCamposFilmes();
 
@@ -1563,7 +1661,7 @@ private Visualizados visualizado = null;
     }//GEN-LAST:event_jButtonAlterarFilmesActionPerformed
 
     private void jButtonAdicionarFilmesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonAdicionarFilmesActionPerformed
-       try {
+        try {
 
             validaFormularioFilmes();
             String nome = jComboBoxCategoriaFilmes.getSelectedItem().toString();
@@ -1576,7 +1674,7 @@ private Visualizados visualizado = null;
             filmes.setFil_sinopse(jTextAreaSinopseFilmes.getText());
             filmesBll.Adicionar(filmes);
             preencherGridFilmes();
-            preencherComboboxCategoria();
+            preencherComboboxFilmes();
             limparCamposFilmes();
 
             JOptionPane.showMessageDialog(null, "Filme incluido com sucesso!");
@@ -1594,13 +1692,14 @@ private Visualizados visualizado = null;
     }//GEN-LAST:event_jTableFilmesMouseClicked
 
     private void jButtonRemoverPlanosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonRemoverPlanosActionPerformed
-      try {
+        try {
             if (jTablePlanos.getSelectedRow() == -1) {
                 throw new RuntimeException("Selecione um plano a ser removido!");
             }
             planos.setPla_iden(Integer.parseInt(jTextFieldPlanosID.getText()));
             planosBll.Remover(planos);
             preencherGridPlanos();
+            preencherComboboxPlano();
             limparCamposPlanos();
 
             JOptionPane.showMessageDialog(null, "Plano removido com sucesso!");
@@ -1610,7 +1709,7 @@ private Visualizados visualizado = null;
     }//GEN-LAST:event_jButtonRemoverPlanosActionPerformed
 
     private void jButtonAdicionarPlanosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonAdicionarPlanosActionPerformed
-       try {
+        try {
             ValidaFormularioPlanos();
             planos.setPla_acesso_simultaneo(Integer.parseInt(jTextFieldAcessos.getText()));
             planos.setPla_nome(jTextFieldPlanosNome.getText());
@@ -1647,6 +1746,7 @@ private Visualizados visualizado = null;
             planos.setPla_preco(Float.parseFloat(jTextFieldPlanosPrecos.getText()));
             planosBll.Alterar(planos);
             preencherGridPlanos();
+            preencherComboboxPlano();
             limparCamposPlanos();
 
             JOptionPane.showMessageDialog(null, "Plano alterado!");
@@ -1664,6 +1764,7 @@ private Visualizados visualizado = null;
             categoria.setCat_iden(Integer.parseInt(jTextFieldId.getText()));
             categoriaBll.Remover(categoria);
             preencherGridCategoria();
+            preencherComboboxCategoria();
             limparCampos();
 
             JOptionPane.showMessageDialog(null, "Categoria removida com sucesso!");
@@ -1682,6 +1783,7 @@ private Visualizados visualizado = null;
             categoria.setCat_iden(Integer.parseInt(jTextFieldId.getText()));
             categoriaBll.Alterar(categoria);
             preencherGridCategoria();
+            preencherComboboxCategoria();
             limparCampos();
 
             JOptionPane.showMessageDialog(null, "Categoria alterada!");
@@ -1716,6 +1818,28 @@ private Visualizados visualizado = null;
             JOptionPane.showMessageDialog(null, error.getMessage(), "Menssagem", JOptionPane.ERROR_MESSAGE);
         } // TODO add your handling code here:
     }//GEN-LAST:event_jTableCategoriaMouseClicked
+
+    private void jButton_deleteVisualizadosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton_deleteVisualizadosActionPerformed
+        try {
+            if (jTable_Visualizados.getSelectedRow() == -1) {
+                throw new RuntimeException("Selecione uma visualização a ser removida!");
+            }
+
+            int id = Integer.parseInt(jTable_Visualizados.getValueAt(jTable_Visualizados.getSelectedRow(), 0).toString());
+            visualizado = visualizadoBll.getConsultaPorId(id);
+            visualizadoBll.Remover(visualizado);
+            preencherGridVisualizados();
+            limparVisualizados();
+            JOptionPane.showMessageDialog(null, "Visualização removida com sucesso!");
+
+        } catch (Exception error) {
+            JOptionPane.showMessageDialog(null, error.getMessage(), "Menssagem", JOptionPane.ERROR_MESSAGE);
+        } // TODO add your handling code here:
+    }//GEN-LAST:event_jButton_deleteVisualizadosActionPerformed
+
+    private void jTable_VisualizadosMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jTable_VisualizadosMouseClicked
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jTable_VisualizadosMouseClicked
 
     /**
      * @param args the command line arguments
@@ -1769,6 +1893,7 @@ private Visualizados visualizado = null;
     private javax.swing.JButton jButtonVisualizacaoCompleta;
     private javax.swing.JButton jButton_adicionar_usuarios;
     private javax.swing.JButton jButton_alterar_usuario;
+    private javax.swing.JButton jButton_deleteVisualizados;
     private javax.swing.JButton jButton_remover_usuario;
     private javax.swing.JComboBox<String> jComboBoxCategoriaFilmes;
     private javax.swing.JComboBox<String> jComboBoxPlanos;
@@ -1812,12 +1937,14 @@ private Visualizados visualizado = null;
     private javax.swing.JScrollPane jScrollPane4;
     private javax.swing.JScrollPane jScrollPane5;
     private javax.swing.JScrollPane jScrollPane6;
+    private javax.swing.JScrollPane jScrollPane7;
     private javax.swing.JSeparator jSeparator1;
     private javax.swing.JSeparator jSeparator2;
     private javax.swing.JTable jTableCategoria;
     private javax.swing.JTable jTableContratos;
     private javax.swing.JTable jTableFilmes;
     private javax.swing.JTable jTablePlanos;
+    private javax.swing.JTable jTable_Visualizados;
     private javax.swing.JTable jTable_usuarios;
     private javax.swing.JTextArea jTextAreaSinopseFilmes;
     private javax.swing.JTextField jTextFieldAcessos;

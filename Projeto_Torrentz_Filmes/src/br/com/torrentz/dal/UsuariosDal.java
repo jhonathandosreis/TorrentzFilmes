@@ -77,7 +77,12 @@ public class UsuariosDal {
             preparedStatement.executeUpdate();
 
         } catch (Exception error) {
-                throw new RuntimeException("Usuário não pode ser deletado pois existe cadastros ativos em seu nome!");
+            if (error.getMessage().contains("visualizados_vis_usu_iden_fkey")) {
+                throw new RuntimeException("Usuário relacionado com visualização de algum filme");
+            }
+             if (error.getMessage().contains("contratos_con_usu_iden_fkey")) {
+                throw new RuntimeException("Não é possivel deletar usuário pois possui um contrato ativo em seu nome");
+            }   
         }
     }
 

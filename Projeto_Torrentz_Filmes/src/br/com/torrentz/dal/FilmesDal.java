@@ -59,9 +59,13 @@ public class FilmesDal {
             preparedStatement.setInt(4, filmes.getFil_cat_iden().getCat_iden());
             preparedStatement.executeUpdate();
         } catch (Exception error) {
-            if (error.getMessage().contains("duplicate key value violates unique constraint")) {
-                throw new RuntimeException("Já existe um filme com o mesmo nome!");
+            if (error.getMessage().contains("filmes_fil_titulo_key")) {
+                throw new RuntimeException("Já existe um filme com este titulo cadastrado em nosso banco de dados");
             }
+             if (error.getMessage().contains("filmes_fil_sinopse_key")) {
+                throw new RuntimeException("Já existe um filme com esta sinopse cadastrado em nosso banco de dados");
+            }
+              
         }
     }
     //--- FIM CREATE ----------------------------------------------------------------------------------|
@@ -77,8 +81,8 @@ public class FilmesDal {
             preparedStatement.setInt(1, fil_iden);
             preparedStatement.executeUpdate();
         } catch (Exception error) {
-            if (error.getMessage().contains("violates foreign key constraint")) {
-                throw new RuntimeException("Não é possível deletar este filme!");
+            if (error.getMessage().contains("filmes_fil_cat_iden_fkey")) {
+                throw new RuntimeException("Algum usuário tem relacionamento de visualização com este filme");
             }
         }
     }

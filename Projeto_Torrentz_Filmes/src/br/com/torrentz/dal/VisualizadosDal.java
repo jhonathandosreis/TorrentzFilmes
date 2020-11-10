@@ -150,8 +150,9 @@ public class VisualizadosDal {
         String sql = "SELECT * FROM visualizados WHERE vis_iden=?";
 
         try {
-            Statement statement = conexao.createStatement();
-            ResultSet rs = statement.executeQuery(sql);
+            PreparedStatement preparedStatement = conexao.prepareStatement(sql);
+            preparedStatement.setInt(1, vis_iden);
+            ResultSet rs = preparedStatement.executeQuery();
             if (rs.next()) {
 
                 visualizado.setVis_iden(rs.getInt("vis_iden"));
