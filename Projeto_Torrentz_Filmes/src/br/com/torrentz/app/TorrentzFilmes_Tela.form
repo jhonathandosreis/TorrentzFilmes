@@ -797,11 +797,13 @@
                       <EmptySpace min="-2" pref="19" max="-2" attributes="0"/>
                       <Group type="103" groupAlignment="0" attributes="0">
                           <Group type="102" attributes="0">
-                              <Component id="jButtonAdicionarContrato" min="-2" max="-2" attributes="0"/>
-                              <EmptySpace min="-2" pref="28" max="-2" attributes="0"/>
+                              <Component id="jButtonAtivarContrato" min="-2" max="-2" attributes="0"/>
+                              <EmptySpace type="unrelated" max="-2" attributes="0"/>
                               <Component id="jButtonAlterarContrato" min="-2" max="-2" attributes="0"/>
-                              <EmptySpace type="separate" max="-2" attributes="0"/>
-                              <Component id="jButtonRemoverContrato" min="-2" max="-2" attributes="0"/>
+                              <EmptySpace min="-2" pref="10" max="-2" attributes="0"/>
+                              <Component id="jButtonInativarContrato" min="-2" max="-2" attributes="0"/>
+                              <EmptySpace type="unrelated" max="-2" attributes="0"/>
+                              <Component id="jButtonSuspenderContrato" min="-2" max="-2" attributes="0"/>
                               <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
                           </Group>
                           <Group type="102" alignment="0" attributes="0">
@@ -899,11 +901,12 @@
                       <Component id="jScrollPane6" min="-2" pref="279" max="-2" attributes="0"/>
                       <EmptySpace min="-2" pref="27" max="-2" attributes="0"/>
                       <Group type="103" groupAlignment="3" attributes="0">
-                          <Component id="jButtonAdicionarContrato" alignment="3" min="-2" max="-2" attributes="0"/>
+                          <Component id="jButtonAtivarContrato" alignment="3" min="-2" max="-2" attributes="0"/>
                           <Component id="jButtonAlterarContrato" alignment="3" min="-2" max="-2" attributes="0"/>
-                          <Component id="jButtonRemoverContrato" alignment="3" min="-2" max="-2" attributes="0"/>
+                          <Component id="jButtonSuspenderContrato" alignment="3" min="-2" max="-2" attributes="0"/>
+                          <Component id="jButtonInativarContrato" alignment="3" min="-2" max="-2" attributes="0"/>
                       </Group>
-                      <EmptySpace pref="156" max="32767" attributes="0"/>
+                      <EmptySpace pref="177" max="32767" attributes="0"/>
                   </Group>
               </Group>
             </DimensionLayout>
@@ -999,12 +1002,12 @@
                 </Component>
               </SubComponents>
             </Container>
-            <Component class="javax.swing.JButton" name="jButtonRemoverContrato">
+            <Component class="javax.swing.JButton" name="jButtonInativarContrato">
               <Properties>
-                <Property name="text" type="java.lang.String" value="REMOVER"/>
+                <Property name="text" type="java.lang.String" value="INATIVAR"/>
               </Properties>
               <Events>
-                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jButtonRemoverContratoActionPerformed"/>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jButtonInativarContratoActionPerformed"/>
               </Events>
             </Component>
             <Component class="javax.swing.JButton" name="jButtonAlterarContrato">
@@ -1015,12 +1018,20 @@
                 <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jButtonAlterarContratoActionPerformed"/>
               </Events>
             </Component>
-            <Component class="javax.swing.JButton" name="jButtonAdicionarContrato">
+            <Component class="javax.swing.JButton" name="jButtonAtivarContrato">
               <Properties>
-                <Property name="text" type="java.lang.String" value="ADICIONAR"/>
+                <Property name="text" type="java.lang.String" value="ATIVAR"/>
               </Properties>
               <Events>
-                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jButtonAdicionarContratoActionPerformed"/>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jButtonAtivarContratoActionPerformed"/>
+              </Events>
+            </Component>
+            <Component class="javax.swing.JButton" name="jButtonSuspenderContrato">
+              <Properties>
+                <Property name="text" type="java.lang.String" value="SUSPENDER"/>
+              </Properties>
+              <Events>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jButtonSuspenderContratoActionPerformed"/>
               </Events>
             </Component>
           </SubComponents>

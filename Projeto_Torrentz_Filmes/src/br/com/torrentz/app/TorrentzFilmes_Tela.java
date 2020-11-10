@@ -622,9 +622,10 @@ public class TorrentzFilmes_Tela extends javax.swing.JFrame {
         jTextFieldDataInicio = new javax.swing.JTextField();
         jScrollPane6 = new javax.swing.JScrollPane();
         jTableContratos = new javax.swing.JTable();
-        jButtonRemoverContrato = new javax.swing.JButton();
+        jButtonInativarContrato = new javax.swing.JButton();
         jButtonAlterarContrato = new javax.swing.JButton();
-        jButtonAdicionarContrato = new javax.swing.JButton();
+        jButtonAtivarContrato = new javax.swing.JButton();
+        jButtonSuspenderContrato = new javax.swing.JButton();
         jPanel7 = new javax.swing.JPanel();
         jLabel21 = new javax.swing.JLabel();
         jComboBoxVISusuario = new javax.swing.JComboBox<>();
@@ -1164,10 +1165,10 @@ public class TorrentzFilmes_Tela extends javax.swing.JFrame {
         });
         jScrollPane6.setViewportView(jTableContratos);
 
-        jButtonRemoverContrato.setText("REMOVER");
-        jButtonRemoverContrato.addActionListener(new java.awt.event.ActionListener() {
+        jButtonInativarContrato.setText("INATIVAR");
+        jButtonInativarContrato.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButtonRemoverContratoActionPerformed(evt);
+                jButtonInativarContratoActionPerformed(evt);
             }
         });
 
@@ -1178,10 +1179,17 @@ public class TorrentzFilmes_Tela extends javax.swing.JFrame {
             }
         });
 
-        jButtonAdicionarContrato.setText("ADICIONAR");
-        jButtonAdicionarContrato.addActionListener(new java.awt.event.ActionListener() {
+        jButtonAtivarContrato.setText("ATIVAR");
+        jButtonAtivarContrato.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButtonAdicionarContratoActionPerformed(evt);
+                jButtonAtivarContratoActionPerformed(evt);
+            }
+        });
+
+        jButtonSuspenderContrato.setText("SUSPENDER");
+        jButtonSuspenderContrato.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButtonSuspenderContratoActionPerformed(evt);
             }
         });
 
@@ -1193,11 +1201,13 @@ public class TorrentzFilmes_Tela extends javax.swing.JFrame {
                 .addGap(19, 19, 19)
                 .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel5Layout.createSequentialGroup()
-                        .addComponent(jButtonAdicionarContrato)
-                        .addGap(28, 28, 28)
+                        .addComponent(jButtonAtivarContrato)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addComponent(jButtonAlterarContrato)
-                        .addGap(18, 18, 18)
-                        .addComponent(jButtonRemoverContrato)
+                        .addGap(10, 10, 10)
+                        .addComponent(jButtonInativarContrato)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(jButtonSuspenderContrato)
                         .addGap(0, 0, Short.MAX_VALUE))
                     .addGroup(jPanel5Layout.createSequentialGroup()
                         .addComponent(jTextFieldContratosID, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -1269,10 +1279,11 @@ public class TorrentzFilmes_Tela extends javax.swing.JFrame {
                 .addComponent(jScrollPane6, javax.swing.GroupLayout.PREFERRED_SIZE, 279, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(27, 27, 27)
                 .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jButtonAdicionarContrato)
+                    .addComponent(jButtonAtivarContrato)
                     .addComponent(jButtonAlterarContrato)
-                    .addComponent(jButtonRemoverContrato))
-                .addContainerGap(156, Short.MAX_VALUE))
+                    .addComponent(jButtonSuspenderContrato)
+                    .addComponent(jButtonInativarContrato))
+                .addContainerGap(177, Short.MAX_VALUE))
         );
 
         Categorias.addTab("Contratos", jPanel5);
@@ -1400,7 +1411,7 @@ public class TorrentzFilmes_Tela extends javax.swing.JFrame {
             visualizado.setVis_completo(true);
             visualizado.setVis_data_geracao(formate.format(Inicio));
             visualizadoBll.Adicionar(visualizado);
-            
+
             preencherGridVisualizados();
 
             JOptionPane.showMessageDialog(null, "Visualização Completa registrada no Banco de Dados com Sucesso ! Data : " + formate.format(Inicio));
@@ -1410,7 +1421,7 @@ public class TorrentzFilmes_Tela extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_jButtonVisualizacaoCompletaActionPerformed
 
-    private void jButtonAdicionarContratoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonAdicionarContratoActionPerformed
+    private void jButtonAtivarContratoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonAtivarContratoActionPerformed
         try {
 
             validaFormularioContratos();
@@ -1441,13 +1452,13 @@ public class TorrentzFilmes_Tela extends javax.swing.JFrame {
             preencherGridContratos();
             limparCamposContratos();
 
-            JOptionPane.showMessageDialog(null, usuario.getUsu_nome() + " você acaba de contratar o plano " + planos.getPla_nome()
+            JOptionPane.showMessageDialog(null, usuario.getUsu_nome() + " você acaba de ativar o plano " + planos.getPla_nome()
                     + "\nNo valor de " + planos.getPla_preco() + " R$, Como você possui um cupom de " + usuario.getUsu_cup_iden().getCup_porcentagem()
                     + "% de desconto o preço a pagar será de: " + (planos.getPla_preco() - (planos.getPla_preco() * usuario.getUsu_cup_iden().getCup_porcentagem() / 100)) + "R$");
         } catch (Exception error) {
             JOptionPane.showMessageDialog(null, error.getMessage(), "Menssagem", JOptionPane.ERROR_MESSAGE);
         }
-    }//GEN-LAST:event_jButtonAdicionarContratoActionPerformed
+    }//GEN-LAST:event_jButtonAtivarContratoActionPerformed
 
     private void jButtonAlterarContratoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonAlterarContratoActionPerformed
         try {
@@ -1494,24 +1505,30 @@ public class TorrentzFilmes_Tela extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_jButtonAlterarContratoActionPerformed
 
-    private void jButtonRemoverContratoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonRemoverContratoActionPerformed
+    private void jButtonInativarContratoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonInativarContratoActionPerformed
         try {
             if (jTableContratos.getSelectedRow() == -1) {
                 throw new RuntimeException("Selecione um contrato a ser removido!");
             }
+
             contrato.setCon_iden(Integer.parseInt(jTextFieldContratosID.getText()));
-            contratosBll.Remover(contrato);
+
+            int id = Integer.parseInt(jTableContratos.getValueAt(jTableContratos.getSelectedRow(), 0).toString());
+            Contratos con = contratosBll.getConsultaPorId(id);
+            con.setCon_status("Inativo");
+
+            contratosBll.Alterar(con);
 
             preencherGridContratos();
             preencherComboboxUsuario();
             preencherComboboxPlano();
             limparCamposContratos();
 
-            JOptionPane.showMessageDialog(null, "Contrato removido com sucesso!");
+            JOptionPane.showMessageDialog(null, "Contrato inativado com sucesso!");
         } catch (Exception error) {
             JOptionPane.showMessageDialog(null, error.getMessage(), "Menssagem", JOptionPane.ERROR_MESSAGE);
         }
-    }//GEN-LAST:event_jButtonRemoverContratoActionPerformed
+    }//GEN-LAST:event_jButtonInativarContratoActionPerformed
 
     private void jTableContratosMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jTableContratosMouseClicked
         try {
@@ -1703,7 +1720,7 @@ public class TorrentzFilmes_Tela extends javax.swing.JFrame {
             JOptionPane.showMessageDialog(null, "Plano removido com sucesso!");
         } catch (Exception error) {
             JOptionPane.showMessageDialog(null, error.getMessage(), "Menssagem", JOptionPane.ERROR_MESSAGE);
-        } 
+        }
     }//GEN-LAST:event_jButtonRemoverPlanosActionPerformed
 
     private void jButtonAdicionarPlanosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonAdicionarPlanosActionPerformed
@@ -1834,8 +1851,42 @@ public class TorrentzFilmes_Tela extends javax.swing.JFrame {
     }//GEN-LAST:event_jButton_deleteVisualizadosActionPerformed
 
     private void jTable_VisualizadosMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jTable_VisualizadosMouseClicked
-       
+
     }//GEN-LAST:event_jTable_VisualizadosMouseClicked
+
+    private void jButtonSuspenderContratoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonSuspenderContratoActionPerformed
+ try {
+            if (jTableContratos.getSelectedRow() == -1) {
+                throw new RuntimeException("Selecione um contrato a ser suspenso !");
+            }
+
+            contrato.setCon_iden(Integer.parseInt(jTextFieldContratosID.getText()));
+
+            int id = Integer.parseInt(jTableContratos.getValueAt(jTableContratos.getSelectedRow(), 0).toString());
+            Contratos con = contratosBll.getConsultaPorId(id);
+            con.setCon_status("Suspenso");
+
+            contratosBll.Alterar(con);
+
+            preencherGridContratos();
+            preencherComboboxUsuario();
+            preencherComboboxPlano();
+            limparCamposContratos();
+
+            JOptionPane.showMessageDialog(null, "Contrato suspenso com sucesso!");
+        } catch (Exception error) {
+            JOptionPane.showMessageDialog(null, error.getMessage(), "Menssagem", JOptionPane.ERROR_MESSAGE);
+        }
+
+
+
+
+
+
+
+
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jButtonSuspenderContratoActionPerformed
 
     /**
      * @param args the command line arguments
@@ -1876,17 +1927,18 @@ public class TorrentzFilmes_Tela extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JTabbedPane Categorias;
     private javax.swing.JButton jButtonAdicionarCategoria;
-    private javax.swing.JButton jButtonAdicionarContrato;
     private javax.swing.JButton jButtonAdicionarFilmes;
     private javax.swing.JButton jButtonAdicionarPlanos;
     private javax.swing.JButton jButtonAlterarCategoria;
     private javax.swing.JButton jButtonAlterarContrato;
     private javax.swing.JButton jButtonAlterarFilmes;
     private javax.swing.JButton jButtonAlterarPlano;
+    private javax.swing.JButton jButtonAtivarContrato;
+    private javax.swing.JButton jButtonInativarContrato;
     private javax.swing.JButton jButtonRemoverCategoria;
-    private javax.swing.JButton jButtonRemoverContrato;
     private javax.swing.JButton jButtonRemoverFilmes;
     private javax.swing.JButton jButtonRemoverPlanos;
+    private javax.swing.JButton jButtonSuspenderContrato;
     private javax.swing.JButton jButtonVisualizacaoCompleta;
     private javax.swing.JButton jButton_adicionar_usuarios;
     private javax.swing.JButton jButton_alterar_usuario;
