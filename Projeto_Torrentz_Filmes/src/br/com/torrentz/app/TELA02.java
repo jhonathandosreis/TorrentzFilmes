@@ -269,6 +269,7 @@ private Visualizados visualizado = null;
         jTextAreaSinopseFilmes.setText("");
         jTextFieldTituloFilmes.setText("");
         jTextFieldAnoFilmes.setText("");
+        jTextFieldFilmesID.setText("");
     }
 
 //--- CONTRATOS ----------------------------------------------------------------------------------------->  
@@ -435,6 +436,9 @@ private Visualizados visualizado = null;
         jTextField_id_usu.setText("");
     }
 
+    public void ValidaCombo(String combo)throws Exception{
+        if(combo.equals("<SELECIONE>"))throw new Exception("Opção <SELECIONE> não é valida selecione uma das outras opções");
+    }
     public void preencherStatusTipo() {
 
         jTextFieldStatus.setText("Ativo");
@@ -566,7 +570,6 @@ private Visualizados visualizado = null;
         jButtonRemoverContrato = new javax.swing.JButton();
         jButtonAlterarContrato = new javax.swing.JButton();
         jButtonAdicionarContrato = new javax.swing.JButton();
-        jTabbedPane2 = new javax.swing.JTabbedPane();
         jPanel7 = new javax.swing.JPanel();
         jLabel21 = new javax.swing.JLabel();
         jComboBoxVISusuario = new javax.swing.JComboBox<>();
@@ -668,8 +671,8 @@ private Visualizados visualizado = null;
                     .addComponent(jTextFieldNome, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel1))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 582, Short.MAX_VALUE)
-                .addContainerGap())
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 249, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(257, Short.MAX_VALUE))
         );
 
         Categorias.addTab("Categorias", jPanel1);
@@ -784,8 +787,8 @@ private Visualizados visualizado = null;
                             .addComponent(jButtonRemoverPlanos)
                             .addComponent(jButtonAlterarPlano))))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 592, Short.MAX_VALUE)
-                .addContainerGap())
+                .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 249, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(273, Short.MAX_VALUE))
         );
 
         Categorias.addTab("Planos", jPanel2);
@@ -885,7 +888,7 @@ private Visualizados visualizado = null;
                                 .addComponent(jComboBoxCategoriaFilmes, javax.swing.GroupLayout.PREFERRED_SIZE, 159, javax.swing.GroupLayout.PREFERRED_SIZE))
                             .addComponent(jLabel10, javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jLabel9, javax.swing.GroupLayout.Alignment.LEADING))
-                        .addGap(0, 135, Short.MAX_VALUE))
+                        .addGap(0, 173, Short.MAX_VALUE))
                     .addComponent(jScrollPane4, javax.swing.GroupLayout.Alignment.LEADING))
                 .addContainerGap())
         );
@@ -893,8 +896,8 @@ private Visualizados visualizado = null;
             jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel3Layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 233, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(34, 34, 34)
+                .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 249, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(18, 18, 18)
                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jButtonAdicionarFilmes)
                     .addComponent(jButtonAlterarFilmes)
@@ -915,7 +918,7 @@ private Visualizados visualizado = null;
                 .addGap(46, 46, 46)
                 .addComponent(jLabel9)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(jScrollPane4, javax.swing.GroupLayout.DEFAULT_SIZE, 220, Short.MAX_VALUE)
+                .addComponent(jScrollPane4, javax.swing.GroupLayout.DEFAULT_SIZE, 137, Short.MAX_VALUE)
                 .addContainerGap())
         );
 
@@ -968,23 +971,19 @@ private Visualizados visualizado = null;
                     .addGroup(jPanel6Layout.createSequentialGroup()
                         .addComponent(jLabel14)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(jPasswordField_ConfirmSenha_USU, javax.swing.GroupLayout.DEFAULT_SIZE, 85, Short.MAX_VALUE))
+                        .addComponent(jPasswordField_ConfirmSenha_USU, javax.swing.GroupLayout.DEFAULT_SIZE, 124, Short.MAX_VALUE))
                     .addGroup(jPanel6Layout.createSequentialGroup()
                         .addGroup(jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jLabel13)
                             .addComponent(jLabel12)
                             .addComponent(jLabel11)
                             .addComponent(jLabel8))
+                        .addGap(60, 60, 60)
                         .addGroup(jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(jPanel6Layout.createSequentialGroup()
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                .addGroup(jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                                    .addComponent(jTextField_Email_USU, javax.swing.GroupLayout.DEFAULT_SIZE, 140, Short.MAX_VALUE)
-                                    .addComponent(jTextField_Cpf_USU, javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(jTextField_Nome_USU, javax.swing.GroupLayout.Alignment.LEADING)))
-                            .addGroup(jPanel6Layout.createSequentialGroup()
-                                .addGap(60, 60, 60)
-                                .addComponent(jPasswordField_Senha_USU)))))
+                            .addComponent(jTextField_Cpf_USU, javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addComponent(jTextField_Email_USU, javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addComponent(jPasswordField_Senha_USU)
+                            .addComponent(jTextField_Nome_USU))))
                 .addGap(18, 18, 18)
                 .addComponent(jLabel15)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -1017,7 +1016,7 @@ private Visualizados visualizado = null;
                 .addGroup(jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel14)
                     .addComponent(jPasswordField_ConfirmSenha_USU, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(110, Short.MAX_VALUE))
+                .addContainerGap(32, Short.MAX_VALUE))
         );
 
         jTable_usuarios.setModel(new javax.swing.table.DefaultTableModel(
@@ -1072,8 +1071,8 @@ private Visualizados visualizado = null;
                     .addComponent(jButton_alterar_usuario)
                     .addComponent(jButton_remover_usuario))
                 .addGap(18, 18, 18)
-                .addComponent(jPanel6, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addContainerGap())
+                .addComponent(jPanel6, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(27, Short.MAX_VALUE))
         );
 
         Categorias.addTab("Usuários", jPanel4);
@@ -1134,15 +1133,15 @@ private Visualizados visualizado = null;
                 .addGap(19, 19, 19)
                 .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel5Layout.createSequentialGroup()
-                        .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(jPanel5Layout.createSequentialGroup()
-                                .addComponent(jButtonAdicionarContrato)
-                                .addGap(18, 18, 18)
-                                .addComponent(jButtonAlterarContrato)
-                                .addGap(18, 18, 18)
-                                .addComponent(jButtonRemoverContrato))
-                            .addComponent(jTextFieldContratosID, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addContainerGap(474, Short.MAX_VALUE))
+                        .addComponent(jButtonAdicionarContrato)
+                        .addGap(28, 28, 28)
+                        .addComponent(jButtonAlterarContrato)
+                        .addGap(18, 18, 18)
+                        .addComponent(jButtonRemoverContrato)
+                        .addGap(0, 0, Short.MAX_VALUE))
+                    .addGroup(jPanel5Layout.createSequentialGroup()
+                        .addComponent(jTextFieldContratosID, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addContainerGap(787, Short.MAX_VALUE))
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel5Layout.createSequentialGroup()
                         .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                             .addComponent(jScrollPane6, javax.swing.GroupLayout.Alignment.LEADING)
@@ -1156,7 +1155,7 @@ private Visualizados visualizado = null;
                                     .addComponent(jComboBoxPlanos, 0, 227, Short.MAX_VALUE))
                                 .addGap(62, 62, 62)
                                 .addComponent(jSeparator2, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 44, Short.MAX_VALUE)
                                 .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                                     .addGroup(jPanel5Layout.createSequentialGroup()
                                         .addComponent(jLabel18)
@@ -1207,17 +1206,16 @@ private Visualizados visualizado = null;
                         .addGap(29, 29, 29)
                         .addComponent(jSeparator2, javax.swing.GroupLayout.PREFERRED_SIZE, 129, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addGap(23, 23, 23)
-                .addComponent(jScrollPane6, javax.swing.GroupLayout.PREFERRED_SIZE, 461, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(29, 29, 29)
+                .addComponent(jScrollPane6, javax.swing.GroupLayout.PREFERRED_SIZE, 279, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(27, 27, 27)
                 .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jButtonAdicionarContrato)
                     .addComponent(jButtonAlterarContrato)
                     .addComponent(jButtonRemoverContrato))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap(106, Short.MAX_VALUE))
         );
 
         Categorias.addTab("Contratos", jPanel5);
-        Categorias.addTab("", jTabbedPane2);
 
         jLabel21.setText("Usuário:");
 
@@ -1266,7 +1264,7 @@ private Visualizados visualizado = null;
                 .addComponent(jTextFieldDataAtualVisualizados, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jButtonVisualizacaoCompleta, javax.swing.GroupLayout.PREFERRED_SIZE, 319, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(207, Short.MAX_VALUE))
+                .addContainerGap(118, Short.MAX_VALUE))
         );
 
         Categorias.addTab("Play Filmes ", jPanel7);
@@ -1283,9 +1281,9 @@ private Visualizados visualizado = null;
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(18, 18, 18)
+                .addContainerGap()
                 .addComponent(Categorias)
-                .addGap(18, 18, 18))
+                .addGap(25, 25, 25))
         );
 
         pack();
@@ -1323,10 +1321,12 @@ private Visualizados visualizado = null;
             validaFormularioContratos();
 
             String usu = jComboBoxUsuarios.getSelectedItem().toString();
+            ValidaCombo(usu);
             usuario = usuariosBll.getUsuariosNome(usu);
             contrato.setCon_usu_iden(usuario);
 
             String pla = jComboBoxPlanos.getSelectedItem().toString();
+            ValidaCombo(pla);
             planos = planosBll.getPlanosNome(pla);
             contrato.setCon_pla_iden(planos);
 
@@ -1346,7 +1346,9 @@ private Visualizados visualizado = null;
             preencherGridContratos();
             limparCamposContratos();
 
-            JOptionPane.showMessageDialog(null, "Contrato incluido com sucesso!");
+            JOptionPane.showMessageDialog(null, usuario.getUsu_nome()+" você acaba de contratar o plano "+planos.getPla_nome()
+            +"\nNo valor de "+planos.getPla_preco()+"R$, Como você possui um cupom de "+usuario.getUsu_cup_iden().getCup_porcentagem()
+            +"% de desconto o preço a pagar será de: "+(planos.getPla_preco()-(planos.getPla_preco()*usuario.getUsu_cup_iden().getCup_porcentagem()/100))+"R$");
         } catch (Exception error) {
             JOptionPane.showMessageDialog(null, error.getMessage(), "Menssagem", JOptionPane.ERROR_MESSAGE);
         }
@@ -1482,6 +1484,7 @@ private Visualizados visualizado = null;
 
     private void jButton_adicionar_usuariosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton_adicionar_usuariosActionPerformed
         try {
+           
             validaFormularioUsuarios();
             usuario.setUsu_nome(jTextField_Nome_USU.getText());
             usuario.setUsu_cpf(jTextField_Cpf_USU.getText());
@@ -1490,18 +1493,21 @@ private Visualizados visualizado = null;
             char[] senha2 = jPasswordField_ConfirmSenha_USU.getPassword();
             String Ssenha = new String(senha);
             String Ssenha2 = new String(senha2);
+            
             if (ValidaSenha(Ssenha, Ssenha2)) {
                 usuario.setUsu_senha(Ssenha);
             } else {
                 throw new RuntimeException("As senhas não conferem, tente novamente");
             }
+            
             cupom = new Cupons();
             cupomBll.Adicionar(cupom);
             usuario.setUsu_cup_iden(cupomBll.getLastCupom());
             usuariosBll.Adicionar(usuario);
             preencherComboboxUsuario();
             preencherGridUsuarios();
-            JOptionPane.showMessageDialog(null, "Usuário incluído com sucesso!");
+            JOptionPane.showMessageDialog(null, usuario.getUsu_nome()+" você foi cadastrado em nosso sistema\n"
+                    + "E acada de ganhar "+usuario.getUsu_cup_iden().getCup_porcentagem()+"% de desconto no plano que for contratar!");
             limparCamposUsuarios();
         } catch (Exception error) {
             JOptionPane.showMessageDialog(null, error.getMessage(), "Menssagem", JOptionPane.ERROR_MESSAGE);
@@ -1561,6 +1567,7 @@ private Visualizados visualizado = null;
 
             validaFormularioFilmes();
             String nome = jComboBoxCategoriaFilmes.getSelectedItem().toString();
+            ValidaCombo(nome);
             categoria = categoriaBll.getCategoriaNome(nome);
             filmes.setFil_cat_iden(categoria);
 
@@ -1807,7 +1814,6 @@ private Visualizados visualizado = null;
     private javax.swing.JScrollPane jScrollPane6;
     private javax.swing.JSeparator jSeparator1;
     private javax.swing.JSeparator jSeparator2;
-    private javax.swing.JTabbedPane jTabbedPane2;
     private javax.swing.JTable jTableCategoria;
     private javax.swing.JTable jTableContratos;
     private javax.swing.JTable jTableFilmes;

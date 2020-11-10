@@ -34,7 +34,7 @@ public class ContratosBll {
     //
     //--- CONSTRUTORES -------------------------------------------------------------------------------->
     //
-    public ContratosBll() throws Exception, ClassNotFoundException {
+    public ContratosBll() throws Exception{
         contratoDal = new ContratosDal();
     }
 
@@ -46,19 +46,14 @@ public class ContratosBll {
 
         try {
             
-//            ArrayList<Usuarios> lista = UsuariosBll.getConsulta();
-//      
-//
-//        for (Usuarios uso : lista) {
-//            if (contrato.getCon_usu_iden().getUsu_nome().equals(contrato.getCon_usu_iden().getUsu_nome())) {
-//                throw new RuntimeException("Usuário já existente!");
-//            }
-//        }
-            
-           
-//            if (contrato.getCon_inicio()) {
-//                throw new RuntimeException("Nome da categoria inválida\nMáximo de caracteres excedido!");
-//            }
+            ArrayList<Contratos> lista = getConsulta();
+      
+
+        for (Contratos cont : lista) {
+            if (cont.getCon_usu_iden().getUsu_nome().equals(contrato.getCon_usu_iden().getUsu_nome())) {
+                throw new RuntimeException("Usuário já possui um Contrato ativo!");
+            }
+        }  
             contratoDal.addContratos(contrato);
 
         } catch (Exception error) {
@@ -108,7 +103,7 @@ public class ContratosBll {
     //
     //--- READ ---------------------------------------------------------------------------------------->
     //
-    public ArrayList<Contratos> getConsulta() throws Exception , ClassNotFoundException{
+    public ArrayList<Contratos> getConsulta() throws Exception {
         try {
 
             return contratoDal.getAllContratos();
@@ -118,7 +113,7 @@ public class ContratosBll {
         }
     }
 
-    public Contratos getConsultaPorId(int id) throws Exception , ClassNotFoundException{
+    public Contratos getConsultaPorId(int id) throws Exception{
         try {
             return contratoDal.getContratosById(id);
         } catch (Exception error) {
