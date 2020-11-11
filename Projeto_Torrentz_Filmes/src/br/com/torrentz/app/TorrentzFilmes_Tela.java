@@ -95,6 +95,7 @@ public class TorrentzFilmes_Tela extends javax.swing.JFrame {
             preencherDataAtualVisualizados();
             EnabledContratos();
             EnabledDataVisualizados();
+            jComboBoxStatusContrato.setEnabled(false);
 
         } catch (Exception error) {
             JOptionPane.showMessageDialog(null, error.getMessage(), "Menssagem", JOptionPane.ERROR_MESSAGE);
@@ -143,7 +144,7 @@ public class TorrentzFilmes_Tela extends javax.swing.JFrame {
 
     public void validarFormularioCategorias() {
         Valida.campoVazio(jTextFieldNome.getText(), "Digite o nome!");
-//        Valida.notSpecialCharacters(jTextFieldNome.getText(), "Digite o nome!");
+        Valida.notSpecialCharacters(jTextFieldNome.getText(), "Campo não permite caracteres especiais!");
     }
 
 //--- PLANOS ------------------------------------------------------------------------------------------>   
@@ -355,6 +356,9 @@ public class TorrentzFilmes_Tela extends javax.swing.JFrame {
     public void limparCamposContratos() {
 
           jComboBoxStatusContrato.setSelectedIndex(0);
+          jComboBoxUsuarios.setSelectedIndex(0);
+          jComboBoxPlanos.setSelectedIndex(0);
+          jComboBoxStatusContrato.setEnabled(false);
 //        jTextFieldStatus.setText("");
 //        jTextFieldDataInicio.setText("");
 //        jTextFieldDataFim.setText("");
@@ -413,7 +417,7 @@ public class TorrentzFilmes_Tela extends javax.swing.JFrame {
          ArrayList<Contratos> listac = contratosBll.getConsulta();
             int i = 0;
             for (Contratos contrato : listac) {
-                if (contrato.getCon_status().equals("Ativo")) {
+                if (contrato.getCon_status().equals("ATIVO")) {
                     jComboBoxVISusuario.addItem(contrato.getCon_usu_iden().getUsu_nome());
                 }
 
@@ -751,8 +755,8 @@ public class TorrentzFilmes_Tela extends javax.swing.JFrame {
                     .addComponent(jTextFieldNome, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel1))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 579, Short.MAX_VALUE)
-                .addContainerGap())
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 249, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(341, Short.MAX_VALUE))
         );
 
         Categorias.addTab("Categorias", jPanel1);
@@ -872,8 +876,8 @@ public class TorrentzFilmes_Tela extends javax.swing.JFrame {
                             .addComponent(jButtonRemoverPlanos)
                             .addComponent(jButtonAlterarPlano))))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 588, Short.MAX_VALUE)
-                .addContainerGap())
+                .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 249, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(355, Short.MAX_VALUE))
         );
 
         Categorias.addTab("Planos", jPanel2);
@@ -1217,7 +1221,7 @@ public class TorrentzFilmes_Tela extends javax.swing.JFrame {
             }
         });
 
-        jComboBoxStatusContrato.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "< SELECIONE >", "Ativo", "Inativo", "Suspenso" }));
+        jComboBoxStatusContrato.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "< SELECIONE >", "ATIVO", "INATIVO", "SUSPENSO" }));
 
         jLabel26.setText("ID");
 
@@ -1225,11 +1229,6 @@ public class TorrentzFilmes_Tela extends javax.swing.JFrame {
         jPanel5.setLayout(jPanel5Layout);
         jPanel5Layout.setHorizontalGroup(
             jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel5Layout.createSequentialGroup()
-                .addComponent(jButtonAtivarContrato)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(jButtonAlterarContrato)
-                .addGap(0, 0, Short.MAX_VALUE))
             .addGroup(jPanel5Layout.createSequentialGroup()
                 .addGap(19, 19, 19)
                 .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -1244,7 +1243,7 @@ public class TorrentzFilmes_Tela extends javax.swing.JFrame {
                             .addComponent(jComboBoxPlanos, 0, 227, Short.MAX_VALUE))
                         .addGap(62, 62, 62)
                         .addComponent(jSeparator2, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 95, Short.MAX_VALUE)
                         .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                             .addGroup(jPanel5Layout.createSequentialGroup()
                                 .addComponent(jLabel18)
@@ -1264,9 +1263,15 @@ public class TorrentzFilmes_Tela extends javax.swing.JFrame {
                 .addGap(6, 6, 6))
             .addGroup(jPanel5Layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jLabel26)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(jTextFieldContratosID, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanel5Layout.createSequentialGroup()
+                        .addComponent(jLabel26)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(jTextFieldContratosID, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(jPanel5Layout.createSequentialGroup()
+                        .addComponent(jButtonAtivarContrato)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(jButtonAlterarContrato)))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         jPanel5Layout.setVerticalGroup(
@@ -1302,12 +1307,12 @@ public class TorrentzFilmes_Tela extends javax.swing.JFrame {
                     .addComponent(jLabel20)
                     .addComponent(jComboBoxStatusContrato, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(jScrollPane6, javax.swing.GroupLayout.DEFAULT_SIZE, 447, Short.MAX_VALUE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(jScrollPane6, javax.swing.GroupLayout.PREFERRED_SIZE, 249, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(18, 18, 18)
                 .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jButtonAtivarContrato)
                     .addComponent(jButtonAlterarContrato))
-                .addContainerGap())
+                .addContainerGap(217, Short.MAX_VALUE))
         );
 
         Categorias.addTab("Contratos", jPanel5);
@@ -1353,7 +1358,7 @@ public class TorrentzFilmes_Tela extends javax.swing.JFrame {
                 .addContainerGap()
                 .addGroup(jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel7Layout.createSequentialGroup()
-                        .addGap(0, 123, Short.MAX_VALUE)
+                        .addGap(0, 168, Short.MAX_VALUE)
                         .addGroup(jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                             .addGroup(jPanel7Layout.createSequentialGroup()
                                 .addComponent(jLabel21)
@@ -1390,11 +1395,11 @@ public class TorrentzFilmes_Tela extends javax.swing.JFrame {
                 .addComponent(jTextFieldDataAtualVisualizados, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jButtonVisualizacaoCompleta, javax.swing.GroupLayout.PREFERRED_SIZE, 34, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 10, Short.MAX_VALUE)
-                .addComponent(jScrollPane7, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 18, Short.MAX_VALUE)
+                .addComponent(jScrollPane7, javax.swing.GroupLayout.PREFERRED_SIZE, 249, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(18, 18, 18)
                 .addComponent(jButton_deleteVisualizados)
-                .addContainerGap())
+                .addGap(182, 182, 182))
         );
 
         Categorias.addTab("Play Filmes ", jPanel7);
@@ -1467,7 +1472,7 @@ public class TorrentzFilmes_Tela extends javax.swing.JFrame {
             contrato.setCon_fim(formate.format(fim));
 
            
-            contrato.setCon_status(jComboBoxStatusContrato.getSelectedItem().toString());
+            contrato.setCon_status("ATIVO");
            
 
             preencherComboboxUsuario();
@@ -1520,12 +1525,8 @@ public class TorrentzFilmes_Tela extends javax.swing.JFrame {
   
             con.setCon_status(jComboBoxStatusContrato.getSelectedItem().toString());
       
-
-            preencherComboboxUsuario();
-            preencherComboboxPlano();
-
             contratosBll.Alterar(con);
-
+            preencherComboboxUsuario();
             preencherGridContratos();
             limparCamposContratos();
 
@@ -1535,7 +1536,6 @@ public class TorrentzFilmes_Tela extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_jButtonAlterarContratoActionPerformed
 
-<<<<<<< HEAD
     private void jButtonInativarContratoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonInativarContratoActionPerformed
         try {
             if (jTableContratos.getSelectedRow() == -1) {
@@ -1561,12 +1561,12 @@ public class TorrentzFilmes_Tela extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_jButtonInativarContratoActionPerformed
 
-=======
->>>>>>> 0efe62a70b89d26a46ff56c3918f39e82caecfb5
+
     private void jTableContratosMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jTableContratosMouseClicked
         try {
-
             preencherFormularioContratos();
+            jComboBoxStatusContrato.setEnabled(true);
+            
         } catch (Exception error) {
             JOptionPane.showMessageDialog(null, error.getMessage(), "Menssagem", JOptionPane.ERROR_MESSAGE);
         }
@@ -1888,7 +1888,7 @@ public class TorrentzFilmes_Tela extends javax.swing.JFrame {
 
     }//GEN-LAST:event_jTable_VisualizadosMouseClicked
 
-<<<<<<< HEAD
+
     private void jButtonSuspenderContratoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonSuspenderContratoActionPerformed
  try {
             if (jTableContratos.getSelectedRow() == -1) {
@@ -1922,8 +1922,7 @@ public class TorrentzFilmes_Tela extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_jButtonSuspenderContratoActionPerformed
 
-=======
->>>>>>> 0efe62a70b89d26a46ff56c3918f39e82caecfb5
+
     /**
      * @param args the command line arguments
      */

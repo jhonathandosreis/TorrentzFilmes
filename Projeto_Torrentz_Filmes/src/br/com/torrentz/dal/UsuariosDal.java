@@ -81,7 +81,7 @@ public class UsuariosDal {
                 throw new RuntimeException("Usuário relacionado com visualização de algum filme");
             }
              if (error.getMessage().contains("contratos_con_usu_iden_fkey")) {
-                throw new RuntimeException("Não é possivel deletar usuário pois possui um contrato ativo em seu nome");
+                throw new RuntimeException("Não é possivel deletar usuário pois possui um contrato em seu nome");
             }   
         }
     }

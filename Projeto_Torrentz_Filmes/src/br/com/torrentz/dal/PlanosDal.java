@@ -79,7 +79,7 @@ public class PlanosDal {
             preparedStatement.executeUpdate();
         } catch (Exception error) {
             if (error.getMessage().contains("contratos_con_pla_iden_fkey")) {
-                throw new RuntimeException("Não é possível deletar este plano pois esta vinculado a um contrato ativo!!");
+                throw new RuntimeException("Não é possível deletar este plano pois esta vinculado a um contrato!");
             }
         }
     }

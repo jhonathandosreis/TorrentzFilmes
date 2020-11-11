@@ -60,7 +60,8 @@ public class Categorias {
     }
 
     public void setCat_nome(String cat_nome) {
-        this.cat_nome = cat_nome;
+        
+        this.cat_nome = cat_nome.trim().toUpperCase();
     }
     //--- FIM SET -------------------------------------------------------------------------------------|
     //

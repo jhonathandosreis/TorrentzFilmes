@@ -84,7 +84,7 @@ public class Usuarios {
     }
 
     public void setUsu_nome(String usu_nome) {
-        this.usu_nome = usu_nome;
+        this.usu_nome = usu_nome.trim().toUpperCase();
     }
 
     public void setUsu_cpf(String usu_cpf) {
@@ -92,7 +92,7 @@ public class Usuarios {
     }
 
     public void setUsu_email(String usu_email) {
-        this.usu_email = usu_email;
+        this.usu_email = usu_email.trim().toUpperCase();
     }
 
     public void setUsu_senha(String usu_senha) {

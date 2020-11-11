@@ -84,7 +84,7 @@ public class Contratos {
     }
 
     public void setCon_status(String con_status) {
-        this.con_status = con_status;
+        this.con_status = con_status.trim().toUpperCase();
     }
 
     public void setCon_inicio(String con_inicio) {
