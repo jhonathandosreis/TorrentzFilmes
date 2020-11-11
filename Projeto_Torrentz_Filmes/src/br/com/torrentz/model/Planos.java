@@ -70,8 +70,7 @@ public class Planos {
         this.pla_iden = pla_iden;
     }
 
-    public void setPla_acesso_simultaneo(int pla_acesso_simultaneo)throws Exception{
-        if(pla_acesso_simultaneo <= 0) throw new Exception("Acesso simultaneo não pode ser menor ou igual a 0");
+    public void setPla_acesso_simultaneo(int pla_acesso_simultaneo){   
         this.pla_acesso_simultaneo = pla_acesso_simultaneo;
     }
 
@@ -79,8 +78,7 @@ public class Planos {
         this.pla_nome = pla_nome.trim().toUpperCase();
     }
     
-    public void setPla_preco(float pla_preco)throws Exception{
-        if(pla_preco <= 0) throw new Exception("Preço não pode ser menor ou igual a 0");
+    public void setPla_preco(float pla_preco){
         this.pla_preco = pla_preco;
     }
     //--- FIM SET -------------------------------------------------------------------------------------|

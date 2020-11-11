@@ -50,6 +50,12 @@ public class PlanosBll {
   
             if (planos.getPla_nome().length() > 50)
                 throw new RuntimeException("Nome do plano inválido\nMáximo de caracteres excedido!");
+            
+            if(planos.getPla_acesso_simultaneo() <= 0) 
+                throw new RuntimeException("Acesso simultaneo não pode ser menor ou igual a 0");
+            
+            if(planos.getPla_preco()<= 0) 
+                throw new RuntimeException("Preço não pode ser menor ou igual a 0");
 
             planosdal.addPlanos(planos);
         } catch (Exception error) {

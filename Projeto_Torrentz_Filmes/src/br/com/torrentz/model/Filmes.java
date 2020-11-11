@@ -84,9 +84,7 @@ public class Filmes {
         this.fil_titulo = fil_titulo.trim().toUpperCase();
     }
 
-    public void setFil_ano(int fil_ano) throws Exception{
-        if(fil_ano > 2020) throw new Exception("Ano não pode ser maior que ano atual");
-        if(fil_ano < 1895) throw new Exception("Ano não pode ser menor que o ano de criação do primeiro filme criado em 1895");
+    public void setFil_ano(int fil_ano) {
         this.fil_ano = fil_ano;
     }
 
