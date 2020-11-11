@@ -143,7 +143,7 @@ public class TorrentzFilmes_Tela extends javax.swing.JFrame {
 
     public void validarFormularioCategorias() {
         Valida.campoVazio(jTextFieldNome.getText(), "Digite o nome!");
-        Valida.notSpecialCharacters(jTextFieldNome.getText(), "Digite o nome!");
+//        Valida.notSpecialCharacters(jTextFieldNome.getText(), "Digite o nome!");
     }
 
 //--- PLANOS ------------------------------------------------------------------------------------------>   
@@ -272,7 +272,6 @@ public class TorrentzFilmes_Tela extends javax.swing.JFrame {
 
         Valida.notNumber(jTextFieldTituloFilmes.getText(), "Somente letras!");
         Valida.numberInteger(jTextFieldAnoFilmes.getText(), "Somente números!");
-        Valida.notSpecialCharacters(jTextAreaSinopseFilmes.getText(), "Não aceitamos caracteres especiais!");
 
     }
 
@@ -313,8 +312,6 @@ public class TorrentzFilmes_Tela extends javax.swing.JFrame {
         }
     }
     
-    
-
     public void preencherFormularioContratos() throws Exception, ClassNotFoundException {
 
         int id = Integer.parseInt(jTableContratos.getValueAt(jTableContratos.getSelectedRow(), 0).toString());
@@ -626,6 +623,7 @@ public class TorrentzFilmes_Tela extends javax.swing.JFrame {
         jButtonAlterarContrato = new javax.swing.JButton();
         jButtonAtivarContrato = new javax.swing.JButton();
         jComboBoxStatusContrato = new javax.swing.JComboBox<>();
+        jLabel26 = new javax.swing.JLabel();
         jPanel7 = new javax.swing.JPanel();
         jLabel21 = new javax.swing.JLabel();
         jComboBoxVISusuario = new javax.swing.JComboBox<>();
@@ -638,6 +636,7 @@ public class TorrentzFilmes_Tela extends javax.swing.JFrame {
         jButton_deleteVisualizados = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setTitle("              Torrentz FIlmes");
 
         jTextFieldId.setEditable(false);
 
@@ -1041,7 +1040,7 @@ public class TorrentzFilmes_Tela extends javax.swing.JFrame {
 
         jLabel14.setText("Confirmar Senha:");
 
-        jLabel15.setText("ID:");
+        jLabel15.setText("ID");
 
         jTextField_id_usu.setEditable(false);
 
@@ -1211,6 +1210,8 @@ public class TorrentzFilmes_Tela extends javax.swing.JFrame {
 
         jComboBoxStatusContrato.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "< SELECIONE >", "Ativo", "Inativo", "Suspenso" }));
 
+        jLabel26.setText("ID");
+
         javax.swing.GroupLayout jPanel5Layout = new javax.swing.GroupLayout(jPanel5);
         jPanel5.setLayout(jPanel5Layout);
         jPanel5Layout.setHorizontalGroup(
@@ -1247,41 +1248,43 @@ public class TorrentzFilmes_Tela extends javax.swing.JFrame {
                                 .addComponent(jTextFieldDataFim, javax.swing.GroupLayout.PREFERRED_SIZE, 183, javax.swing.GroupLayout.PREFERRED_SIZE))))
                     .addGroup(jPanel5Layout.createSequentialGroup()
                         .addComponent(jLabel20)
-                        .addGap(0, 815, Short.MAX_VALUE))
-                    .addGroup(jPanel5Layout.createSequentialGroup()
-                        .addComponent(jTextFieldContratosID, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addContainerGap(830, Short.MAX_VALUE))))
+                        .addGap(0, 815, Short.MAX_VALUE))))
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel5Layout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(jScrollPane6)
                 .addGap(6, 6, 6))
+            .addGroup(jPanel5Layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jLabel26)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(jTextFieldContratosID, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         jPanel5Layout.setVerticalGroup(
             jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel5Layout.createSequentialGroup()
                 .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel5Layout.createSequentialGroup()
-                        .addContainerGap()
-                        .addComponent(jTextFieldContratosID, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(jPanel5Layout.createSequentialGroup()
-                                .addGap(22, 22, 22)
-                                .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                                    .addComponent(jLabel16)
-                                    .addComponent(jComboBoxUsuarios, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                .addGap(24, 24, 24)
-                                .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                                    .addComponent(jLabel17)
-                                    .addComponent(jComboBoxPlanos, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                            .addGroup(jPanel5Layout.createSequentialGroup()
-                                .addGap(51, 51, 51)
-                                .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                                    .addComponent(jLabel18)
-                                    .addComponent(jTextFieldDataInicio, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                                    .addComponent(jLabel19)
-                                    .addComponent(jTextFieldDataFim, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))))
+                        .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(jTextFieldContratosID, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jLabel26))
+                        .addGap(28, 28, 28)
+                        .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(jLabel16)
+                            .addComponent(jComboBoxUsuarios, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(24, 24, 24)
+                        .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(jLabel17)
+                            .addComponent(jComboBoxPlanos, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                    .addGroup(jPanel5Layout.createSequentialGroup()
+                        .addGap(80, 80, 80)
+                        .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(jLabel18)
+                            .addComponent(jTextFieldDataInicio, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(jLabel19)
+                            .addComponent(jTextFieldDataFim, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
                     .addGroup(jPanel5Layout.createSequentialGroup()
                         .addGap(29, 29, 29)
                         .addComponent(jSeparator2, javax.swing.GroupLayout.PREFERRED_SIZE, 129, javax.swing.GroupLayout.PREFERRED_SIZE)))
@@ -1925,6 +1928,7 @@ public class TorrentzFilmes_Tela extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel23;
     private javax.swing.JLabel jLabel24;
     private javax.swing.JLabel jLabel25;
+    private javax.swing.JLabel jLabel26;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
