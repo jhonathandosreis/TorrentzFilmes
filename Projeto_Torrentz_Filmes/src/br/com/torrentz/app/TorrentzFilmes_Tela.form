@@ -891,9 +891,11 @@
                               <Component id="jButtonAtivarContrato" min="-2" max="-2" attributes="0"/>
                               <EmptySpace type="unrelated" max="-2" attributes="0"/>
                               <Component id="jButtonAlterarContrato" min="-2" max="-2" attributes="0"/>
+                              <EmptySpace type="separate" max="-2" attributes="0"/>
+                              <Component id="jButton_LimparCampoContrato" min="-2" max="-2" attributes="0"/>
                           </Group>
                       </Group>
-                      <EmptySpace max="32767" attributes="0"/>
+                      <EmptySpace pref="590" max="32767" attributes="0"/>
                   </Group>
               </Group>
             </DimensionLayout>
@@ -945,6 +947,7 @@
                       <Group type="103" groupAlignment="3" attributes="0">
                           <Component id="jButtonAtivarContrato" alignment="3" min="-2" max="-2" attributes="0"/>
                           <Component id="jButtonAlterarContrato" alignment="3" min="-2" max="-2" attributes="0"/>
+                          <Component id="jButton_LimparCampoContrato" alignment="3" min="-2" max="-2" attributes="0"/>
                       </Group>
                       <EmptySpace pref="217" max="32767" attributes="0"/>
                   </Group>
@@ -1075,6 +1078,14 @@
               <Properties>
                 <Property name="text" type="java.lang.String" value="ID"/>
               </Properties>
+            </Component>
+            <Component class="javax.swing.JButton" name="jButton_LimparCampoContrato">
+              <Properties>
+                <Property name="text" type="java.lang.String" value="LIMPAR CAMPOS"/>
+              </Properties>
+              <Events>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jButton_LimparCampoContratoActionPerformed"/>
+              </Events>
             </Component>
           </SubComponents>
         </Container>
