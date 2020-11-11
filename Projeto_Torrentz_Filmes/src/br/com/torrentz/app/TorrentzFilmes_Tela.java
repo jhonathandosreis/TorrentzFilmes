@@ -406,18 +406,27 @@ public class TorrentzFilmes_Tela extends javax.swing.JFrame {
 
     public void preencherComboboxUsuario() throws Exception {
         ArrayList<Usuarios> lista = usuariosBll.getConsulta();
+       
         jComboBoxUsuarios.removeAllItems();
         jComboBoxVISusuario.removeAllItems();
         jComboBoxUsuarios.addItem("<SELECIONE>");
         jComboBoxVISusuario.addItem("<SELECIONE>");
 
-        for (Usuarios uso : lista) {
-            jComboBoxUsuarios.addItem(uso.getUsu_nome());
-        }
-        for (Usuarios uso : lista) {
-            jComboBoxVISusuario.addItem(uso.getUsu_nome());
-        }
+         ArrayList<Contratos> listac = contratosBll.getConsulta();
+            int i = 0;
+            for (Contratos contrato : listac) {
+                if (contrato.getCon_status().equals("Ativo")) {
+                    jComboBoxVISusuario.addItem(contrato.getCon_usu_iden().getUsu_nome());
+                }
 
+            }
+
+        for (Usuarios uso : lista) {
+           
+            jComboBoxUsuarios.addItem(uso.getUsu_nome());
+            
+        }
+       
     }
 
     public void validaFormularioUsuarios() {
@@ -1518,7 +1527,7 @@ public class TorrentzFilmes_Tela extends javax.swing.JFrame {
             con.setCon_status("Inativo");
 
             contratosBll.Alterar(con);
-
+            jComboBoxVISusuario.removeItem(con.getCon_usu_iden().getUsu_nome());
             preencherGridContratos();
             preencherComboboxUsuario();
             preencherComboboxPlano();
@@ -1865,9 +1874,8 @@ public class TorrentzFilmes_Tela extends javax.swing.JFrame {
             int id = Integer.parseInt(jTableContratos.getValueAt(jTableContratos.getSelectedRow(), 0).toString());
             Contratos con = contratosBll.getConsultaPorId(id);
             con.setCon_status("Suspenso");
-
             contratosBll.Alterar(con);
-
+            jComboBoxVISusuario.removeItem(con.getCon_usu_iden().getUsu_nome());
             preencherGridContratos();
             preencherComboboxUsuario();
             preencherComboboxPlano();
