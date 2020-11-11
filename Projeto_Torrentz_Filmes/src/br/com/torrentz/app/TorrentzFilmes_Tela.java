@@ -1628,7 +1628,8 @@ public class TorrentzFilmes_Tela extends javax.swing.JFrame {
             if (jTableFilmes.getSelectedRow() == -1) {
                 throw new RuntimeException("Selecione um filme a ser removido!");
             }
-            filmes.setFil_iden(Integer.parseInt(jTextFieldFilmesID.getText()));
+            int id = Integer.parseInt(jTableFilmes.getValueAt(jTableFilmes.getSelectedRow(), 0).toString());
+            filmes = filmesBll.getConsultaPorId(id);
             filmesBll.Remover(filmes);
             preencherGridFilmes();
             preencherComboboxFilmes();
