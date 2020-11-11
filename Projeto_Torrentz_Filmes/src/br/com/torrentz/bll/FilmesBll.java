@@ -89,6 +89,12 @@ public class FilmesBll {
             if (filmes.getFil_titulo().length() > 50)
                 throw new RuntimeException("Nome do filme inválido\nMáximo de caracteres excedido!");
             
+            if (filmes.getFil_ano() > 2020)
+                throw new RuntimeException("Ano não pode ser maior que ano atual");
+            
+            if(filmes.getFil_ano() < 1895) 
+            throw new RuntimeException("Ano não pode ser menor que o ano de criação do primeiro filme criado em 1895");
+            
             filmesDal.updateFilmes(filmes);
         } catch (Exception error) {
             throw error;

@@ -389,13 +389,13 @@ public class TorrentzFilmes_Tela extends javax.swing.JFrame {
 
         int id = Integer.parseInt(jTable_usuarios.getValueAt(jTable_usuarios.getSelectedRow(), 0).toString());
         String nome = jTable_usuarios.getValueAt(jTable_usuarios.getSelectedRow(), 1).toString();
-        int cpf = Integer.parseInt(jTable_usuarios.getValueAt(jTable_usuarios.getSelectedRow(), 2).toString());
+        String cpf = jTable_usuarios.getValueAt(jTable_usuarios.getSelectedRow(), 2).toString();
         String email = jTable_usuarios.getValueAt(jTable_usuarios.getSelectedRow(), 3).toString();
         usuario = usuariosBll.getConsultaPorId(id);
 
         jTextField_id_usu.setText(id + "");
         jTextField_Nome_USU.setText(nome);
-        jTextField_Cpf_USU.setText(cpf + "");
+        jTextField_Cpf_USU.setText(cpf);
         jTextField_Email_USU.setText(email);
         jPasswordField_Senha_USU.setText(usuario.getUsu_senha());
         jPasswordField_ConfirmSenha_USU.setText(usuario.getUsu_senha());
@@ -403,32 +403,26 @@ public class TorrentzFilmes_Tela extends javax.swing.JFrame {
     }
 
     public void preencherComboboxUsuario() throws Exception {
-        ArrayList<Usuarios> lista = usuariosBll.getConsulta();
+        
        
         jComboBoxUsuarios.removeAllItems();
         jComboBoxVISusuario.removeAllItems();
         jComboBoxUsuarios.addItem("<SELECIONE>");
         jComboBoxVISusuario.addItem("<SELECIONE>");
-
+        
+        ArrayList<Usuarios> lista = usuariosBll.getConsulta();
          ArrayList<Contratos> listac = contratosBll.getConsulta();
-            int i = 0;
+           
             for (Contratos contrato : listac) {
                 if (contrato.getCon_status().equals("ATIVO")) {
                     jComboBoxVISusuario.addItem(contrato.getCon_usu_iden().getUsu_nome());
                 }
-
             }
-
-        for (Usuarios uso : lista) {
-           
-            jComboBoxUsuarios.addItem(uso.getUsu_nome());
-            
-        }
-       
+        for (Usuarios uso : lista) {          
+            jComboBoxUsuarios.addItem(uso.getUsu_nome());            
+        }      
     }
     
-     
-
     public void validaFormularioUsuarios() {
 
         Valida.campoVazio(jTextField_Nome_USU.getText(), "Digite o nome do Usuário!");
@@ -1471,19 +1465,12 @@ public class TorrentzFilmes_Tela extends javax.swing.JFrame {
             LocalDateTime Inicio = LocalDateTime.now();
             LocalDateTime fim = Inicio.plusYears(1);
             contrato.setCon_inicio(formate.format(Inicio));
-            contrato.setCon_fim(formate.format(fim));
-
-           
+            contrato.setCon_fim(formate.format(fim));      
             contrato.setCon_status("ATIVO");
-           
-
-            preencherComboboxUsuario();
-            preencherComboboxPlano();
-
             contratosBll.Adicionar(contrato);
             
-            
-
+            preencherComboboxUsuario();
+            preencherComboboxPlano();
             preencherGridContratos();
             limparCamposContratos();
 

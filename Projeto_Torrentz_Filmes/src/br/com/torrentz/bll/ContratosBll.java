@@ -51,7 +51,7 @@ public class ContratosBll {
 
         for (Contratos cont : lista) {
             if (cont.getCon_usu_iden().getUsu_nome().equals(contrato.getCon_usu_iden().getUsu_nome())) {
-                throw new RuntimeException("Usuário já possui um Contrato ativo!");
+                throw new RuntimeException("Usuário já possui um Contrato!");
             }
         }  
             contratoDal.addContratos(contrato);
